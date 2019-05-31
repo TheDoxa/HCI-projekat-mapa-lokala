@@ -1,0 +1,7 @@
+1|2|2|E:\SW\HCI\BarManager\BarManager\images\restaurant.png
+2|33|3|E:\SW\HCI\BarManager\BarManager\images\restaurant.png
+5|ime|opis|E:\SW\HCI\BarManager\BarManager\images\restaurant.png
+3|ime|opis|E:\SW\HCI\BarManager\BarManager\images\restaurant.png
+4|sadf|asdfafsd|E:\SW\HCI\BarManager\BarManager\images\coffee.png
+6|sdfsdfsdf|sdfsdfsdf|E:\SW\HCI\BarManager\BarManager\images\coffee.png
+7|name1|description1|E:\SW\HCI\BarManager\BarManager\images\restaurant.png

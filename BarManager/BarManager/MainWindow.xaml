@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BarManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Bar Manager" Height="450" Width="800">
     <Grid>
-        
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem x:Name="addBarItem" Header="Add bar" Click="AddBarItem_Click"/>
+					<MenuItem x:Name="addTypeItem" Header="Add type" Click="AddTypeItem_Click"/>
+					<MenuItem x:Name="addLabelItem" Header="Add label" Click="AddLabelItem_Click"/>
+				</MenuItem>
+			</Menu>
+		</DockPanel>
     </Grid>
 </Window>

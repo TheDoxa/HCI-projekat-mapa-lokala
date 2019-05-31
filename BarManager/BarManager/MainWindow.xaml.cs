@@ -13,16 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BarManager
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+namespace BarManager {
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
+		public MainWindow() {
+			InitializeComponent();
+		}
+
+		private void AddBarItem_Click(object sender, RoutedEventArgs e) {
+
+		}
+
+		private void AddTypeItem_Click(object sender, RoutedEventArgs e) {
+			NewType newType = new NewType();
+			newType.Show();
+		}
+
+		private void AddLabelItem_Click(object sender, RoutedEventArgs e) {
+			NewLabel newLabel = new NewLabel();
+			newLabel.Show();
+		}
+	}
 }
