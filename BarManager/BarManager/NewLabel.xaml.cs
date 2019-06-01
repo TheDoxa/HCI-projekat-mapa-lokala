@@ -75,7 +75,7 @@ namespace BarManager {
 			while(true) {
 				bool exists = false;
 				foreach(BarLabel label in Util.Util.barLabels)
-					if(label.id == nextID) {
+					if(label.Id == nextID) {
 						exists = true;
 						break;
 					}

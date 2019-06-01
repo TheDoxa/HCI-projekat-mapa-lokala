@@ -92,7 +92,7 @@ namespace BarManager {
 			while(true) {
 				bool exists = false;
 				foreach(BarType type in Util.Util.barTypes)
-					if(type.id == nextID) {
+					if(type.Id == nextID) {
 						exists = true;
 						break;
 					}
@@ -135,7 +135,6 @@ namespace BarManager {
 			} else {
 				_iconPath = op.FileName;
 				icon.Source = null;
-
 				add.IsEnabled = false;
 			}
 		}

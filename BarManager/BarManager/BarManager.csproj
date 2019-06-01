@@ -8,12 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>BarManager</RootNamespace>
     <AssemblyName>BarManager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,13 +57,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BarWindow.xaml.cs">
+      <DependentUpon>BarWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Bar.cs" />
     <Compile Include="Model\BarLabel.cs" />
     <Compile Include="Model\BarType.cs" />
     <Compile Include="NewLabel.xaml.cs">
       <DependentUpon>NewLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\Util.cs" />
+    <Compile Include="Validation\StringToInt.cs" />
     <Compile Include="Validation\StringToIntValidationRule.cs" />
+    <Page Include="BarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,6 +134,15 @@
     <Resource Include="Images\label-window-wallpaper.jpg" />
     <Resource Include="Images\restaurant-wallpaper.jpg" />
     <Resource Include="Images\restaurant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\barView.jpg" />
+    <Resource Include="Images\openbar.png" />
+    <Resource Include="Images\pub.jpg" />
+    <Resource Include="Images\restaurant.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bars.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

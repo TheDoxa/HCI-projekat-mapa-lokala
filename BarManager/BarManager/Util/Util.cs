@@ -7,11 +7,18 @@ using System.Linq;
 using System.Windows.Media;
 
 namespace BarManager.Util {
+
 	class Util {
-		public static ObservableCollection<BarType> barTypes = new ObservableCollection<BarType>();
+
+        public static ObservableCollection<Bar> bars = new ObservableCollection<Bar>();
+        public static ObservableCollection<BarType> barTypes = new ObservableCollection<BarType>();
 		public static ObservableCollection<BarLabel> barLabels = new ObservableCollection<BarLabel>();
-		private static readonly string typesPath = Path.GetFullPath(@"..\..\") + @"Resources\types.txt";
+
+        private static readonly string barPath = Path.GetFullPath(@"..\..\") + @"Resources\bars.txt";
+        private static readonly string typesPath = Path.GetFullPath(@"..\..\") + @"Resources\types.txt";
 		private static readonly string labelsPath = Path.GetFullPath(@"..\..\") + @"Resources\labels.txt";
+
+        public Util() { }
 
 		public static void loadTypes() {
 			if(!File.Exists(typesPath))
@@ -39,7 +46,7 @@ namespace BarManager.Util {
 
 			string content = "";
 			foreach(BarType type in barTypes) {
-				content += type.id + "|" + type.name + "|" + type.description + "|" + type.iconPath + System.Environment.NewLine;
+				content += type.Id + "|" + type.Name + "|" + type.Description + "|" + type.IconPath + System.Environment.NewLine;
 			}
 
 			File.WriteAllText(typesPath, content);
@@ -47,7 +54,7 @@ namespace BarManager.Util {
 
 		public static bool addType(BarType type) {
 			foreach(BarType t in barTypes)
-				if(t.id == type.id)
+				if(t.Id == type.Id)
 					return false;
 
 			barTypes.Add(type);
@@ -87,7 +94,7 @@ namespace BarManager.Util {
 
 			string content = "";
 			foreach(BarLabel label in barLabels) {
-				content += label.id + "|" + label.description + "|" + label.color + System.Environment.NewLine;
+				content += label.Id + "|" + label.Description + "|" + label.Color + System.Environment.NewLine;
 			}
 
 			File.WriteAllText(labelsPath, content);
@@ -95,7 +102,7 @@ namespace BarManager.Util {
 
 		public static bool addLabel(BarLabel label) {
 			foreach(BarLabel l in barLabels)
-				if(l.id == label.id)
+				if(l.Id == label.Id)
 					return false;
 
 			barLabels.Add(label);

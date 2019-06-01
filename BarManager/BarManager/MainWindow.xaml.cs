@@ -23,7 +23,8 @@ namespace BarManager {
 		}
 
 		private void AddBarItem_Click(object sender, RoutedEventArgs e) {
-
+            BarWindow barWindow = new BarWindow();
+            barWindow.Show();
 		}
 
 		private void AddTypeItem_Click(object sender, RoutedEventArgs e) {
