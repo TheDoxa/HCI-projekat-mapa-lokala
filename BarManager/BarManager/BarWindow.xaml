@@ -22,11 +22,11 @@
                 <Setter Property="Foreground" Value="White" />
             </Style>
             <Style TargetType="{x:Type ComboBox}">
-                <Setter Property="Margin" Value="5,0,15,8" />
+                <Setter Property="Margin" Value="5,0,15,0" />
                 <Setter Property="Height" Value="23px"></Setter>
             </Style>
             <Style TargetType="{x:Type DatePicker}">
-                <Setter Property="Margin" Value="5,0,15,8" />
+                <Setter Property="Margin" Value="5,0,15,0" />
             </Style>
             <Style TargetType="{x:Type ListView}">
                 <Setter Property="Margin" Value="0,0,0,8" />
@@ -49,18 +49,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label x:Name="barIDLbl" Foreground="White" Grid.Row="0" Grid.Column="0">ID:</Label>
-            <Label x:Name="barNameLbl" Foreground="White" Grid.Row="1" Grid.Column="0">Name:</Label>
-            <Label x:Name="barTypeLbl" Foreground="White" Grid.Row="2" Grid.Column="0">Type:</Label>
-            <Label x:Name="barDateLbl" Foreground="White" Grid.Row="3" Grid.Column="0">Open date:</Label>
-            <Label x:Name="barAlcStatusLbl" Foreground="White" Grid.Row="4" Grid.Column="0">Alcohol status:</Label>
-            <Label x:Name="barPriceStatusLbl" Foreground="White" Grid.Row="5" Grid.Column="0">Price status:</Label>
+            <Label x:Name="barIDLbl" Foreground="White" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">ID*:</Label>
+            <Label x:Name="barNameLbl" Foreground="White" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Name*:</Label>
+            <Label x:Name="barTypeLbl" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Type*:</Label>
+            <Label x:Name="barDateLbl" Foreground="White" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">Open date:</Label>
+            <Label x:Name="barAlcStatusLbl" Foreground="White" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">Alcohol status:</Label>
+            <Label x:Name="barPriceStatusLbl" Foreground="White" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">Price status:</Label>
 
             <TextBox x:Name="barID" Foreground="White" Grid.Row="0" Grid.Column="1" Margin="5,0,5,0" Height="20px" Width="70px" HorizontalAlignment="Left" VerticalAlignment="Center" MaxLength="9" TextChanged="BarID_TextChanged">
                 <TextBox.Background>
@@ -89,29 +90,52 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <Button x:Name="autoIncBarIDBtn" Grid.Column="2" Height="20px" Width="60px" Grid.Row="0" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AutoIncBarIDBtn_Click">Auto gen</Button>
-            <TextBox x:Name="barName" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="45" Height="20px" VerticalAlignment="Center" >
+            <Button x:Name="autoIncBarIDBtn" Grid.Column="3" Height="20px" Width="60px" Grid.Row="0" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AutoIncBarIDBtn_Click">Auto gen</Button>
+            <TextBox x:Name="barName" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" MaxLength="45" Height="20px" VerticalAlignment="Center" TextChanged="BarName_TextChanged" >
                 <TextBox.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </TextBox.Background>
+                <TextBox.Text>
+                    <Binding Path="BarName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringMinLength ValidationStep="RawProposedValue" Min="3"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="errorTextBoxBarID"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}"  Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
             </TextBox>
             <ComboBox x:Name="barType" ItemsSource="{Binding TypeCollection}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
-            <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
-            <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" Grid.ColumnSpan="2" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>
-            <ComboBox x:Name="barPriceStatus" ItemsSource="{Binding PriceStatusCollection}" Grid.ColumnSpan="2" Foreground="Black" Grid.Row="5" Grid.Column="1" SelectedIndex="0"></ComboBox>
+            <Button x:Name="addNewTypeFromBarFormBtn" Grid.Column="3" Height="25px" Width="90px" Grid.Row="2" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AddNewTypeFromBarFormBtn_Click">Add new type</Button>
+            <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="23px" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
+            <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>
+            <ComboBox x:Name="barPriceStatus" ItemsSource="{Binding PriceStatusCollection}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="5" Grid.Column="1" SelectedIndex="0"></ComboBox>
 
-            <Border BorderThickness="1" Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" Grid.ColumnSpan="2" BorderBrush="#FF000000" Width="250" Height="150">
-                <Image x:Name="barTypeImage" Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" Source ="{Binding ImageSource}" Width="250" Height="150" Grid.ColumnSpan="2" Stretch="Fill" />
+            <Border BorderThickness="1" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2" BorderBrush="#FF000000" Width="250" Height="150">
+                <Image x:Name="barTypeImage" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Source ="{Binding ImageSource}" Width="250" Height="150" Grid.ColumnSpan="2" Stretch="Fill" />
             </Border>
-            <Button x:Name="chooseBarImage" Grid.Column="3" Grid.Row="5" Click="ChooseBarImage_Click">Choose image</Button>
-            <Button x:Name="returnDefaultImage" Grid.Column="4" Grid.Row="5" Click="ReturnDefaultImage_Click">Default image</Button>
+            <Button x:Name="chooseBarImage" Grid.Column="4" Grid.Row="5" Click="ChooseBarImage_Click">Choose image</Button>
+            <Button x:Name="returnDefaultImage" Grid.Column="5" Grid.Row="5" Click="ReturnDefaultImage_Click">Default image</Button>
 
-            <Label x:Name="barCapacityLbl" Foreground="White" Grid.Row="0" Grid.Column="5" >Max capacity:</Label>
-            <Label x:Name="barHandicappedLbl" Foreground="White" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center">Handicapped:</Label>
-            <Label x:Name="barSmokingLbl" Foreground="White" Grid.Row="2" Grid.Column="5" VerticalAlignment="Center">Smoking:</Label>
-            <Label x:Name="barReservationLbl" Foreground="White" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center">Reservations:</Label>
+            <Label x:Name="barCapacityLbl" Foreground="White" Grid.Row="0" Grid.Column="6" >Max capacity:</Label>
+            <Label x:Name="barHandicappedLbl" Foreground="White" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center">Handicapped:</Label>
+            <Label x:Name="barSmokingLbl" Foreground="White" Grid.Row="2" Grid.Column="6" VerticalAlignment="Center">Smoking:</Label>
+            <Label x:Name="barReservationLbl" Foreground="White" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center">Reservations:</Label>
 
-            <TextBox x:Name="barCapacity" Foreground="White" Grid.Row="0" Grid.Column="6" Height="20px" Width="60px" HorizontalAlignment="Left" VerticalAlignment="Center" MaxLength="6" TextChanged="BarCapacity_TextChanged_1">
+            <TextBox x:Name="barCapacity" Foreground="White" Grid.Row="0" Grid.Column="7" Height="20px" Width="60px" HorizontalAlignment="Left" VerticalAlignment="Center" MaxLength="6" TextChanged="BarCapacity_TextChanged_1">
                 <TextBox.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </TextBox.Background>
@@ -119,7 +143,7 @@
                     <Binding Path="MaxCapacity" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
-                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="1" Max="2000"/>
+                            <val:MinMaxValidationRule ValidationStep="RawProposedValue" Min="1" Max="2000"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -139,9 +163,9 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <CheckBox x:Name="barHandicapped" Foreground="White" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center"></CheckBox>
-            <CheckBox x:Name="barSmoking" Foreground="White" Grid.Row="2" Grid.Column="6" VerticalAlignment="Center"></CheckBox>
-            <CheckBox x:Name="barReservation" Foreground="White" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barHandicapped" Foreground="White" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barSmoking" Foreground="White" Grid.Row="2" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barReservation" Foreground="White" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -167,14 +191,14 @@
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </TextBox.Background>
             </TextBox>
-            <ListView x:Name="allLabelsList" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6">
+            <ListView x:Name="availableLabelsList" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" ItemsSource="{Binding AvailableLabels}">
                 <ListView.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </ListView.Background>
             </ListView>
-            <Button x:Name="addlabelBtn" Grid.Row="2" Grid.Column="2" >add label</Button>
-            <Button x:Name="removeLabelBtn" Grid.Row="4" Grid.Column="2" >remove label</Button>
-            <ListView x:Name="chosenLabels" Grid.Row="1" Grid.Column="3" Grid.RowSpan="6">
+            <Button x:Name="addlabelBtn" Grid.Row="2" Grid.Column="2" Click="AddlabelBtn_Click" >add label</Button>
+            <Button x:Name="removeLabelBtn" Grid.Row="4" Grid.Column="2" Click="RemoveLabelBtn_Click" >remove label</Button>
+            <ListView x:Name="chosenLabelsList"  Foreground="White" Grid.Row="1" Grid.Column="3" Grid.RowSpan="6" ItemsSource="{Binding ChosenLabels}">
                 <ListView.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </ListView.Background>

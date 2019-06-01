@@ -1,6 +1,6 @@
 ﻿namespace BarManager.Model {
 
-	class BarType {
+	public class BarType {
 
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -15,5 +15,10 @@
 			Description = description;
 			IconPath = iconPath;
 		}
-	}
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
 }

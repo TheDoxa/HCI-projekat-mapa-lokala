@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BarManager.Model
 {
-    class Bar
+    public class Bar
     {
 
         public int Id { get; set; }
@@ -19,38 +20,50 @@ namespace BarManager.Model
         public bool SmokingAllowed { get; set; }
         public bool ReservationsAllowed { get; set; }
         public string PriceCategory { get; set; }
-        public string CapacityCategory { get; set; }
+        public int MaxCapacity { get; set; }
         public DateTime OpenDate { get; set; }
-        public List<BarLabel> Labels { get; set; }
+        public ObservableCollection<BarLabel> Labels { get; set; }
 
 
-        public Bar(int id, string name, string desc, int typeID, string alcStatus, string iconPath, bool hand, bool smoking, bool reser,
-            string priceCat, string capCat, DateTime date, string labels)
+        public Bar()
+        {
+            Type = new BarType();
+            OpenDate = new DateTime();
+            Labels = new ObservableCollection<BarLabel>();
+        }
+
+        public Bar(int id, string name, string desc, BarType bartype, string alcStatus, string iconPath, bool hand, bool smoking, bool reser,
+            string priceCat, int maxCat, DateTime date, ObservableCollection<BarLabel> labels)
         {
             Id = id;
             Name = name;
             Description = desc;
-            Type = new BarType();
+            Type = bartype;
             AlcStatus = alcStatus;
             Icon = iconPath;
             Handicapped = hand;
             SmokingAllowed = smoking;
             ReservationsAllowed = reser;
             PriceCategory = priceCat;
-            CapacityCategory = capCat;
+            MaxCapacity = maxCat;
             OpenDate = date;
-            Labels = new List<BarLabel>();
+            Labels = labels;
         }
 
         public string getFileLine()
         {
-            string lineToFile = this.Id + "|" + this.Name + "|" + this.Description + "|" + this.Type.Id + "|" + this.AlcStatus + "|" + this.Icon + "|" + this.Handicapped
-                + "|" + this.SmokingAllowed + "|" + this.ReservationsAllowed + "|" + this.PriceCategory + "|" + this.CapacityCategory + "|" + this.OpenDate.ToString()
+            string handB = Handicapped ? "1" : "0";
+            string smokingB = SmokingAllowed ? "1" :"0";
+            string reserB = ReservationsAllowed ? "1" : "0";
+            
+
+            string lineToFile = Id + "|" + Name + "|" + Description + "|" + Type.Id + "|" + AlcStatus + "|" + Icon + "|" + handB
+                + "|" + smokingB + "|" + reserB + "|" + PriceCategory + "|" + MaxCapacity.ToString() + "|" + OpenDate.ToString("dd'/'MM'/'yyyy")
                 + "|";
-            for (int i = 0; i < Labels.Capacity; i++)
+            for (int i = 0; i < Labels.Count; i++)
             {
-                lineToFile += Labels[i];
-                if (i != Labels.Capacity - 1)
+                lineToFile += Labels[i].Id;
+                if (i != Labels.Count - 1)
                 {
                     lineToFile += ";";
                 }

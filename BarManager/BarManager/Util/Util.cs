@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Media;
 
 namespace BarManager.Util {
 
-	class Util {
+	public class Util {
 
         public static ObservableCollection<Bar> bars = new ObservableCollection<Bar>();
         public static ObservableCollection<BarType> barTypes = new ObservableCollection<BarType>();
@@ -115,5 +116,99 @@ namespace BarManager.Util {
 			barLabels.Remove(label);
 			writeLabels();
 		}
-	}
+
+
+        public static void loadBars()
+        {
+            if (!File.Exists(barPath))
+                return;
+
+            bars.Clear();
+
+            if (File.Exists(barPath))
+            {
+                string[] lines = File.ReadAllLines(barPath);
+
+                foreach (string line in lines)
+                {
+                    string[] barParams = line.Split('|');
+                    
+                    bool hand = barParams[6] == "1";
+                    bool smoking = barParams[7] == "1";
+                    bool reservations = barParams[8] == "1";
+                    string[] barLabelsString = barParams[12].Split(';');
+                    ObservableCollection<BarLabel> labels = new ObservableCollection<BarLabel>();
+                    DateTime date = DateTime.ParseExact(barParams[11], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    if (barLabelsString[0] != "")
+                    {
+                        foreach (BarLabel br in barLabels)
+                        {
+                            foreach (string lid in barLabelsString)
+                            {
+                                if (Int32.Parse(lid) == br.Id)
+                                {
+                                    labels.Add(br);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+
+                    Bar bar = new Bar(Int32.Parse(barParams[0]), barParams[1], barParams[2], getTypeByID(Int32.Parse(barParams[3])), barParams[4], barParams[5], hand, smoking, reservations,
+                       barParams[9], Int32.Parse(barParams[10]), date, labels);
+
+                    bars.Add(bar);
+                }
+            }
+        }
+
+        public static void writeBars()
+        {
+            if (!File.Exists(barPath))
+                File.Create(barPath);
+
+            File.WriteAllText(barPath, string.Empty);
+
+            string content = "";
+            foreach (Bar bar in bars)
+            {
+                content += bar.getFileLine() + System.Environment.NewLine;
+            }
+
+            File.WriteAllText(barPath, content);
+        }
+
+        public static bool addBar(Bar bar)
+        {
+            foreach (Bar b in bars)
+                if (b.Id == bar.Id)
+                    return false;
+
+            bars.Add(bar);
+            writeBars();
+            return true;
+        }
+
+        public static void removeBar(Bar bar)
+        {
+            bars.Remove(bar);
+            writeTypes();
+        }
+
+        private static BarType getTypeByID(int id)
+        {
+            BarType type = new BarType();
+            foreach(BarType ty in barTypes)
+            {
+                if(ty.Id == id)
+                {
+                    type = ty;
+                    break;
+                }
+            }
+            return type;
+        }
+    }
 }

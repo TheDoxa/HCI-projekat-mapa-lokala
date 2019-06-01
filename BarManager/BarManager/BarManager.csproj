@@ -67,6 +67,7 @@
       <DependentUpon>NewLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\Util.cs" />
+    <Compile Include="Validation\StringMinLength.cs" />
     <Compile Include="Validation\StringToInt.cs" />
     <Compile Include="Validation\StringToIntValidationRule.cs" />
     <Page Include="BarWindow.xaml">

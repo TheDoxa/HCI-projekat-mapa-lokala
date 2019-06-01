@@ -2,7 +2,7 @@
 
 namespace BarManager.Model {
 
-	class BarLabel {
+	public class BarLabel {
 
 		public int Id { get; set; }
 		public string Color { get; set; }
@@ -15,5 +15,9 @@ namespace BarManager.Model {
 			this.Color = color;
 			this.Description = description;
 		}
-	}
+        public override string ToString()
+        {
+            return Id.ToString() + " " + Color;
+        }
+    }
 }

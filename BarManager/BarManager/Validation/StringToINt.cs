@@ -25,14 +25,19 @@ namespace BarManager.Validation
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            if (value is double)
+            try
             {
-                double d = (double)value;
-                if (d < Min) return new ValidationResult(false, " Min capacity is 1!");
-                if (d > Max) return new ValidationResult(false, " Max capacity is 2000!");
+                string s = value as string;
+                int d;
+                if (Int32.TryParse(s,out d))
+                {
+                    if (d < Min) return new ValidationResult(false, " Min capacity is 1!");
+                    if (d > Max) return new ValidationResult(false, " Max capacity is 2000!");
+
+                }
                 return new ValidationResult(true, null);
             }
-            else
+            catch
             {
                 return new ValidationResult(false, " Unknown error occured.");
             }
