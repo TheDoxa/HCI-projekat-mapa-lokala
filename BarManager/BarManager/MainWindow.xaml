@@ -5,16 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BarManager"
         mc:Ignorable="d"
-        Title="Bar Manager" Height="450" Width="800">
+        Title="Bar Manager" Height="450" Width="959.6">
     <Grid>
-		<DockPanel>
-			<Menu DockPanel.Dock="Top">
-				<MenuItem Header="_File">
-					<MenuItem x:Name="addBarItem" Header="Add bar" Click="AddBarItem_Click"/>
-					<MenuItem x:Name="addTypeItem" Header="Add type" Click="AddTypeItem_Click"/>
-					<MenuItem x:Name="addLabelItem" Header="Add label" Click="AddLabelItem_Click"/>
-				</MenuItem>
-			</Menu>
-		</DockPanel>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem x:Name="addBarItem" Header="Add bar" Click="AddBarItem_Click"/>
+                    <MenuItem x:Name="addTypeItem" Header="Add type" Click="AddTypeItem_Click"/>
+                    <MenuItem x:Name="addLabelItem" Header="Add label" Click="AddLabelItem_Click"/>
+                </MenuItem>
+            </Menu>
+            <Grid DockPanel.Dock="Bottom">
+                <ListView Name="BarList" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <ScrollViewer HorizontalAlignment="Left" Height="382" Margin="208,10,0,0" VerticalAlignment="Top" Width="559" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                    <StackPanel>
+                        <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Canvas Name="BarCanvas3" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </StackPanel>
+                </ScrollViewer>
+                <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,10,0,0" VerticalAlignment="Top" Width="120"/>
+                <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,108,0,0" VerticalAlignment="Top" Width="120"/>
+                <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,208,0,0" VerticalAlignment="Top" Width="120"/>
+                <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,309,0,0" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BarView.xaml.cs">
+      <DependentUpon>BarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BarWindow.xaml.cs">
       <DependentUpon>BarWindow.xaml</DependentUpon>
     </Compile>
@@ -70,6 +73,10 @@
     <Compile Include="Validation\StringMinLength.cs" />
     <Compile Include="Validation\StringToInt.cs" />
     <Compile Include="Validation\StringToIntValidationRule.cs" />
+    <Page Include="BarView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +151,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\bars.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\map1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\map2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\map3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\map4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

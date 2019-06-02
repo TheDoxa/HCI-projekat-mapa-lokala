@@ -72,6 +72,10 @@ namespace BarManager.Model
             return lineToFile;
         }
 
-
+        override
+        public string ToString()
+        {
+            return this.Name;
+        }
     }
 }
