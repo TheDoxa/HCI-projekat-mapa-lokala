@@ -144,15 +144,168 @@ namespace BarManager
             }
         }
 
+        public BarType _selectedType = new BarType();
+        public BarType SelectedType
+        {
+            get
+            {
+                return _selectedType;
+            }
+            set
+            {
+                if (value != _selectedType)
+                {
+                    _selectedType = value;
+                    OnPropertyChanged("SelectedType");
+                }
+            }
+        }
 
-        public List<string> AlcoholStatusCollection { get; set; }
-        public List<string> PriceStatusCollection { get; set; }
+        public DateTime _selectedDate = new DateTime();
+        public DateTime SelectedDate
+        {
+            get
+            {
+                return _selectedDate;
+            }
+            set
+            {
+                if (value != _selectedDate)
+                {
+                    _selectedDate = value;
+                    OnPropertyChanged("SelectedDate");
+                }
+            }
+        }
+
+        public string _alcoholStatus = "";
+        public string AlcoholStatus
+        {
+            get
+            {
+                return _alcoholStatus;
+            }
+            set
+            {
+                if (value != _alcoholStatus)
+                {
+                    _alcoholStatus = value;
+                    OnPropertyChanged("AlcoholStatus");
+                }
+            }
+        }
+
+        public string _priceStatus = "";
+        public string PriceStatus
+        {
+            get
+            {
+                return _priceStatus;
+            }
+            set
+            {
+                if (value != _priceStatus)
+                {
+                    _priceStatus = value;
+                    OnPropertyChanged("PriceStatus");
+                }
+            }
+        }
+
+        public string _description = "";
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
+                    OnPropertyChanged("Description");
+                }
+            }
+        }
+
+        public bool _handicapped = false;
+        public bool Handicapped
+        {
+            get
+            {
+                return _handicapped;
+            }
+            set
+            {
+                if (value != _handicapped)
+                {
+                    _handicapped = value;
+                    OnPropertyChanged("Handicapped");
+                }
+            }
+        }
+
+        public bool _smoking = false;
+        public bool Smoking
+        {
+            get
+            {
+                return _smoking;
+            }
+            set
+            {
+                if (value != _smoking)
+                {
+                    _smoking = value;
+                    OnPropertyChanged("Smoking");
+                }
+            }
+        }
+
+        public bool _reservations = false;
+        public bool Reservations
+        {
+            get
+            {
+                return _reservations;
+            }
+            set
+            {
+                if (value != _reservations)
+                {
+                    _reservations = value;
+                    OnPropertyChanged("Reservations");
+                }
+            }
+        }
+
+
+        public ObservableCollection<string> AlcoholStatusCollection { get; set; }
+        public ObservableCollection<string> PriceStatusCollection { get; set; }
+
+        public bool Edit { get; set; }
+        public Bar EditBar { get; set; }
         
 
-        public BarWindow()
+        public BarWindow(bool edit, Bar editBar)
         {
             InitializeComponent();
-            initDatas();
+            Edit = edit;
+            if (Edit)
+            {
+                this.Title = "Edit Bar";
+                addNewBarBtn.Content = "Save changes";
+                EditBar = editBar;
+                initDatasEditBar();
+            }
+            else
+            {
+                this.Title = "Add bar";
+                addNewBarBtn.Content = "Add bar";
+                EditBar = new Bar();
+                initDatasNewBar();
+            }
             this.DataContext = this;
         }
 
@@ -164,14 +317,25 @@ namespace BarManager
         private void AddNewBarBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            Bar bar = new Bar(BarID, BarName, barDescription.Text,(BarType) barType.SelectedItem, barAlcStatus.SelectedItem.ToString(), ImageSource, (bool) barHandicapped.IsChecked,
-                (bool) barSmoking.IsChecked, (bool) barReservation.IsChecked, barPriceStatus.SelectedItem.ToString(), MaxCapacity, barDate.SelectedDate.Value.Date, ChosenLabels);
-            bool res = Util.Util.addBar(bar);
-            if (!res)
+            if (Edit)
             {
-                System.Windows.Forms.MessageBox.Show("Id already taken!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                return;
+                Bar modifiedBar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
+                                MaxCapacity, SelectedDate, ChosenLabels);
+                Util.Util.modifyBar(modifiedBar);
             }
+            else
+            {
+                Bar bar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
+                                MaxCapacity, SelectedDate, ChosenLabels);
+                bool res = Util.Util.addBar(bar);
+                if (!res)
+                {
+                    System.Windows.Forms.MessageBox.Show("Id already taken!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            
             this.Close();
         }
 
@@ -182,10 +346,11 @@ namespace BarManager
             enableAddBarBtn();
         }
 
-       
-        private void initDatas()
+
+        private void initDatasEditBar()
         {
-            AlcoholStatusCollection = new List<string>()
+
+            PriceStatusCollection = new ObservableCollection<string>()
             {
                 "Low prices",
                 "Medium prices",
@@ -193,22 +358,77 @@ namespace BarManager
                 "Extremely high prices"
             };
 
-            PriceStatusCollection = new List<string>()
+            AlcoholStatusCollection = new ObservableCollection<string>()
             {
                 "Don't server",
                 "Serves up to 23h",
                 "Full serve"
             };
             
-
-            Util.Util.loadTypes();
-
-            foreach(BarType t in Util.Util.barTypes)
+            foreach (BarType t in Util.Util.barTypes)
             {
                 TypeCollection.Add(t);
             }
 
-            Util.Util.loadLabels();
+            AvailableLabels.Clear();
+            ChosenLabels.Clear();
+
+            barID.IsEnabled = false;
+            autoIncBarIDBtn.Visibility = Visibility.Collapsed;
+            BarName = EditBar.Name;
+            SelectedType = EditBar.Type;
+            SelectedDate = EditBar.OpenDate;
+            AlcoholStatus = EditBar.AlcStatus;
+            PriceStatus = EditBar.PriceCategory;
+            Description = EditBar.Description;
+            Handicapped = EditBar.Handicapped;
+            Smoking = EditBar.SmokingAllowed;
+            Reservations = EditBar.ReservationsAllowed;
+            MaxCapacity = EditBar.MaxCapacity;
+            ImageSource = EditBar.Icon;
+            ChosenLabels = EditBar.Labels;
+            bool checkLab = true;
+            foreach(BarLabel lab in Util.Util.barLabels)
+            {
+                checkLab = true;
+                foreach(BarLabel l in ChosenLabels)
+                {
+                    if(lab.Id == l.Id)
+                    {
+                        checkLab = false;
+                        break;
+                    }
+                }
+                if (checkLab)
+                {
+                    AvailableLabels.Add(lab);
+                }
+            }
+        }
+
+
+        private void initDatasNewBar()
+        {
+            PriceStatusCollection = new ObservableCollection<string>()
+            {
+                "Low prices",
+                "Medium prices",
+                "High prices",
+                "Extremely high prices"
+            };
+
+            AlcoholStatusCollection = new ObservableCollection<string>()
+            {
+                "Don't server",
+                "Serves up to 23h",
+                "Full serve"
+            };
+            
+            foreach(BarType t in Util.Util.barTypes)
+            {
+                TypeCollection.Add(t);
+            }
+            SelectedType = TypeCollection[0];
 
             foreach (BarLabel label in Util.Util.barLabels)
             {
@@ -216,7 +436,10 @@ namespace BarManager
             }
             ChosenLabels.Clear();
 
-            Util.Util.loadBars();
+            AlcoholStatus = AlcoholStatusCollection[0];
+            PriceStatus = PriceStatusCollection[0];
+            SelectedDate = DateTime.Now;
+
 
         }
 
@@ -235,19 +458,20 @@ namespace BarManager
 
         private void ReturnDefaultImage_Click(object sender, RoutedEventArgs e)
         {
-            setImageOfSelectedType();
+            ImageSource = SelectedType.IconPath;
         }
 
         private void setImageOfSelectedType()
         {
-            string currentType = barType.SelectedValue.ToString();
-            foreach (BarType type in Util.Util.barTypes)
+            if (Edit && SelectedType.Id == EditBar.Type.Id)
             {
-                if (type.Name == currentType)
-                {
-                    ImageSource = type.IconPath;
-                }
+                ImageSource = EditBar.Icon;
             }
+            else
+            {
+                ImageSource = SelectedType.IconPath;
+            }
+            
         }
 
         private void AutoIncBarIDBtn_Click(object sender, RoutedEventArgs e)

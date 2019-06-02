@@ -197,6 +197,21 @@ namespace BarManager.Util {
             writeTypes();
         }
 
+        public static void modifyBar(Bar bar)
+        {
+            int id = 0;
+            for(int i = 0; i < bars.Count; i++)
+            {
+                if(bars[i].Id == bar.Id)
+                {
+                    id = i;
+                    break;
+                }
+            }
+            bars.RemoveAt(id);
+            bool check = addBar(bar);
+        }
+
         private static BarType getTypeByID(int id)
         {
             BarType type = new BarType();

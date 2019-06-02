@@ -20,10 +20,13 @@ namespace BarManager {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
-		}
+            Util.Util.loadTypes();
+            Util.Util.loadLabels();
+            Util.Util.loadBars();
+        }
 
 		private void AddBarItem_Click(object sender, RoutedEventArgs e) {
-            BarWindow barWindow = new BarWindow();
+            BarWindow barWindow = new BarWindow(false, null);
             barWindow.Show();
 		}
 

@@ -118,11 +118,11 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ComboBox x:Name="barType" ItemsSource="{Binding TypeCollection}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="barType" ItemsSource="{Binding TypeCollection}" SelectedItem="{Binding SelectedType}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
             <Button x:Name="addNewTypeFromBarFormBtn" Grid.Column="3" Height="25px" Width="90px" Grid.Row="2" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AddNewTypeFromBarFormBtn_Click">Add new type</Button>
-            <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="23px" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
-            <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>
-            <ComboBox x:Name="barPriceStatus" ItemsSource="{Binding PriceStatusCollection}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="5" Grid.Column="1" SelectedIndex="0"></ComboBox>
+            <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="23px" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=SelectedDate, Mode=TwoWay}"></DatePicker>
+            <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" SelectedItem="{Binding AlcoholStatus}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>
+            <ComboBox x:Name="barPriceStatus" ItemsSource="{Binding PriceStatusCollection}" SelectedItem="{Binding PriceStatus}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="5" Grid.Column="1" SelectedIndex="0"></ComboBox>
 
             <Border BorderThickness="1" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2" BorderBrush="#FF000000" Width="250" Height="150">
                 <Image x:Name="barTypeImage" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Source ="{Binding ImageSource}" Width="250" Height="150" Grid.ColumnSpan="2" Stretch="Fill" />
@@ -163,9 +163,9 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <CheckBox x:Name="barHandicapped" Foreground="White" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
-            <CheckBox x:Name="barSmoking" Foreground="White" Grid.Row="2" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
-            <CheckBox x:Name="barReservation" Foreground="White" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barHandicapped" Foreground="White" Grid.Row="1" IsChecked="{Binding Handicapped}" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barSmoking" Foreground="White" Grid.Row="2" IsChecked="{Binding Smoking}" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
+            <CheckBox x:Name="barReservation" Foreground="White" IsChecked="{Binding Reservations}" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center"></CheckBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -186,7 +186,7 @@
             <Label x:Name="allLabelsListLbl" Foreground="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom">Available labels:</Label>
             <Label x:Name="chosenLabelsLbl" Foreground="White" Grid.Row="0" Grid.Column="3" VerticalAlignment="Bottom">Chosen labels:</Label>
 
-            <TextBox x:Name="barDescription" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Foreground="White" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True">
+            <TextBox x:Name="barDescription"  Text="{Binding Description}" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Foreground="White" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True">
                 <TextBox.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </TextBox.Background>
