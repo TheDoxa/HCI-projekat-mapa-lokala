@@ -1,6 +1,7 @@
 ﻿using BarManager.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,24 +15,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BarManager {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+namespace BarManager
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        private Dictionary<long, Bar> BarsFromMap1;
-        private Dictionary<long, Bar> BarsFromMap2;
-        private Dictionary<long, Bar> BarsFromMap3;
-        private Dictionary<long, Bar> BarsFromMap4;
+        public Dictionary<long, Bar> BarsFromMap1;
+        public Dictionary<long, Bar> BarsFromMap2;
+        public Dictionary<long, Bar> BarsFromMap3;
+        public Dictionary<long, Bar> BarsFromMap4;
 
-        public MainWindow() {
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 
             Util.Util.loadTypes();
             Util.Util.loadLabels();
             Util.Util.loadBars();
-            
+
             foreach (Bar b in Util.Util.bars)
             {
                 BarList.Items.Add(b);
@@ -59,21 +62,29 @@ namespace BarManager {
             BarsFromMap4 = new Dictionary<long, Bar>();
         }
 
-		private void AddBarItem_Click(object sender, RoutedEventArgs e) {
+        private void AddBarItem_Click(object sender, RoutedEventArgs e)
+        {
             BarWindow barWindow = new BarWindow(false, null);
             barWindow.Show();
-		}
+        }
 
-		private void AddTypeItem_Click(object sender, RoutedEventArgs e) {
-			NewType newType = new NewType();
-			newType.Show();
-		}
+        private void AddTypeItem_Click(object sender, RoutedEventArgs e)
+        {
+            NewType newType = new NewType();
+            newType.Show();
+        }
 
-		private void AddLabelItem_Click(object sender, RoutedEventArgs e) {
-			NewLabel newLabel = new NewLabel();
-			newLabel.Show();
-		}
+        private void AddLabelItem_Click(object sender, RoutedEventArgs e)
+        {
+            NewLabel newLabel = new NewLabel();
+            newLabel.Show();
+        }
 
+        private void AllBarsTable_Click(object sender, RoutedEventArgs e)
+        {
+            AllBarsWindow all = new AllBarsWindow();
+            all.Show();
+        }
         #region Events
 
         private void BarList_MouseMove(object sender, MouseEventArgs e)
@@ -219,7 +230,7 @@ namespace BarManager {
             return overlaps;
         }
 
-        private void RemoveBarFromCanvas(string canvasName, long barId)
+        public void RemoveBarFromCanvas(string canvasName, long barId)
         {
             switch (canvasName)
             {
@@ -276,5 +287,272 @@ namespace BarManager {
         }
 
         #endregion
+
+        private void FilterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FilterWindow fw = new FilterWindow();
+            fw.mainWindow = this;
+            fw.Show();
+        }
+
+
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = searchInput.Text.ToLower();
+            string[] tokens = searchText.Split(' ');
+
+            searchMap1(searchText, tokens);
+            searchMap2(searchText, tokens);
+            searchMap3(searchText, tokens);
+            searchMap4(searchText, tokens);
+
+
+        }
+
+        private void searchMap1(string searchText, string[] tokens)
+        {
+            ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+            //Map1
+            foreach (Bar b in BarsFromMap1.Values)
+            {
+                if (b.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Description.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Type.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.AlcStatus.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else
+                {
+                    foreach (string t in tokens)
+                    {
+                        if (b.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Description.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Type.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.AlcStatus.ToLower().Contains(searchText))
+                        {
+                            tempBarsMap1.Add(b);
+                        }
+                        else
+                        {
+                            foreach (BarLabel bl in b.Labels)
+                            {
+                                if (bl.Description.ToLower().Contains(t))
+                                {
+                                    tempBarsMap1.Add(b); ;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void searchMap2(string searchText, string[] tokens)
+        {
+            ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+            //Map1
+            foreach (Bar b in BarsFromMap2.Values)
+            {
+                if (b.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Description.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Type.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.AlcStatus.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else
+                {
+                    foreach (string t in tokens)
+                    {
+                        if (b.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Description.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Type.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.AlcStatus.ToLower().Contains(searchText))
+                        {
+                            tempBarsMap1.Add(b);
+                        }
+                        else
+                        {
+                            foreach (BarLabel bl in b.Labels)
+                            {
+                                if (bl.Description.ToLower().Contains(t))
+                                {
+                                    tempBarsMap1.Add(b); ;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private void searchMap3(string searchText, string[] tokens)
+        {
+            ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+            //Map1
+            foreach (Bar b in BarsFromMap3.Values)
+            {
+                if (b.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Description.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Type.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.AlcStatus.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else
+                {
+                    foreach (string t in tokens)
+                    {
+                        if (b.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Description.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Type.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.AlcStatus.ToLower().Contains(searchText))
+                        {
+                            tempBarsMap1.Add(b);
+                        }
+                        else
+                        {
+                            foreach (BarLabel bl in b.Labels)
+                            {
+                                if (bl.Description.ToLower().Contains(t))
+                                {
+                                    tempBarsMap1.Add(b); ;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        private void searchMap4(string searchText, string[] tokens)
+        {
+            ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+            //Map1
+            foreach (Bar b in BarsFromMap4.Values)
+            {
+                if (b.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Description.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.Type.Name.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else if (b.AlcStatus.ToLower().Contains(searchText))
+                {
+                    tempBarsMap1.Add(b);
+                }
+                else
+                {
+                    foreach (string t in tokens)
+                    {
+                        if (b.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Description.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.Type.Name.ToLower().Contains(t))
+                        {
+                            tempBarsMap1.Add(b);
+                            break;
+                        }
+                        else if (b.AlcStatus.ToLower().Contains(searchText))
+                        {
+                            tempBarsMap1.Add(b);
+                        }
+                        else
+                        {
+                            foreach (BarLabel bl in b.Labels)
+                            {
+                                if (bl.Description.ToLower().Contains(t))
+                                {
+                                    tempBarsMap1.Add(b); ;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -57,11 +57,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AllBarsWindow.xaml.cs">
+      <DependentUpon>AllBarsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BarView.xaml.cs">
       <DependentUpon>BarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="BarWindow.xaml.cs">
       <DependentUpon>BarWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilterWindow.xaml.cs">
+      <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Bar.cs" />
     <Compile Include="Model\BarLabel.cs" />
@@ -73,11 +79,19 @@
     <Compile Include="Validation\StringMinLength.cs" />
     <Compile Include="Validation\StringToInt.cs" />
     <Compile Include="Validation\StringToIntValidationRule.cs" />
+    <Page Include="AllBarsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BarView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +179,7 @@
     <Content Include="Images\map4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

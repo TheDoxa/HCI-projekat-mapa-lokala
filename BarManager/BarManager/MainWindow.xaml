@@ -13,9 +13,34 @@
                     <MenuItem x:Name="addBarItem" Header="Add bar" Click="AddBarItem_Click"/>
                     <MenuItem x:Name="addTypeItem" Header="Add type" Click="AddTypeItem_Click"/>
                     <MenuItem x:Name="addLabelItem" Header="Add label" Click="AddLabelItem_Click"/>
+                    <MenuItem x:Name="allBarsTable" Header="All bars" Click="AllBarsTable_Click"/>
                 </MenuItem>
             </Menu>
-            <Grid DockPanel.Dock="Bottom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="9*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="1" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
+                        <TextBox.Background>
+                            <SolidColorBrush Color="#000000" Opacity="0.4" />
+                        </TextBox.Background>
+                    </TextBox>
+                    <Button Grid.Row="0" Grid.Column="4" Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Left">
+                    <Image Source="Images/search.png" />
+                </Button>
+                </Grid>
+                <Grid Grid.Row ="1" DockPanel.Dock="Bottom">
                 <ListView Name="BarList" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
                     <ListView.View>
                         <GridView>
@@ -35,6 +60,7 @@
                 <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,108,0,0" VerticalAlignment="Top" Width="120"/>
                 <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,208,0,0" VerticalAlignment="Top" Width="120"/>
                 <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,309,0,0" VerticalAlignment="Top" Width="120"/>
+            </Grid>
             </Grid>
         </DockPanel>
     </Grid>
