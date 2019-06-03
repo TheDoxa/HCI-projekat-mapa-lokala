@@ -64,6 +64,19 @@ namespace BarManager.Util {
 			return true;
 		}
 
+		public static void updateType(BarType type) {
+			foreach(BarType t in barTypes)
+				if(t.Id == type.Id) {
+					t.Name = type.Name;
+					t.Description = type.Description;
+					t.IconPath = type.IconPath;
+
+					break;
+				}
+
+			writeTypes();
+		}
+
 		public static void removeType(BarType type) {
 			barTypes.Remove(type);
 			writeTypes();
@@ -112,13 +125,25 @@ namespace BarManager.Util {
 			return true;
 		}
 
+		public static void updateLabel(BarLabel label) {
+			foreach(BarLabel l in barLabels) {
+				if(l.Id == label.Id) {
+					l.Description = label.Description;
+					l.Color = label.Color;
+
+					break;
+				}
+			}
+
+			writeLabels();
+		}
+
 		public static void removeLabel(BarLabel label) {
 			barLabels.Remove(label);
 			writeLabels();
 		}
 
-
-        public static void loadBars()
+		public static void loadBars()
         {
             if (!File.Exists(barPath))
                 return;

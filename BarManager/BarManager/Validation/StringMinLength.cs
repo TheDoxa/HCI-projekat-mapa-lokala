@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-namespace BarManager.Validation
-{
-    public class StringMinLength : ValidationRule
+namespace BarManager.Validation {
+	public class StringMinLength : ValidationRule
     {
         public int Min
         {

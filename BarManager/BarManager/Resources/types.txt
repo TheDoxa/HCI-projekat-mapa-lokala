@@ -1,5 +1,0 @@
-1|Pub|Old school|Images\pub.jpg
-2|Restaurant|Fancy|Images\restaurant.jpg
-3|Open bar|Disco|Images\openbar.png
-4|Club|Hip hop and pop|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\restaurant-wallpaper.jpg
-5|Fast Food|shit|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\restaurant.png

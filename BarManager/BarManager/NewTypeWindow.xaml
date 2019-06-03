@@ -1,0 +1,136 @@
+﻿<Window x:Class="BarManager.NewTypeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:val="clr-namespace:BarManager.Validation"
+        mc:Ignorable="d"
+        Title="New Type" Height="400" Width="550" MinWidth="500" MinHeight="350">
+	<Window.Background>
+		<ImageBrush ImageSource="/Images/restaurant.jpg" Opacity="0.3"/>
+	</Window.Background>
+
+	<Grid>
+		<Grid.Resources>
+			<Style TargetType="{x:Type Label}">
+				<Setter Property="Foreground" Value="White" />
+			</Style>
+			<Style TargetType="{x:Type TextBox}">
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+			<Style TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="#663d00" />
+				<Setter Property="Foreground" Value="White" />
+				<Setter Property="Padding" Value="5,5,5,5"/>
+			</Style>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="4*"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Label x:Name="idLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="*ID:"/>
+			<Label x:Name="nameLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="*Name:"/>
+			<Label x:Name="descriptionLabel" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Description:"/>
+
+			<TextBox x:Name="idTextBox" Grid.Row="0" Grid.Column="1" Width="70" MaxLength="9" VerticalAlignment="Center" HorizontalAlignment="Left" TextChanged="IdTextBox_TextChanged">
+				<TextBox.Background>
+					<SolidColorBrush Color="#000000" Opacity="0.4" />
+				</TextBox.Background>
+
+				<TextBox.Text>
+					<Binding Path="id" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox.Text>
+				<Validation.ErrorTemplate>
+					<ControlTemplate>
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<AdornedElementPlaceholder Grid.Row="0" x:Name="errorTextBoxTypeID"/>
+							<TextBlock Grid.Row="1" Text="Identifier is required" Foreground="Red"/>
+						</Grid>
+					</ControlTemplate>
+				</Validation.ErrorTemplate>
+			</TextBox>
+			<Button x:Name="autoID" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,15,0,15" Content="Auto generate" Click="AutoID_Click" Padding="5,5,5,5" Height="30"/>
+
+			<TextBox x:Name="nameTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=name, UpdateSourceTrigger=PropertyChanged}">
+				<TextBox.Background>
+					<SolidColorBrush Color="#000000" Opacity="0.4" />
+				</TextBox.Background>
+			</TextBox>
+			<Grid Grid.Row="1" Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="1" Foreground="Red" x:Name="nameLabelError" Margin="0,10,0,0" Content="Name is required"/>
+			</Grid>
+			<TextBox x:Name="descriptionTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,10">
+				<TextBox.Background>
+					<SolidColorBrush Color="#000000" Opacity="0.4" />
+				</TextBox.Background>
+			</TextBox>
+
+			<Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition Height="3*"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Label x:Name="iconLabel" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="*Image:"/>
+				<Border BorderThickness="1" Grid.Row="1" BorderBrush="#FFFFFFFF" Margin="10,0,10,10">
+					<Image x:Name="icon" Grid.Row="1" Source="{Binding Path=iconPath}"/>
+				</Border>
+				<Label x:Name="iconErrorLabel" Grid.Row="2" Foreground="Red" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Image is required"/>
+				<Button x:Name="browse" Grid.Row="3" Height="30" Content="Choose image" Click="Browse_Click" Margin="10,0"/>
+			</Grid>
+		</Grid>
+
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Button x:Name="add" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Add" Click="Add_Click" IsEnabled="False"/>
+			<Button x:Name="cancel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Cancel" Click="Cancel_Click"/>
+		</Grid>
+	</Grid>
+</Window>

@@ -1,20 +1,16 @@
 ﻿using BarManager.Model;
-using BarManager.Util;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Media;
 
 namespace BarManager {
 	/// <summary>
 	/// Interaction logic for NewLabel.xaml
 	/// </summary>
-	public partial class NewLabel : Window, INotifyPropertyChanged {
+	public partial class NewLabelWindow : Window, INotifyPropertyChanged {
 
-		private int _id;
-		private string _description, _color;
+		private int _id = 1;
+		private string _description, _color = "Blue";
 
 		public int id {
 			get {
@@ -55,7 +51,7 @@ namespace BarManager {
 			}
 		}
 
-		public NewLabel() {
+		public NewLabelWindow() {
 			InitializeComponent();
 			DataContext = this;
 
@@ -91,32 +87,12 @@ namespace BarManager {
 
 		private void IdOfLabelTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) {
 			idOfLabelTextBox.Text = Regex.Replace(idOfLabelTextBox.Text, "[^0-9]+", "");
-			if(idOfLabelTextBox.Text.Length > 0) {
-				if(string.IsNullOrEmpty(_description))
-					addLabel.IsEnabled = false;
-				else
-					addLabel.IsEnabled = true;
-
-				int val = Int32.Parse(idOfLabelTextBox.Text);
-				if(val < 1)
-					val = 1;
-				else if(val > 9999)
-					val = 9999;
-
-				idOfLabelTextBox.Text = "" + val;
-
-				_id = val;
-			} else {
-				addLabel.IsEnabled = false;
-			}
-			idOfLabelTextBox.CaretIndex = idOfLabelTextBox.Text.Length;
-		}
-
-		private void DescriptionOfLabelTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) {
-			if(idOfLabelTextBox.Text.Length == 0 || string.IsNullOrEmpty(_description))
+			if(idOfLabelTextBox.Text.Length == 0)
 				addLabel.IsEnabled = false;
 			else
 				addLabel.IsEnabled = true;
+
+			idOfLabelTextBox.CaretIndex = idOfLabelTextBox.Text.Length;
 		}
 
 		private void AddLabel_Click(object sender, RoutedEventArgs e) {
@@ -124,7 +100,7 @@ namespace BarManager {
 			bool res = Util.Util.addLabel(label);
 
 			if(!res) {
-				System.Windows.Forms.MessageBox.Show("Labela sa tim identifikatorom već postoji!", "Greška", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				System.Windows.Forms.MessageBox.Show("Label with id " + label.Id + " already exists!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				return;
 			}
 

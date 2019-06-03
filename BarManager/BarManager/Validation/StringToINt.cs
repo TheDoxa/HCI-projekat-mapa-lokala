@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Controls;
 
-namespace BarManager.Validation
-{
+namespace BarManager.Validation {
 
-    public class MinMaxValidationRule : ValidationRule
+	public class MinMaxValidationRule : ValidationRule
     {
         public int Min
         {
@@ -23,7 +19,7 @@ namespace BarManager.Validation
         }
 
 
-        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
             {
@@ -44,24 +40,18 @@ namespace BarManager.Validation
         }
     }
 
-    public class StringToIntValidationRule : ValidationRule
-    {
-        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            try
-            {
-                var s = value as string;
-                int r;
-                if (int.TryParse(s, out r))
-                {
-                    return new ValidationResult(true, null);
-                }
-                return new ValidationResult(false, " Please enter a valid number");
-            }
-            catch
-            {
-                return new ValidationResult(false, " Unknown error occured.");
-            }
-        }
-    }
+	public class StringToIntValidationRule : ValidationRule {
+		public override ValidationResult Validate(object value, CultureInfo cultureInfo) {
+			try {
+				var text = value as string;
+				int result;
+				if(Int32.TryParse(text, out result)) {
+					return new ValidationResult(true, null);
+				}
+				return new ValidationResult(false, "Please enter a valid value.");
+			} catch {
+				return new ValidationResult(false, "Unknown error occured.");
+			}
+		}
+	}
 }

@@ -1,4 +1,0 @@
-2|MotoPub|Just bear!|1|Full serve|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\barView.jpg|1|1|0|Medium prices|1|01/06/2019|2
-3|DiscoSummer|We are ready!|3|Serves up to 23h|Images\openbar.png|1|1|1|Extremely high prices|1|20/06/2019|
-55|Ovo je moje ime|OVO JE MOJ OPIS|5|Full serve|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\label-window-wallpaper.jpg|1|0|1|Extremely high prices|1999|27/06/2019|2;3
-1|MojNoviPub|ovo je moj novi pub|1|Serves up to 23h|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\barView.jpg|1|1|0|Medium prices|24|17/07/2019|2

@@ -70,13 +70,13 @@ namespace BarManager
 
         private void AddTypeItem_Click(object sender, RoutedEventArgs e)
         {
-            NewType newType = new NewType();
+            NewTypeWindow newType = new NewTypeWindow();
             newType.Show();
         }
 
         private void AddLabelItem_Click(object sender, RoutedEventArgs e)
         {
-            NewLabel newLabel = new NewLabel();
+			NewLabelWindow newLabel = new NewLabelWindow();
             newLabel.Show();
         }
 

@@ -11,12 +11,12 @@ namespace BarManager {
 	/// <summary>
 	/// Interaction logic for NewType.xaml
 	/// </summary>
-	public partial class NewType : Window, INotifyPropertyChanged {
+	public partial class NewTypeWindow : Window, INotifyPropertyChanged {
 
-		private int _id;
+		private int _id = 1;
 		private string _name, _description, _iconPath;
 
-		public NewType() {
+		public NewTypeWindow() {
 			InitializeComponent();
 			DataContext = this;
 
@@ -52,6 +52,15 @@ namespace BarManager {
 			set {
 				if(value != _name) {
 					_name = value;
+					if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(value) || string.IsNullOrEmpty(iconPath))
+						add.IsEnabled = false;
+					else
+						add.IsEnabled = true;
+
+					if(string.IsNullOrEmpty(value))
+						nameLabelError.Content = "Name is required";
+					else
+						nameLabelError.Content = "";
 					OnPropertyChanged("name");
 				}
 			}
@@ -70,12 +79,29 @@ namespace BarManager {
 			}
 		}
 
+		public string iconPath {
+			get {
+				return _iconPath;
+			}
+
+			set {
+				if(value != _iconPath) {
+					_iconPath = value;
+					if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value))
+						add.IsEnabled = false;
+					else
+						add.IsEnabled = true;
+					OnPropertyChanged("iconPath");
+				}
+			}
+		}
+
 		private void Add_Click(object sender, RoutedEventArgs e) {
 			BarType type = new BarType(_id, _name, _description, _iconPath);
 			bool res = Util.Util.addType(type);
 
 			if(!res) {
-				System.Windows.Forms.MessageBox.Show("Tip sa tim identifikatorom već postoji!", "Greška", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				System.Windows.Forms.MessageBox.Show("Type with id " + type.Id + " already exists!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				return;
 			}
 
@@ -85,7 +111,7 @@ namespace BarManager {
 		private void Cancel_Click(object sender, RoutedEventArgs e) {
 			Close();
 		}
-		
+
 
 		private void AutoID_Click(object sender, RoutedEventArgs e) {
 			int nextID = 1;
@@ -106,59 +132,28 @@ namespace BarManager {
 			idTextBox.Text = "" + nextID;
 		}
 
-		private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-			if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(_name) || string.IsNullOrEmpty(_description) || string.IsNullOrEmpty(_iconPath))
-				add.IsEnabled = false;
-			else
-				add.IsEnabled = true;
-		}
-
-		private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-			if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(_name) || string.IsNullOrEmpty(_description) || string.IsNullOrEmpty(_iconPath))
-				add.IsEnabled = false;
-			else
-				add.IsEnabled = true;
-		}
-
 		private void Browse_Click(object sender, RoutedEventArgs e) {
 			OpenFileDialog op = new OpenFileDialog();
 			op.Title = "Select a picture";
 			op.Filter = "Images|*.jpg;*.jpeg;*.png";
 			if(op.ShowDialog() == true) {
-				_iconPath = op.FileName;
-				icon.Source = new BitmapImage(new Uri(_iconPath));
-
-				if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(_name) || string.IsNullOrEmpty(_description) || string.IsNullOrEmpty(_iconPath))
-					add.IsEnabled = false;
-				else
-					add.IsEnabled = true;
+				iconPath = op.FileName;
+				icon.Source = new BitmapImage(new Uri(iconPath));
+				iconErrorLabel.Content = "";
 			} else {
-				_iconPath = op.FileName;
+				iconPath = "";
 				icon.Source = null;
-				add.IsEnabled = false;
+				iconErrorLabel.Content = "Image is required";
 			}
 		}
 
 		private void IdTextBox_TextChanged(object sender, TextChangedEventArgs e) {
 			idTextBox.Text = Regex.Replace(idTextBox.Text, "[^0-9]+", "");
-			if(idTextBox.Text.Length > 0) {
-				if(string.IsNullOrEmpty(_name) || string.IsNullOrEmpty(_description) || string.IsNullOrEmpty(_iconPath))
-					add.IsEnabled = false;
-				else
-					add.IsEnabled = true;
-
-				int val = Int32.Parse(idTextBox.Text);
-				if(val < 1)
-					val = 1;
-				else if(val > 9999)
-					val = 9999;
-
-				idTextBox.Text = "" + val;
-
-				_id = val;
-			} else {
+			if(idTextBox.Text.Length == 0 || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(iconPath))
 				add.IsEnabled = false;
-			}
+			else
+				add.IsEnabled = true;
+
 			idTextBox.CaretIndex = idTextBox.Text.Length;
 		}
 	}

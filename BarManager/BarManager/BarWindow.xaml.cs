@@ -574,7 +574,7 @@ namespace BarManager
 
         private void AddNewTypeFromBarFormBtn_Click(object sender, RoutedEventArgs e)
         {
-            NewType newTypeWindow = new NewType();
+			NewTypeWindow newTypeWindow = new NewTypeWindow();
             newTypeWindow.Show();
         }
     }
