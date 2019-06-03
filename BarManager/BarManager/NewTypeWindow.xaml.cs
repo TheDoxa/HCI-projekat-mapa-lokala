@@ -117,7 +117,7 @@ namespace BarManager {
 			int nextID = 1;
 			while(true) {
 				bool exists = false;
-				foreach(BarType type in Util.Util.barTypes)
+				foreach(BarType type in Util.Util.BarTypes)
 					if(type.Id == nextID) {
 						exists = true;
 						break;

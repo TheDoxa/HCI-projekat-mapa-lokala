@@ -1,6 +1,7 @@
 ﻿using BarManager.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +27,11 @@ namespace BarManager
         public BarView(Bar bar)
         {
             InitializeComponent();
-
+            
             this.bar = bar;
             BarName.Content = bar.Name;
-            BarImage.Fill = new ImageBrush(new BitmapImage(new Uri(bar.Icon)));
+            if (File.Exists(bar.Icon))
+                BarImage.Fill = new ImageBrush(new BitmapImage(new Uri(bar.Icon)));
             if (bar.Labels.Count > 0)
                 BarLabel.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(bar.Labels[0].Color));
         }

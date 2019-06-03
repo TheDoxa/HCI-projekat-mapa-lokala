@@ -70,7 +70,7 @@ namespace BarManager {
 			int nextID = 1;
 			while(true) {
 				bool exists = false;
-				foreach(BarLabel label in Util.Util.barLabels)
+				foreach(BarLabel label in Util.Util.BarLabels)
 					if(label.Id == nextID) {
 						exists = true;
 						break;

@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:BarManager.Command"
+        xmlns:local="clr-namespace:BarManager.Util"
         mc:Ignorable="d"
         Title="Bar Manager" Height="510" Width="960">
+    <Window.Resources>
+        <local:Util x:Key="util"/>
+    </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
         <CommandBinding x:Name="addBarCommand" Command="cmd:RoutedCommands.AddBar" CanExecute="AddBarCommand_CanExecute" Executed="AddBarCommand_Executed"/>
@@ -52,7 +56,7 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Row ="1" DockPanel.Dock="Bottom">
-                    <ListView Name="BarList" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+                    <ListView Name="BarList" ItemsSource="{Binding Source={StaticResource util}, Path=Bars}" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn/>

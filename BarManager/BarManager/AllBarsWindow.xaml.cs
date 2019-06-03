@@ -95,16 +95,16 @@ namespace BarManager
             Util.Util.loadTypes();
             Util.Util.loadBars();
 
-			foreach (BarLabel b in Util.Util.barLabels)
+			foreach (BarLabel b in Util.Util.BarLabels)
             {
                 AllLabels.Add(b);
             }
-            foreach (BarType b in Util.Util.barTypes)
+            foreach (BarType b in Util.Util.BarTypes)
             {
                 AllTypes.Add(b);
             }
 
-            foreach (Bar b in Util.Util.bars)
+            foreach (Bar b in Util.Util.Bars)
             {
                 AllBars.Add(b);
             }
@@ -123,7 +123,7 @@ namespace BarManager
             ObservableCollection<Bar> pomocna = new ObservableCollection<Bar>();
             string searchText = searchInput.Text.ToLower();
             string[] tokens = searchText.Split(' ');
-            foreach (Bar b in Util.Util.bars)
+            foreach (Bar b in Util.Util.Bars)
             {
                 if (b.Name.ToLower().Contains(searchText))
                 {

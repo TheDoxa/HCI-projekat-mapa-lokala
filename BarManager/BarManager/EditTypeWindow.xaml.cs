@@ -116,7 +116,7 @@ namespace BarManager {
 		private void Update_Click(object sender, RoutedEventArgs e) {
 			Util.Util.updateType(this.type);
 
-			parent.typesTable.ItemsSource = Util.Util.barTypes;
+			parent.typesTable.ItemsSource = Util.Util.BarTypes;
 
 			Close();
 		}

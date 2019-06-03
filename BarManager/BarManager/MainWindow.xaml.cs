@@ -25,11 +25,7 @@ namespace BarManager {
 			Util.Util.loadLabels();
 			Util.Util.loadBars();
 
-			foreach(Bar b in Util.Util.bars) {
-				BarList.Items.Add(b);
-			}
-
-			ImageBrush ib1 = new ImageBrush();
+            ImageBrush ib1 = new ImageBrush();
 			ib1.ImageSource = new BitmapImage(new Uri(@"images\map1.png", UriKind.Relative));
 			BarCanvas1.Background = ib1;
 
@@ -110,7 +106,7 @@ namespace BarManager {
 
 				if(!CheckIfBarViewsOverlap(bw, barCanvas, newBarPosition)) {
 					barsFromMapDictionary.Add(droppedBar.Id, droppedBar);
-					BarList.Items.Remove(droppedBar);
+					Util.Util.Bars.Remove(droppedBar);
 				} else {
 					barCanvas.Children.Remove(bw);
 				}
@@ -141,7 +137,7 @@ namespace BarManager {
 				droppedBar = droppedBarView.GetBar();
 
 			if(BarList.SelectedItem == null || (BarList.SelectedItem as Bar).Id != droppedBar.Id) {
-				BarList.Items.Add(droppedBar);
+				Util.Util.Bars.Add(droppedBar);
 
 				Canvas parentCanvas = (Canvas)droppedBarView.Parent;
 				parentCanvas.Children.Remove(droppedBarView);
@@ -424,7 +420,7 @@ namespace BarManager {
 		}
 
 		private void AddBarCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-			if(Util.Util.barTypes.Count > 0) {
+			if(Util.Util.BarTypes.Count > 0) {
 				BarWindow barWindow = new BarWindow(false, null);
 				barWindow.Show();
 			} else

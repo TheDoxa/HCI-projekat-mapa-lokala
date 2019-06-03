@@ -71,20 +71,20 @@ namespace BarManager
         private void getData()
         {            Util.Util.loadTypes();
 
-            foreach (BarType t in Util.Util.barTypes)
+            foreach (BarType t in Util.Util.BarTypes)
             {
                 TypeCollection.Add(t);
             }
 
             Util.Util.loadLabels();
-            foreach (BarLabel l in Util.Util.barLabels)
+            foreach (BarLabel l in Util.Util.BarLabels)
             {
                 AvailableLabels.Add(l);
             }
 
             Util.Util.loadBars();
 
-            foreach (Bar b in Util.Util.bars)
+            foreach (Bar b in Util.Util.Bars)
             {
                 AllBars.Add(b);
             }

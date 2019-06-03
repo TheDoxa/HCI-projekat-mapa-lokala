@@ -2,30 +2,97 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
 namespace BarManager.Util {
 
-	public class Util {
+	public sealed class Util : INotifyPropertyChanged
+    {
+        private static ObservableCollection<Bar> bars = new ObservableCollection<Bar>();
+        private static ObservableCollection<BarType> barTypes = new ObservableCollection<BarType>();
+		private static ObservableCollection<BarLabel> barLabels = new ObservableCollection<BarLabel>();
 
-        public static ObservableCollection<Bar> bars = new ObservableCollection<Bar>();
-        public static ObservableCollection<BarType> barTypes = new ObservableCollection<BarType>();
-		public static ObservableCollection<BarLabel> barLabels = new ObservableCollection<BarLabel>();
+        private static readonly Util instance = new Util();
 
-        private static readonly string barPath = Path.GetFullPath(@"..\..\") + @"Resources\bars.txt";
+        public static ObservableCollection<Bar> Bars
+        {
+            get
+            {
+                return bars;
+            }
+
+            set
+            {
+                bars = value;
+                OnPropertyChangedStatic();
+            }
+        }
+
+        public static ObservableCollection<BarType> BarTypes
+        {
+            get
+            {
+                return barTypes;
+            }
+
+            set
+            {
+                barTypes = value;
+                OnPropertyChangedStatic();
+            }
+        }
+
+        public static ObservableCollection<BarLabel> BarLabels
+        {
+            get
+            {
+                return barLabels;
+            }
+
+            set
+            {
+                barLabels = value;
+                OnPropertyChangedStatic();
+            }
+        }
+
+        private static readonly string barPath = Path.GetFullPath(@"..\..\") + @"Resources\Bars.txt";
         private static readonly string typesPath = Path.GetFullPath(@"..\..\") + @"Resources\types.txt";
 		private static readonly string labelsPath = Path.GetFullPath(@"..\..\") + @"Resources\labels.txt";
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+
         public Util() { }
 
-		public static void loadTypes() {
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public static void OnPropertyChangedStatic([CallerMemberName] string propertyName = null)
+        {
+            StaticPropertyChanged?.Invoke(Util.instance, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //private static void OnPropertyRaised(string propertyname)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+        //    }
+        //}
+
+        public static void loadTypes() {
 			if(!File.Exists(typesPath))
 				return;
 
-			barTypes.Clear();
+			BarTypes.Clear();
 
 			if(File.Exists(typesPath)) {
 				string[] lines = File.ReadAllLines(typesPath);
@@ -34,7 +101,7 @@ namespace BarManager.Util {
 					string[] typeParams = line.Split('|');
 					BarType type = new BarType(Int32.Parse(typeParams[0]), typeParams[1], typeParams[2], typeParams[3]);
 
-					barTypes.Add(type);
+					BarTypes.Add(type);
 				}
 			}
 		}
@@ -46,7 +113,7 @@ namespace BarManager.Util {
 			File.WriteAllText(typesPath, string.Empty);
 
 			string content = "";
-			foreach(BarType type in barTypes) {
+			foreach(BarType type in BarTypes) {
 				content += type.Id + "|" + type.Name + "|" + type.Description + "|" + type.IconPath + System.Environment.NewLine;
 			}
 
@@ -54,18 +121,18 @@ namespace BarManager.Util {
 		}
 
 		public static bool addType(BarType type) {
-			foreach(BarType t in barTypes)
+			foreach(BarType t in BarTypes)
 				if(t.Id == type.Id)
 					return false;
 
-			barTypes.Add(type);
+			BarTypes.Add(type);
 			writeTypes();
 
 			return true;
 		}
 
 		public static void updateType(BarType type) {
-			foreach(BarType t in barTypes)
+			foreach(BarType t in BarTypes)
 				if(t.Id == type.Id) {
 					t.Name = type.Name;
 					t.Description = type.Description;
@@ -78,7 +145,7 @@ namespace BarManager.Util {
 		}
 
 		public static void removeType(BarType type) {
-			barTypes.Remove(type);
+			BarTypes.Remove(type);
 			writeTypes();
 		}
 
@@ -86,7 +153,7 @@ namespace BarManager.Util {
 			if(!File.Exists(labelsPath))
 				return;
 
-			barLabels.Clear();
+			BarLabels.Clear();
 
 			if(File.Exists(labelsPath)) {
 				string[] lines = File.ReadAllLines(labelsPath);
@@ -95,7 +162,7 @@ namespace BarManager.Util {
 					string[] labelParams = line.Split('|');
 					BarLabel label = new BarLabel(Int32.Parse(labelParams[0]), labelParams[1], labelParams[2]);
 
-					barLabels.Add(label);
+					BarLabels.Add(label);
 				}
 			}
 		}
@@ -107,7 +174,7 @@ namespace BarManager.Util {
 			File.WriteAllText(labelsPath, string.Empty);
 
 			string content = "";
-			foreach(BarLabel label in barLabels) {
+			foreach(BarLabel label in BarLabels) {
 				content += label.Id + "|" + label.Color + "|" + label.Description + System.Environment.NewLine;
 			}
 
@@ -115,18 +182,18 @@ namespace BarManager.Util {
 		}
 
 		public static bool addLabel(BarLabel label) {
-			foreach(BarLabel l in barLabels)
+			foreach(BarLabel l in BarLabels)
 				if(l.Id == label.Id)
 					return false;
 
-			barLabels.Add(label);
+			BarLabels.Add(label);
 			writeLabels();
 
 			return true;
 		}
 
 		public static void updateLabel(BarLabel label) {
-			foreach(BarLabel l in barLabels) {
+			foreach(BarLabel l in BarLabels) {
 				if(l.Id == label.Id) {
 					l.Description = label.Description;
 					l.Color = label.Color;
@@ -139,7 +206,7 @@ namespace BarManager.Util {
 		}
 
 		public static void removeLabel(BarLabel label) {
-			barLabels.Remove(label);
+			BarLabels.Remove(label);
 			writeLabels();
 		}
 
@@ -148,7 +215,7 @@ namespace BarManager.Util {
             if (!File.Exists(barPath))
                 return;
 
-            bars.Clear();
+            Bars.Clear();
 
             if (File.Exists(barPath))
             {
@@ -167,7 +234,7 @@ namespace BarManager.Util {
 
                     if (barLabelsString[0] != "")
                     {
-                        foreach (BarLabel br in barLabels)
+                        foreach (BarLabel br in BarLabels)
                         {
                             foreach (string lid in barLabelsString)
                             {
@@ -184,7 +251,7 @@ namespace BarManager.Util {
                     Bar bar = new Bar(Int32.Parse(barParams[0]), barParams[1], barParams[2], getTypeByID(Int32.Parse(barParams[3])), barParams[4], barParams[5], hand, smoking, reservations,
                        barParams[9], Int32.Parse(barParams[10]), date, labels);
 
-                    bars.Add(bar);
+                    Bars.Add(bar);
                 }
             }
         }
@@ -197,7 +264,7 @@ namespace BarManager.Util {
             File.WriteAllText(barPath, string.Empty);
 
             string content = "";
-            foreach (Bar bar in bars)
+            foreach (Bar bar in Bars)
             {
                 content += bar.getFileLine() + System.Environment.NewLine;
             }
@@ -207,40 +274,40 @@ namespace BarManager.Util {
 
         public static bool addBar(Bar bar)
         {
-            foreach (Bar b in bars)
+            foreach (Bar b in Bars)
                 if (b.Id == bar.Id)
                     return false;
 
-            bars.Add(bar);
+            Bars.Add(bar);
             writeBars();
             return true;
         }
 
         public static void removeBar(Bar bar)
         {
-            bars.Remove(bar);
+            Bars.Remove(bar);
             writeTypes();
         }
 
         public static void modifyBar(Bar bar)
         {
             int id = 0;
-            for(int i = 0; i < bars.Count; i++)
+            for(int i = 0; i < Bars.Count; i++)
             {
-                if(bars[i].Id == bar.Id)
+                if(Bars[i].Id == bar.Id)
                 {
                     id = i;
                     break;
                 }
             }
-            bars.RemoveAt(id);
+            Bars.RemoveAt(id);
             bool check = addBar(bar);
         }
 
         private static BarType getTypeByID(int id)
         {
             BarType type = new BarType();
-            foreach(BarType ty in barTypes)
+            foreach(BarType ty in BarTypes)
             {
                 if(ty.Id == id)
                 {

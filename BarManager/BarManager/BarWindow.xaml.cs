@@ -365,7 +365,7 @@ namespace BarManager
                 "Full serve"
             };
             
-            foreach (BarType t in Util.Util.barTypes)
+            foreach (BarType t in Util.Util.BarTypes)
             {
                 TypeCollection.Add(t);
             }
@@ -388,7 +388,7 @@ namespace BarManager
             ImageSource = EditBar.Icon;
             ChosenLabels = EditBar.Labels;
             bool checkLab = true;
-            foreach(BarLabel lab in Util.Util.barLabels)
+            foreach(BarLabel lab in Util.Util.BarLabels)
             {
                 checkLab = true;
                 foreach(BarLabel l in ChosenLabels)
@@ -424,13 +424,13 @@ namespace BarManager
                 "Full serve"
             };
             
-            foreach(BarType t in Util.Util.barTypes)
+            foreach(BarType t in Util.Util.BarTypes)
             {
                 TypeCollection.Add(t);
             }
             SelectedType = TypeCollection[0];
 
-            foreach (BarLabel label in Util.Util.barLabels)
+            foreach (BarLabel label in Util.Util.BarLabels)
             {
                 AvailableLabels.Add(label);
             }
@@ -481,7 +481,7 @@ namespace BarManager
             while (check)
             {
                 check = false;
-                foreach (Bar bar in Util.Util.bars)
+                foreach (Bar bar in Util.Util.Bars)
                 {
                     if (bar.Id == id)
                     {
@@ -553,7 +553,7 @@ namespace BarManager
 
         private void enableAddBarBtn()
         {
-            if (barID.Text.Length == 0 || barName.Text.Length < 3 || barCapacity.Text.Length == 0 || Util.Util.barTypes.Count == 0)
+            if (barID.Text.Length == 0 || barName.Text.Length < 3 || barCapacity.Text.Length == 0 || Util.Util.BarTypes.Count == 0)
             {
                 addNewBarBtn.IsEnabled = false;
             }
