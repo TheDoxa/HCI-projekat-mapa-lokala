@@ -55,8 +55,11 @@ namespace BarManager {
 
 		private void BarList_MouseMove(object sender, MouseEventArgs e) {
 			if(e.LeftButton == MouseButtonState.Pressed) {
-				var obj = new DataObject("Bar", (BarList.SelectedItem as Bar));
-				DragDrop.DoDragDrop(this, obj, DragDropEffects.Copy);
+                if (BarList.SelectedItem != null)
+                {
+                    var obj = new DataObject("Bar", (BarList.SelectedItem as Bar));
+                    DragDrop.DoDragDrop(this, obj, DragDropEffects.Copy);
+                }
 			}
 		}
 
