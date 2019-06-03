@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BarManager"
+        xmlns:cmd="clr-namespace:BarManager.Command"
         mc:Ignorable="d"
         Title="AllBarsWindow" Height="450" Width="800">
+	<Window.CommandBindings>
+		<CommandBinding x:Name="editCommand" Command="cmd:RoutedCommands.Edit" CanExecute="EditCommand_CanExecute" Executed="EditCommand_Executed"/>
+		<CommandBinding x:Name="deleteCommand" Command="cmd:RoutedCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"/>
+	</Window.CommandBindings>
+	
     <Window.Background>
         <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
     </Window.Background>
@@ -35,9 +40,9 @@
                 <ColumnDefinition Width="6*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Click="Button_Click_1">Add</Button>
-            <Button Grid.Row="0" Grid.Column="1" Click="Button_Click_2">Edit</Button>
-            <Button Grid.Row="0" Grid.Column="2" Click="Button_Click_3">Delete</Button>
+            <Button Grid.Row="0" Grid.Column="0">Add</Button>
+            <Button x:Name="editBtn" Grid.Row="0" Grid.Column="1" Click="EditBtn_Click" Height="31" VerticalAlignment="Top">Edit</Button>
+            <Button x:Name="deleteBtn" Grid.Row="0" Grid.Column="2" Click="DeleteBtn_Click">Delete</Button>
             <Button Grid.Row="0" Grid.Column="3" Click="Button_Click" Name ="FilterBtn">Filter</Button>
             <TextBox Grid.Row="0" Grid.Column="5" x:Name="searchInput" MaxLength="20" Foreground="White" VerticalContentAlignment="Center">
                 <TextBox.Background>
@@ -110,7 +115,7 @@
             <DataGrid Grid.Row ="0" Grid.Column="0" x:Name="labelsTable" ItemsSource="{Binding AllLabels}" Visibility="Collapsed"
                               IsReadOnly="True"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible"  AutoGenerateColumns="False"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2" SelectionMode="Single" SelectionUnit="FullRow">
                 <DataGrid.Background>
                     <SolidColorBrush Color="Transparent" Opacity="0.4" />
                 </DataGrid.Background>
@@ -134,7 +139,7 @@
             <DataGrid Grid.Row ="0" Grid.Column="0" x:Name="typesTable" ItemsSource="{Binding AllTypes}" Visibility="Collapsed"
                               IsReadOnly="True" AutoGenerateColumns="False"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2" SelectionMode="Single" SelectionUnit="FullRow">
                 <DataGrid.Background>
                     <SolidColorBrush Color="Transparent" Opacity="0.4" />
                 </DataGrid.Background>

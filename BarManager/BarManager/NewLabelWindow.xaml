@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="New Label" Height="350" Width="500" MinWidth="450" MinHeight="250">
 	<Window.Background>
-		<ImageBrush ImageSource="/Images/tag.jpg" Opacity="0.3"/>
+		<ImageBrush ImageSource="/Images/barView.jpg" Opacity="0.3"/>
 	</Window.Background>
 
 	<Grid>
@@ -19,7 +19,7 @@
 				<Setter Property="Foreground" Value="White"/>
 			</Style>
 			<Style TargetType="{x:Type Button}">
-				<Setter Property="Background" Value="#c18f45" />
+				<Setter Property="Background" Value="#260C0C" />
 				<Setter Property="Foreground" Value="White" />
 			</Style>
 			<Style TargetType="{x:Type ComboBox}">

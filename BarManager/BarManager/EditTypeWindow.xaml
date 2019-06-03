@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Edit Type" Height="350" Width="500" MinWidth="450" MinHeight="300">
 	<Window.Background>
-		<ImageBrush ImageSource="/Images/restaurant.jpg" Opacity="0.3"/>
+		<ImageBrush ImageSource="/Images/barView.jpg" Opacity="0.3"/>
 	</Window.Background>
 
 	<Grid>
@@ -18,7 +18,7 @@
 				<Setter Property="Foreground" Value="White"/>
 			</Style>
 			<Style TargetType="{x:Type Button}">
-				<Setter Property="Background" Value="#663d00" />
+				<Setter Property="Background" Value="#260C0C" />
 				<Setter Property="Foreground" Value="White" />
 				<Setter Property="Padding" Value="5,5,5,5"/>
 			</Style>
@@ -46,7 +46,7 @@
 			</Grid.ColumnDefinitions>
 
 			<Label x:Name="idLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="ID:"/>
-			<Label x:Name="nameLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Name:"/>
+			<Label x:Name="nameLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="*Name:"/>
 			<Label x:Name="descriptionLabel" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Description:"/>
 
 			<Label x:Name="idTextBox" Grid.Row="0" Grid.Column="1" Width="70" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Path=id}"/>
@@ -56,6 +56,16 @@
 					<SolidColorBrush Color="#000000" Opacity="0.4" />
 				</TextBox.Background>
 			</TextBox>
+			<Grid Grid.Row="1" Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="1" Foreground="Red" x:Name="nameLabelError" Margin="0,10,0,0"/>
+			</Grid>
 			<TextBox x:Name="descriptionTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,10">
 				<TextBox.Background>
 					<SolidColorBrush Color="#000000" Opacity="0.4" />
@@ -66,14 +76,16 @@
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition Height="3*"/>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
 
-				<Label x:Name="iconLabel" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Image:"/>
+				<Label x:Name="iconLabel" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="*Image:"/>
 				<Border BorderThickness="1" Grid.Row="1" BorderBrush="#FFFFFFFF" Margin="10,0,10,10">
 					<Image x:Name="icon" Grid.Row="1" Source="{Binding Path=iconPath}"/>
 				</Border>
-				<Button x:Name="browse" Grid.Row="2" Height="30" Content="Choose image" Click="Browse_Click" Margin="10,0"/>
+				<Label x:Name="iconErrorLabel" Grid.Row="2" Foreground="Red" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+				<Button x:Name="browse" Grid.Row="3" Height="30" Content="Choose image" Click="Browse_Click" Margin="10,0"/>
 			</Grid>
 		</Grid>
 

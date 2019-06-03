@@ -95,7 +95,7 @@ namespace BarManager
             Util.Util.loadTypes();
             Util.Util.loadBars();
 
-            foreach (BarLabel b in Util.Util.barLabels)
+			foreach (BarLabel b in Util.Util.barLabels)
             {
                 AllLabels.Add(b);
             }
@@ -108,7 +108,7 @@ namespace BarManager
             {
                 AllBars.Add(b);
             }
-        }
+		}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -116,21 +116,6 @@ namespace BarManager
             fw.allBarsWindow = this;
             fw.Show();
             this.DataContext = this;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -205,6 +190,8 @@ namespace BarManager
             searchBtn.Visibility = Visibility.Visible;
             searchInput.Visibility = Visibility.Visible;
 
+			typesTable.UnselectAll();
+			labelsTable.UnselectAll();
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -215,7 +202,10 @@ namespace BarManager
             FilterBtn.Visibility = Visibility.Collapsed;
             searchBtn.Visibility = Visibility.Collapsed;
             searchInput.Visibility = Visibility.Collapsed;
-        }
+
+			barTble.UnselectAll();
+			labelsTable.UnselectAll();
+		}
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
@@ -226,6 +216,68 @@ namespace BarManager
             searchBtn.Visibility = Visibility.Collapsed;
             searchInput.Visibility = Visibility.Collapsed;
 
-        }
-    }
+			barTble.UnselectAll();
+			typesTable.UnselectAll();
+		}
+
+		private void EditBtn_Click(object sender, RoutedEventArgs e) {
+			if(typesTable.SelectedItem != null) {
+				BarType selectedType = (BarType)typesTable.SelectedItem;
+
+				EditTypeWindow editTypeWindow = new EditTypeWindow(selectedType, this);
+				editTypeWindow.Show();
+			} else if(labelsTable.SelectedItem != null) {
+				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
+
+				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel, this);
+				editLabelWindow.Show();
+			}
+		}
+
+		private void DeleteBtn_Click(object sender, RoutedEventArgs e) {
+			if(typesTable.SelectedItem != null) {
+				BarType selectedType = (BarType)typesTable.SelectedItem;
+
+				Util.Util.removeType(selectedType);
+			} else if(labelsTable.SelectedItem != null) {
+				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
+
+				Util.Util.removeLabel(selectedlabel);
+			}
+		}
+
+		private void EditCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+			e.CanExecute = typesTable.SelectedItem != null || labelsTable.SelectedItem != null;
+		}
+
+		private void EditCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+			if(typesTable.SelectedItem != null) {
+				BarType selectedType = (BarType)typesTable.SelectedItem;
+
+				EditTypeWindow editTypeWindow = new EditTypeWindow(selectedType, this);
+				editTypeWindow.Show();
+			} else if(labelsTable.SelectedItem != null) {
+				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
+
+				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel, this);
+				editLabelWindow.Show();
+			}
+		}
+
+		private void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+			e.CanExecute = typesTable.SelectedItem != null || labelsTable.SelectedItem != null;
+		}
+
+		private void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+			if(typesTable.SelectedItem != null) {
+				BarType selectedType = (BarType)typesTable.SelectedItem;
+
+				Util.Util.removeType(selectedType);
+			} else if(labelsTable.SelectedItem != null) {
+				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
+
+				Util.Util.removeLabel(selectedlabel);
+			}
+		}
+	}
 }

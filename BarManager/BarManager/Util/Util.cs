@@ -108,7 +108,7 @@ namespace BarManager.Util {
 
 			string content = "";
 			foreach(BarLabel label in barLabels) {
-				content += label.Id + "|" + label.Description + "|" + label.Color + System.Environment.NewLine;
+				content += label.Id + "|" + label.Color + "|" + label.Description + System.Environment.NewLine;
 			}
 
 			File.WriteAllText(labelsPath, content);

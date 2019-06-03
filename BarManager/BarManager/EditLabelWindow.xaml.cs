@@ -8,6 +8,7 @@ namespace BarManager {
 	/// </summary>
 	public partial class EditLabelWindow : Window, INotifyPropertyChanged {
 		private BarLabel label = null;
+		private AllBarsWindow parent = null;
 
 		public EditLabelWindow() {
 			InitializeComponent();
@@ -16,8 +17,9 @@ namespace BarManager {
 			Util.Util.loadLabels();
 		}
 
-		public EditLabelWindow(BarLabel label) : this() {
+		public EditLabelWindow(BarLabel label, AllBarsWindow parent) : this() {
 			this.label = label;
+			this.parent = parent;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -68,6 +70,8 @@ namespace BarManager {
 
 		private void UpdateLabel_Click(object sender, RoutedEventArgs e) {
 			Util.Util.updateLabel(label);
+
+			parent.labelsTable.ItemsSource = parent.AllLabels;
 
 			Close();
 		}

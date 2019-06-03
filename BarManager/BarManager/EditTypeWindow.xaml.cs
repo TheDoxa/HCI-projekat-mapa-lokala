@@ -11,6 +11,7 @@ namespace BarManager {
 	/// </summary>
 	public partial class EditTypeWindow : Window, INotifyPropertyChanged {
 		private BarType type = null;
+		private AllBarsWindow parent = null;
 
 		public EditTypeWindow() {
 			InitializeComponent();
@@ -19,8 +20,9 @@ namespace BarManager {
 			Util.Util.loadTypes();
 		}
 
-		public EditTypeWindow(BarType type) : this() {
+		public EditTypeWindow(BarType type, AllBarsWindow parent) : this() {
 			this.type = type;
+			this.parent = parent;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -52,10 +54,15 @@ namespace BarManager {
 			set {
 				if(value != this.type.Name) {
 					this.type.Name = value;
-					if(string.IsNullOrEmpty(value))
+					if(string.IsNullOrEmpty(value) || string.IsNullOrEmpty(iconPath))
 						update.IsEnabled = false;
 					else
 						update.IsEnabled = true;
+
+					if(string.IsNullOrEmpty(value))
+						nameLabelError.Content = "Name is required";
+					else
+						nameLabelError.Content = "";
 					OnPropertyChanged("name");
 				}
 			}
@@ -82,6 +89,10 @@ namespace BarManager {
 			set {
 				if(value != this.type.IconPath) {
 					this.type.IconPath = value;
+					if(string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value))
+						update.IsEnabled = false;
+					else
+						update.IsEnabled = true;
 					OnPropertyChanged("iconPath");
 				}
 			}
@@ -94,20 +105,18 @@ namespace BarManager {
 			if(op.ShowDialog() == true) {
 				iconPath = op.FileName;
 				icon.Source = new BitmapImage(new Uri(iconPath));
-
-				if(string.IsNullOrEmpty(iconPath))
-					update.IsEnabled = false;
-				else
-					update.IsEnabled = true;
+				iconErrorLabel.Content = "";
 			} else {
 				iconPath = "";
 				icon.Source = null;
-				update.IsEnabled = false;
+				iconErrorLabel.Content = "Image is required";
 			}
 		}
 
 		private void Update_Click(object sender, RoutedEventArgs e) {
 			Util.Util.updateType(this.type);
+
+			parent.typesTable.ItemsSource = Util.Util.barTypes;
 
 			Close();
 		}

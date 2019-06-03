@@ -3,65 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BarManager"
+        xmlns:cmd="clr-namespace:BarManager.Command"
         mc:Ignorable="d"
         Title="Bar Manager" Height="450" Width="959.6">
-    <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem x:Name="addBarItem" Header="Add bar" Click="AddBarItem_Click"/>
-                    <MenuItem x:Name="addTypeItem" Header="Add type" Click="AddTypeItem_Click"/>
-                    <MenuItem x:Name="addLabelItem" Header="Add label" Click="AddLabelItem_Click"/>
-                    <MenuItem x:Name="allBarsTable" Header="All bars" Click="AllBarsTable_Click"/>
-                </MenuItem>
-            </Menu>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="9*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="1" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
-                        <TextBox.Background>
-                            <SolidColorBrush Color="#000000" Opacity="0.4" />
-                        </TextBox.Background>
-                    </TextBox>
-                    <Button Grid.Row="0" Grid.Column="4" Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Left">
-                    <Image Source="Images/search.png" />
-                </Button>
-                </Grid>
-                <Grid Grid.Row ="1" DockPanel.Dock="Bottom">
-                <ListView Name="BarList" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <ScrollViewer HorizontalAlignment="Left" Height="382" Margin="208,10,0,0" VerticalAlignment="Top" Width="559" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
-                    <StackPanel>
-                        <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <Canvas Name="BarCanvas3" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </StackPanel>
-                </ScrollViewer>
-                <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,10,0,0" VerticalAlignment="Top" Width="120"/>
-                <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,108,0,0" VerticalAlignment="Top" Width="120"/>
-                <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,208,0,0" VerticalAlignment="Top" Width="120"/>
-                <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,309,0,0" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-            </Grid>
-        </DockPanel>
-    </Grid>
+	<Window.CommandBindings>
+		<CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
+		<CommandBinding x:Name="addBarCommand" Command="cmd:RoutedCommands.AddBar" CanExecute="AddBarCommand_CanExecute" Executed="AddBarCommand_Executed"/>
+		<CommandBinding x:Name="addTypeCommand" Command="cmd:RoutedCommands.AddType" CanExecute="AddTypeCommand_CanExecute" Executed="AddTypeCommand_Executed"/>
+		<CommandBinding x:Name="addLabelCommand" Command="cmd:RoutedCommands.AddLabel" CanExecute="AddLabelCommand_CanExecute" Executed="AddLabelCommand_Executed"/>
+		<CommandBinding x:Name="barsViewCommand" Command="cmd:RoutedCommands.BarsView" CanExecute="BarsViewCommand_CanExecute" Executed="BarsViewCommand_Executed"/>
+		<CommandBinding x:Name="typesViewCommand" Command="cmd:RoutedCommands.TypesView" CanExecute="TypesViewCommand_CanExecute" Executed="TypesViewCommand_Executed"/>
+		<CommandBinding x:Name="labelsViewCommand" Command="cmd:RoutedCommands.LabelsView" CanExecute="LabelsViewCommand_CanExecute" Executed="LabelsViewCommand_Executed"/>
+		<CommandBinding x:Name="copyCommand" Command="cmd:RoutedCommands.Copy" CanExecute="CopyCommand_CanExecute" Executed="CopyCommand_Executed"/>
+		<CommandBinding x:Name="pasteCommand" Command="cmd:RoutedCommands.Paste" CanExecute="PasteCommand_CanExecute" Executed="PasteCommand_Executed"/>
+	</Window.CommandBindings>
+	<Grid>
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem x:Name="addBarItem" Header="Add bar" Command="cmd:RoutedCommands.AddBar"/>
+					<MenuItem x:Name="addTypeItem" Header="Add type" Command="cmd:RoutedCommands.AddType"/>
+					<MenuItem x:Name="addLabelItem" Header="Add label" Command="cmd:RoutedCommands.AddLabel"/>
+					<MenuItem x:Name="allBarsTable" Header="All bars" Command="cmd:RoutedCommands.BarsView"/>
+				</MenuItem>
+			</Menu>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="9*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*"></ColumnDefinition>
+						<ColumnDefinition Width="1*"></ColumnDefinition>
+						<ColumnDefinition Width="2*"></ColumnDefinition>
+						<ColumnDefinition Width="3*"></ColumnDefinition>
+						<ColumnDefinition Width="1*"></ColumnDefinition>
+						<ColumnDefinition Width="3*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<Button Grid.Row="0" Name="FilterBtn" Grid.Column="1" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
+					<TextBox Grid.Row="0" Grid.Column="3" x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
+						<TextBox.Background>
+							<SolidColorBrush Color="#000000" Opacity="0.4" />
+						</TextBox.Background>
+					</TextBox>
+					<Button Grid.Row="0" Grid.Column="4" Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Left">
+						<Image Source="Images/search.png" />
+					</Button>
+				</Grid>
+				<Grid Grid.Row ="1" DockPanel.Dock="Bottom">
+					<ListView Name="BarList" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+					<ScrollViewer HorizontalAlignment="Left" Height="382" Margin="208,10,0,0" VerticalAlignment="Top" Width="559" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+						<StackPanel>
+							<Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+							<Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+							<Canvas Name="BarCanvas3" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+							<Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+						</StackPanel>
+					</ScrollViewer>
+					<Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,10,0,0" VerticalAlignment="Top" Width="120"/>
+					<Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,108,0,0" VerticalAlignment="Top" Width="120"/>
+					<Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,208,0,0" VerticalAlignment="Top" Width="120"/>
+					<Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="790,309,0,0" VerticalAlignment="Top" Width="120"/>
+				</Grid>
+			</Grid>
+		</DockPanel>
+	</Grid>
 </Window>
