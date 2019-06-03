@@ -49,6 +49,38 @@ namespace BarManager
                 }
             }
         }
+        public ObservableCollection<BarLabel> _alllabels = new ObservableCollection<BarLabel>();
+        public ObservableCollection<BarLabel> AllLabels
+        {
+            get
+            {
+                return _alllabels;
+            }
+            set
+            {
+                if (value != _alllabels)
+                {
+                    _alllabels = value;
+                    OnPropertyChanged("AllLabels");
+                }
+            }
+        }
+        public ObservableCollection<BarType> _allTypes = new ObservableCollection<BarType>();
+        public ObservableCollection<BarType> AllTypes
+        {
+            get
+            {
+                return _allTypes;
+            }
+            set
+            {
+                if (value != _allTypes)
+                {
+                    _allTypes = value;
+                    OnPropertyChanged("AllTypes");
+                }
+            }
+        }
         public AllBarsWindow()
         {
             InitializeComponent();
@@ -62,6 +94,15 @@ namespace BarManager
             Util.Util.loadLabels();
             Util.Util.loadTypes();
             Util.Util.loadBars();
+
+            foreach (BarLabel b in Util.Util.barLabels)
+            {
+                AllLabels.Add(b);
+            }
+            foreach (BarType b in Util.Util.barTypes)
+            {
+                AllTypes.Add(b);
+            }
 
             foreach (Bar b in Util.Util.bars)
             {
@@ -153,6 +194,38 @@ namespace BarManager
                 }
             }
             barTble.ItemsSource = pomocna;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            barTble.Visibility = Visibility.Visible;
+            typesTable.Visibility = Visibility.Collapsed;
+            labelsTable.Visibility = Visibility.Collapsed;
+            FilterBtn.Visibility = Visibility.Visible;
+            searchBtn.Visibility = Visibility.Visible;
+            searchInput.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            barTble.Visibility = Visibility.Collapsed;
+            typesTable.Visibility = Visibility.Visible;
+            labelsTable.Visibility = Visibility.Collapsed;
+            FilterBtn.Visibility = Visibility.Collapsed;
+            searchBtn.Visibility = Visibility.Collapsed;
+            searchInput.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            barTble.Visibility = Visibility.Collapsed;
+            typesTable.Visibility = Visibility.Collapsed;
+            labelsTable.Visibility = Visibility.Visible;
+            FilterBtn.Visibility = Visibility.Collapsed;
+            searchBtn.Visibility = Visibility.Collapsed;
+            searchInput.Visibility = Visibility.Collapsed;
+
         }
     }
 }
