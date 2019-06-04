@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -195,6 +198,7 @@
     <Resource Include="Images\right.jpg" />
     <Resource Include="Images\filterWindow.PNG" />
     <Resource Include="Images\left.png" />
+    <Resource Include="favicon.ico" />
     <Content Include="Help\error.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -228,6 +232,7 @@
     <Resource Include="Images\HelpViewAllWindow.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\favicon.ico" />
     <Content Include="Images\map1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

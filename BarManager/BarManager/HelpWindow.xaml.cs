@@ -70,5 +70,15 @@ namespace BarManager
             wbHelp.ObjectForScripting = ch;
             wbHelp.Navigate(uri);
         }
+
+        private void EscapeCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void EscapeCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
