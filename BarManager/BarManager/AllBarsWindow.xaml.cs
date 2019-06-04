@@ -265,6 +265,7 @@ namespace BarManager
 
         private void SearchFun(string searchText)
         {
+            Pomocna.Clear();
             string[] tokens = searchText.Split(' ');
             foreach (Bar b in Util.Util.Bars)
             {
