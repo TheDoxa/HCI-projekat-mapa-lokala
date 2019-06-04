@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,12 +16,13 @@ namespace BarManager {
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
-		public Dictionary<long, Bar> BarsFromMap1;
-		public Dictionary<long, Bar> BarsFromMap2;
-		public Dictionary<long, Bar> BarsFromMap3;
-		public Dictionary<long, Bar> BarsFromMap4;
+		public Dictionary<long, BarView> BarsFromMap1;
+		public Dictionary<long, BarView> BarsFromMap2;
+		public Dictionary<long, BarView> BarsFromMap3;
+		public Dictionary<long, BarView> BarsFromMap4;
+        private readonly string mapsDataPath = Path.GetFullPath(@"..\..\") + @"Resources\mapsData.txt";
 
-		public MainWindow() {
+        public MainWindow() {
 			InitializeComponent();
 
 			Util.Util.loadTypes();
@@ -41,15 +45,105 @@ namespace BarManager {
 			ib4.ImageSource = new BitmapImage(new Uri(@"images\map4.png", UriKind.Relative));
 			BarCanvas4.Background = ib4;
 
-			BarsFromMap1 = new Dictionary<long, Bar>();
-			BarsFromMap2 = new Dictionary<long, Bar>();
-			BarsFromMap3 = new Dictionary<long, Bar>();
-			BarsFromMap4 = new Dictionary<long, Bar>();
-		}
+			BarsFromMap1 = new Dictionary<long, BarView>();
+			BarsFromMap2 = new Dictionary<long, BarView>();
+			BarsFromMap3 = new Dictionary<long, BarView>();
+			BarsFromMap4 = new Dictionary<long, BarView>();
 
-		#region Events
+            Closing += OnWindowClosing;
+            LoadMapData();
+        }
 
-		private void BarList_MouseMove(object sender, MouseEventArgs e) {
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            WriteMapData();
+        }
+
+        public void LoadMapData()
+        {
+            if (!File.Exists(mapsDataPath))
+                return;
+
+            if (File.Exists(mapsDataPath))
+            {
+                string[] lines = File.ReadAllLines(mapsDataPath);
+
+                foreach (string line in lines)
+                {
+                    string[] split = line.Split('|');
+
+                    foreach (Bar b in Util.Util.Bars)
+                    {
+                        if (b.Id.ToString().Equals(split[1]))
+                        {
+                            BarView bw = new BarView(b);
+
+                            bw.SetValue(Canvas.LeftProperty, Double.Parse(split[2]));
+                            bw.SetValue(Canvas.TopProperty, Double.Parse(split[3]));
+                            bw.MouseMove += Bar_MouseMove;
+
+                            switch (split[0])
+                            {
+                                case "M1":
+                                    BarsFromMap1.Add(b.Id, bw);
+                                    BarCanvas1.Children.Add(bw);
+                                    break;
+
+                                case "M2":
+                                    BarsFromMap2.Add(b.Id, bw);
+                                    BarCanvas2.Children.Add(bw);
+                                    break;
+
+                                case "M3":
+                                    BarsFromMap3.Add(b.Id, bw);
+                                    BarCanvas3.Children.Add(bw);
+                                    break;
+
+                                case "M4":
+                                    BarsFromMap4.Add(b.Id, bw);
+                                    BarCanvas4.Children.Add(bw);
+                                    break;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void WriteMapData()
+        {
+            if (!File.Exists(mapsDataPath))
+                File.Create(mapsDataPath);
+
+            string content = "";
+            foreach (BarView bw in BarsFromMap1.Values)
+            {
+                Bar b = bw.GetBar();
+                content += "M1|" + b.Id + "|" + bw.GetValue(Canvas.LeftProperty) + "|" + bw.GetValue(Canvas.TopProperty) + System.Environment.NewLine;
+            }
+            foreach (BarView bw in BarsFromMap2.Values)
+            {
+                Bar b = bw.GetBar();
+                content += "M2|" + b.Id + "|" + bw.GetValue(Canvas.LeftProperty) + "|" + bw.GetValue(Canvas.TopProperty) + System.Environment.NewLine;
+            }
+            foreach (BarView bw in BarsFromMap3.Values)
+            {
+                Bar b = bw.GetBar();
+                content += "M3|" + b.Id + "|" + bw.GetValue(Canvas.LeftProperty) + "|" + bw.GetValue(Canvas.TopProperty) + System.Environment.NewLine;
+            }
+            foreach (BarView bw in BarsFromMap4.Values)
+            {
+                Bar b = bw.GetBar();
+                content += "M4|" + b.Id + "|" + bw.GetValue(Canvas.LeftProperty) + "|" + bw.GetValue(Canvas.TopProperty) + System.Environment.NewLine;
+            }
+
+            File.WriteAllText(mapsDataPath, content);
+        }
+
+        #region Events
+
+        private void BarList_MouseMove(object sender, MouseEventArgs e) {
 			if(e.LeftButton == MouseButtonState.Pressed) {
                 if (BarList.SelectedItem != null)
                 {
@@ -70,7 +164,7 @@ namespace BarManager {
 
 		private void Canvas_Drop(object sender, DragEventArgs e) {
 			Canvas barCanvas = sender as Canvas;
-			Dictionary<long, Bar> barsFromMapDictionary = new Dictionary<long, Bar>();
+			Dictionary<long, BarView> barsFromMapDictionary = new Dictionary<long, BarView>();
 
 			switch(barCanvas.Name) {
 				case "BarCanvas1":
@@ -94,34 +188,56 @@ namespace BarManager {
 			var droppedBarView = e.Data.GetData("BarView") as BarView;
 			var mousePosition = e.GetPosition(barCanvas);
 
-			if(droppedBar != null) {
-				BarView bw = new BarView(droppedBar);
-				var newBarPosition = new Point(mousePosition.X - bw.Width / 2, mousePosition.Y - bw.Height / 2);
+			if(droppedBar != null)
+            {
+                BarView alreadyFromMap = CheckIfBarIsAlreadyOnMap(droppedBar);
+                if (alreadyFromMap != null)
+                {
+                    Canvas parentCanvas = (Canvas)alreadyFromMap.Parent;
+                    if (!barCanvas.Equals(parentCanvas))
+                    {
+                        RemoveBarFromCanvas(parentCanvas.Name, alreadyFromMap.GetBar().Id);
 
-				bw.SetValue(Canvas.LeftProperty, newBarPosition.X);
-				bw.SetValue(Canvas.TopProperty, newBarPosition.Y);
-				bw.MouseMove += Bar_MouseMove;
+                        parentCanvas.Children.Remove(alreadyFromMap);
+                        barCanvas.Children.Add(alreadyFromMap);
+                        barsFromMapDictionary.Add(alreadyFromMap.GetBar().Id, alreadyFromMap);
+                    }
 
-				barCanvas.Children.Add(bw);
+                    var newBarPosition = new Point(mousePosition.X - alreadyFromMap.Width / 2, mousePosition.Y - alreadyFromMap.Height / 2);
+                    alreadyFromMap.SetValue(Canvas.LeftProperty, newBarPosition.X);
+                    alreadyFromMap.SetValue(Canvas.TopProperty, newBarPosition.Y);
+                }
+                else
+                {
+                    BarView bw = new BarView(droppedBar);
+                    var newBarPosition = new Point(mousePosition.X - bw.Width / 2, mousePosition.Y - bw.Height / 2);
 
-				if(!CheckIfBarViewsOverlap(bw, barCanvas, newBarPosition)) {
-					barsFromMapDictionary.Add(droppedBar.Id, droppedBar);
-					Util.Util.Bars.Remove(droppedBar);
-				} else {
-					barCanvas.Children.Remove(bw);
-				}
+                    bw.SetValue(Canvas.LeftProperty, newBarPosition.X);
+                    bw.SetValue(Canvas.TopProperty, newBarPosition.Y);
+                    bw.MouseMove += Bar_MouseMove;
+
+                    barCanvas.Children.Add(bw);
+
+                    if (!CheckIfBarViewsOverlap(bw, barCanvas, newBarPosition))
+                    {
+                        barsFromMapDictionary.Add(droppedBar.Id, bw);
+                        //Util.Util.Bars.Remove(droppedBar);
+                    }
+                    else
+                    {
+                        barCanvas.Children.Remove(bw);
+                    }
+                }
 			} else if(droppedBarView != null) {
 				var newBarPosition = new Point(mousePosition.X - droppedBarView.Width / 2, mousePosition.Y - droppedBarView.Height / 2);
 				if(!CheckIfBarViewsOverlap(droppedBarView, barCanvas, newBarPosition)) {
 					Canvas parentCanvas = (Canvas)droppedBarView.Parent;
 					if(!barCanvas.Equals(parentCanvas)) {
-						if(droppedBar == null)
-							droppedBar = droppedBarView.GetBar();
-						RemoveBarFromCanvas(parentCanvas.Name, droppedBar.Id);
+						RemoveBarFromCanvas(parentCanvas.Name, droppedBarView.GetBar().Id);
 
 						parentCanvas.Children.Remove(droppedBarView);
 						barCanvas.Children.Add(droppedBarView);
-						barsFromMapDictionary.Add(droppedBar.Id, droppedBar);
+						barsFromMapDictionary.Add(droppedBarView.GetBar().Id, droppedBarView);
 					}
 
 					droppedBarView.SetValue(Canvas.LeftProperty, newBarPosition.X);
@@ -136,13 +252,13 @@ namespace BarManager {
 			if(droppedBar == null)
 				droppedBar = droppedBarView.GetBar();
 
-			if(BarList.SelectedItem == null || (BarList.SelectedItem as Bar).Id != droppedBar.Id) {
-				Util.Util.Bars.Add(droppedBar);
-
-				Canvas parentCanvas = (Canvas)droppedBarView.Parent;
-				parentCanvas.Children.Remove(droppedBarView);
-				RemoveBarFromCanvas(parentCanvas.Name, droppedBar.Id);
-			}
+            var onMap = CheckIfBarIsAlreadyOnMap(droppedBar);
+            if (onMap != null)
+            {
+                Canvas parentCanvas = (Canvas)droppedBarView.Parent;
+                parentCanvas.Children.Remove(droppedBarView);
+                RemoveBarFromCanvas(parentCanvas.Name, droppedBar.Id);
+            }
 		}
 
 		private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
@@ -159,7 +275,47 @@ namespace BarManager {
 
 		#region Custom functions
 
-		private bool CheckIfBarViewsOverlap(BarView droppedBarView, Canvas canvas, Point barPosition) {
+        private BarView CheckIfBarIsAlreadyOnMap(Bar bar)
+        {
+            BarView bwFromMap = null;
+
+            foreach (BarView bw in BarsFromMap1.Values)
+            {
+                if (bw.GetBar().Id == bar.Id)
+                {
+                    bwFromMap = bw;
+                    break;
+                }
+            }
+            foreach (BarView bw in BarsFromMap2.Values)
+            {
+                if (bw.GetBar().Id == bar.Id)
+                {
+                    bwFromMap = bw;
+                    break;
+                }
+            }
+            foreach (BarView bw in BarsFromMap3.Values)
+            {
+                if (bw.GetBar().Id == bar.Id)
+                {
+                    bwFromMap = bw;
+                    break;
+                }
+            }
+            foreach (BarView bw in BarsFromMap4.Values)
+            {
+                if (bw.GetBar().Id == bar.Id)
+                {
+                    bwFromMap = bw;
+                    break;
+                }
+            }
+
+            return bwFromMap;
+        }
+
+        private bool CheckIfBarViewsOverlap(BarView droppedBarView, Canvas canvas, Point barPosition) {
 			bool overlaps = false;
 			Rect droppedBarRect = new Rect(barPosition.X, barPosition.Y, droppedBarView.Width, droppedBarView.Height);
 
@@ -236,8 +392,6 @@ namespace BarManager {
 			fw.Show();
 		}
 
-
-
 		private void SearchBtn_Click(object sender, RoutedEventArgs e) {
 			string searchText = searchInput.Text.ToLower();
 			string[] tokens = searchText.Split(' ');
@@ -253,7 +407,8 @@ namespace BarManager {
 		private void searchMap1(string searchText, string[] tokens) {
 			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
 			//Map1
-			foreach(Bar b in BarsFromMap1.Values) {
+			foreach(BarView bw in BarsFromMap1.Values) {
+                Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
 					tempBarsMap1.Add(b);
 				} else if(b.Description.ToLower().Contains(searchText)) {
@@ -292,7 +447,8 @@ namespace BarManager {
 		private void searchMap2(string searchText, string[] tokens) {
 			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
 			//Map1
-			foreach(Bar b in BarsFromMap2.Values) {
+			foreach(BarView bw in BarsFromMap2.Values) {
+                Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
 					tempBarsMap1.Add(b);
 				} else if(b.Description.ToLower().Contains(searchText)) {
@@ -332,7 +488,8 @@ namespace BarManager {
 		private void searchMap3(string searchText, string[] tokens) {
 			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
 			//Map1
-			foreach(Bar b in BarsFromMap3.Values) {
+			foreach(BarView bw in BarsFromMap3.Values) {
+                Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
 					tempBarsMap1.Add(b);
 				} else if(b.Description.ToLower().Contains(searchText)) {
@@ -368,10 +525,12 @@ namespace BarManager {
 				}
 			}
 		}
-		private void searchMap4(string searchText, string[] tokens) {
+
+        private void searchMap4(string searchText, string[] tokens) {
 			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
 			//Map1
-			foreach(Bar b in BarsFromMap4.Values) {
+			foreach(BarView bw in BarsFromMap4.Values) {
+                Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
 					tempBarsMap1.Add(b);
 				} else if(b.Description.ToLower().Contains(searchText)) {

@@ -357,8 +357,9 @@ namespace BarManager
             {
                 foreach (BarType bt in ChosenTypes)
                 {
-                    foreach (Bar b in mainWindow.BarsFromMap1.Values)
+                    foreach (BarView bw in mainWindow.BarsFromMap1.Values)
                     {
+                        Bar b = bw.GetBar();
                         if (b.Type.Id == bt.Id)
                         {
                             temp.Add(b);
@@ -368,8 +369,8 @@ namespace BarManager
             }
             else
             {
-                foreach (Bar b in mainWindow.BarsFromMap1.Values)
-                    temp.Add(b);
+                foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+                    temp.Add(bw.GetBar());
             }
             //labels
             if (ChosenLabels.Count > 0)
@@ -553,8 +554,9 @@ namespace BarManager
             {
                 foreach (BarType bt in ChosenTypes)
                 {
-                    foreach (Bar b in mainWindow.BarsFromMap2.Values)
+                    foreach (BarView bw in mainWindow.BarsFromMap2.Values)
                     {
+                        Bar b = bw.GetBar();
                         if (b.Type.Id == bt.Id)
                         {
                             temp.Add(b);
@@ -564,8 +566,8 @@ namespace BarManager
             }
             else
             {
-                foreach (Bar b in mainWindow.BarsFromMap2.Values)
-                    temp.Add(b);
+                foreach (BarView bw in mainWindow.BarsFromMap2.Values)
+                    temp.Add(bw.GetBar());
             }
             //labels
             if (ChosenLabels.Count > 0)
@@ -749,8 +751,9 @@ namespace BarManager
             {
                 foreach (BarType bt in ChosenTypes)
                 {
-                    foreach (Bar b in mainWindow.BarsFromMap3.Values)
+                    foreach (BarView bw in mainWindow.BarsFromMap3.Values)
                     {
+                        Bar b = bw.GetBar();
                         if (b.Type.Id == bt.Id)
                         {
                             temp.Add(b);
@@ -760,8 +763,8 @@ namespace BarManager
             }
             else
             {
-                foreach (Bar b in mainWindow.BarsFromMap3.Values)
-                    temp.Add(b);
+                foreach (BarView bw in mainWindow.BarsFromMap3.Values)
+                    temp.Add(bw.GetBar());
             }
             //labels
             if (ChosenLabels.Count > 0)
@@ -945,8 +948,9 @@ namespace BarManager
             {
                 foreach (BarType bt in ChosenTypes)
                 {
-                    foreach (Bar b in mainWindow.BarsFromMap4.Values)
+                    foreach (BarView bw in mainWindow.BarsFromMap4.Values)
                     {
+                        Bar b = bw.GetBar();
                         if (b.Type.Id == bt.Id)
                         {
                             temp.Add(b);
@@ -956,8 +960,8 @@ namespace BarManager
             }
             else
             {
-                foreach (Bar b in mainWindow.BarsFromMap4.Values)
-                    temp.Add(b);
+                foreach (BarView bw in mainWindow.BarsFromMap4.Values)
+                    temp.Add(bw.GetBar());
             }
             //labels
             if (ChosenLabels.Count > 0)

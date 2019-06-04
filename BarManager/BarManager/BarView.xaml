@@ -11,7 +11,7 @@
     <Grid>
         <Ellipse Name="BarLabel" Height="40" Width="40" Margin="10,0,10,20">
             <Ellipse.Fill>
-                <SolidColorBrush Color="Aqua" />
+                <SolidColorBrush Color="Transparent" />
             </Ellipse.Fill>
         </Ellipse>
         <Ellipse Name="BarImage" Height="36" Width="36" Margin="12,2,12,22">
