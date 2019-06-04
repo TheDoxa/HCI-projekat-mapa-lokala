@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,76 +23,65 @@ namespace BarManager
     /// </summary>
     public partial class AllBarsWindow : Window
     {
+		public event PropertyChangedEventHandler PropertyChanged;
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public static AllBarsWindow instance;
 
-        protected virtual void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
+		protected virtual void OnPropertyChanged(string name) {
+			if(PropertyChanged != null) {
+				PropertyChanged(this, new PropertyChangedEventArgs(name));
+			}
+		}
 
-        public ObservableCollection<Bar> _allBars = new ObservableCollection<Bar>();
-        public ObservableCollection<Bar> AllBars
-        {
-            get
-            {
-                return _allBars;
-            }
-            set
-            {
-                if (value != _allBars)
-                {
-                    _allBars = value;
-                    OnPropertyChanged("AllBars");
-                }
-            }
-        }
-        public ObservableCollection<BarLabel> _alllabels = new ObservableCollection<BarLabel>();
-        public ObservableCollection<BarLabel> AllLabels
-        {
-            get
-            {
-                return _alllabels;
-            }
-            set
-            {
-                if (value != _alllabels)
-                {
-                    _alllabels = value;
-                    OnPropertyChanged("AllLabels");
-                }
-            }
-        }
-        public ObservableCollection<BarType> _allTypes = new ObservableCollection<BarType>();
-        public ObservableCollection<BarType> AllTypes
-        {
-            get
-            {
-                return _allTypes;
-            }
-            set
-            {
-                if (value != _allTypes)
-                {
-                    _allTypes = value;
-                    OnPropertyChanged("AllTypes");
-                }
-            }
-        }
-        public AllBarsWindow()
-        {
-            InitializeComponent();
-            this.DataContext = this;
-            InitData();
+		public static void OnPropertyChangedStatic([CallerMemberName] string propertyName = null) {
+			StaticPropertyChanged?.Invoke(AllBarsWindow.instance, new PropertyChangedEventArgs(propertyName));
+		}
 
-        }
+		private static ObservableCollection<Bar> _allBars = new ObservableCollection<Bar>();
+		public static ObservableCollection<Bar> AllBars {
+			get {
+				return _allBars;
+			}
+			set {
+				if(value != _allBars) {
+					_allBars = value;
+					OnPropertyChangedStatic();
+				}
+			}
+		}
+		private static ObservableCollection<BarLabel> _alllabels = new ObservableCollection<BarLabel>();
+		public static ObservableCollection<BarLabel> AllLabels {
+			get {
+				return _alllabels;
+			}
+			set {
+				_alllabels = value;
+				OnPropertyChangedStatic();
+			}
+		}
+		private static ObservableCollection<BarType> _allTypes = new ObservableCollection<BarType>();
+		public static ObservableCollection<BarType> AllTypes {
+			get {
+				return _allTypes;
+			}
+			set {
+				_allTypes = value;
+				OnPropertyChangedStatic();
+			}
+		}
+		public AllBarsWindow() {
+			InitializeComponent();
+			this.DataContext = this;
+			InitData();
+			AllBarsWindow.instance = this;
+		}
 
-        private void InitData()
+		private void InitData()
         {
-            
+			AllLabels.Clear();
+			AllTypes.Clear();
+			AllBars.Clear();
 
 			foreach (BarLabel b in Util.Util.BarLabels)
             {
@@ -218,73 +208,80 @@ namespace BarManager
 			typesTable.UnselectAll();
 		}
 
-		private void EditBtn_Click(object sender, RoutedEventArgs e) {
-			if(typesTable.SelectedItem != null) {
-				BarType selectedType = (BarType)typesTable.SelectedItem;
-
-				EditTypeWindow editTypeWindow = new EditTypeWindow(selectedType, this);
-				editTypeWindow.Show();
-			} else if(labelsTable.SelectedItem != null) {
-				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
-
-				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel, this);
-				editLabelWindow.Show();
-			} else if (barTble.SelectedItem != null)
-            {
-                Bar selectedBar = (Bar)barTble.SelectedItem;
-                BarWindow editBarWindow = new BarWindow(true, selectedBar);
-                editBarWindow.Show();
-            }
-        }
-
-		private void DeleteBtn_Click(object sender, RoutedEventArgs e) {
-			if(typesTable.SelectedItem != null) {
-				BarType selectedType = (BarType)typesTable.SelectedItem;
-
-				Util.Util.removeType(selectedType);
-			} else if(labelsTable.SelectedItem != null) {
-				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
-
-				Util.Util.removeLabel(selectedlabel);
-			} else if (barTble.SelectedItem != null) {
-                Bar selectedBar = (Bar)barTble.SelectedItem;
-
-                Util.Util.removeBar(selectedBar);
-            }
-        }
-
 		private void EditCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-			e.CanExecute = typesTable.SelectedItem != null || labelsTable.SelectedItem != null;
+			e.CanExecute = true;
 		}
 
 		private void EditCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
 			if(typesTable.SelectedItem != null) {
 				BarType selectedType = (BarType)typesTable.SelectedItem;
 
-				EditTypeWindow editTypeWindow = new EditTypeWindow(selectedType, this);
+				EditTypeWindow editTypeWindow = new EditTypeWindow(selectedType);
 				editTypeWindow.Show();
 			} else if(labelsTable.SelectedItem != null) {
 				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
 
-				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel, this);
+				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel);
 				editLabelWindow.Show();
+			} else if(barTble.SelectedItem != null) {
+				Bar selectedBar = (Bar)barTble.SelectedItem;
+				BarWindow editBarWindow = new BarWindow(true, selectedBar);
+				editBarWindow.Show();
 			}
+
+			barTble.UnselectAll();
+			typesTable.UnselectAll();
+			labelsTable.UnselectAll();
 		}
 
 		private void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-			e.CanExecute = typesTable.SelectedItem != null || labelsTable.SelectedItem != null;
+			e.CanExecute = true;
 		}
 
 		private void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
 			if(typesTable.SelectedItem != null) {
 				BarType selectedType = (BarType)typesTable.SelectedItem;
 
-				Util.Util.removeType(selectedType);
+				bool res = Util.Util.removeType(selectedType);
+
+				if(res)
+					for(int i = 0; i < AllBarsWindow.AllTypes.Count; i++) {
+						if(AllBarsWindow.AllTypes[i].Id == selectedType.Id) {
+							AllBarsWindow.AllTypes.RemoveAt(i);
+
+							break;
+						}
+					}
 			} else if(labelsTable.SelectedItem != null) {
 				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
 
-				Util.Util.removeLabel(selectedlabel);
+				bool res = Util.Util.removeLabel(selectedlabel);
+
+				if(res)
+					for(int i = 0; i < AllBarsWindow.AllLabels.Count; i++) {
+						if(AllBarsWindow.AllLabels[i].Id == selectedlabel.Id) {
+							AllBarsWindow.AllLabels.RemoveAt(i);
+
+							break;
+						}
+					}
+			} else if(barTble.SelectedItem != null) {
+				Bar selectedBar = (Bar)barTble.SelectedItem;
+
+				Util.Util.removeBar(selectedBar);
+
+				for(int i = 0; i < AllBarsWindow.AllBars.Count; i++) {
+					if(AllBarsWindow.AllBars[i].Id == selectedBar.Id) {
+						AllBarsWindow.AllBars.RemoveAt(i);
+
+						break;
+					}
+				}
 			}
+
+			barTble.UnselectAll();
+			typesTable.UnselectAll();
+			labelsTable.UnselectAll();
 		}
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

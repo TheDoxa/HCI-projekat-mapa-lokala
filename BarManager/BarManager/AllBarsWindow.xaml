@@ -4,169 +4,170 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:BarManager.Command"
+		xmlns:local="clr-namespace:BarManager"
         mc:Ignorable="d"
         Title="AllBarsWindow" Height="450" Width="800">
 	<Window.CommandBindings>
 		<CommandBinding x:Name="editCommand" Command="cmd:RoutedCommands.Edit" CanExecute="EditCommand_CanExecute" Executed="EditCommand_Executed"/>
 		<CommandBinding x:Name="deleteCommand" Command="cmd:RoutedCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"/>
 	</Window.CommandBindings>
-	
-    <Window.Background>
-        <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
-    </Window.Background>
-    <Grid Margin="10">
-        <Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="#260C0C" />
-                <Setter Property="Foreground" Value="White" />
-            </Style>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="2*">
-            </RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="10*"></ColumnDefinition>
-                <ColumnDefinition Width="6*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Click="Button_Click_1">Add</Button>
-            <Button x:Name="editBtn" Grid.Row="0" Grid.Column="1" Click="EditBtn_Click" >Edit</Button>
-            <Button x:Name="deleteBtn" Grid.Row="0" Grid.Column="2" Click="DeleteBtn_Click">Delete</Button>
-            <Button Grid.Row="0" Grid.Column="3" Click="Button_Click" Name ="FilterBtn">Filter</Button>
-            <TextBox Grid.Row="0" Grid.Column="5" x:Name="searchInput" MaxLength="20" Foreground="White" VerticalContentAlignment="Center">
-                <TextBox.Background>
-                    <SolidColorBrush Color="#000000" Opacity="0.4" />
-                </TextBox.Background>
-            </TextBox>
-            <Button Grid.Row="0" Grid.Column="6" Click="Search_Click" Name ="searchBtn">
-                <Image Source="Images/search.png" />
-            </Button>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="1" Height="30" VerticalAlignment="Bottom" Click="Button_Click_4">Bars</Button>
-            <Button Grid.Row="0" Grid.Column="2" Height="30" VerticalAlignment="Bottom" Click="Button_Click_5" >Types</Button>
-            <Button Grid.Row="0" Grid.Column="3" Height="30" VerticalAlignment="Bottom" Click="Button_Click_6">Labels</Button>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="8*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="55*"></ColumnDefinition>
-                <ColumnDefinition Width="138*"/>
-            </Grid.ColumnDefinitions>
-            <DataGrid Grid.Row ="0" Grid.Column="0" x:Name="barTble" ItemsSource="{Binding AllBars}" AutoGenerateColumns="False"
+
+	<Window.Background>
+		<ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
+	</Window.Background>
+	<Grid Margin="10">
+		<Grid.Resources>
+			<Style TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="#260C0C" />
+				<Setter Property="Foreground" Value="White" />
+			</Style>
+		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*"></RowDefinition>
+			<RowDefinition Height="2*">
+			</RowDefinition>
+			<RowDefinition Height="10*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="10*"></ColumnDefinition>
+				<ColumnDefinition Width="6*"></ColumnDefinition>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Row="0" Grid.Column="0" Click="Button_Click_1">Add</Button>
+			<Button x:Name="editBtn" Grid.Row="0" Grid.Column="1" Command="cmd:RoutedCommands.Edit">Edit</Button>
+			<Button x:Name="deleteBtn" Grid.Row="0" Grid.Column="2" Command="cmd:RoutedCommands.Delete">Delete</Button>
+			<Button Grid.Row="0" Grid.Column="3" Click="Button_Click" Name ="FilterBtn">Filter</Button>
+			<TextBox Grid.Row="0" Grid.Column="5" x:Name="searchInput" MaxLength="20" Foreground="White" VerticalContentAlignment="Center">
+				<TextBox.Background>
+					<SolidColorBrush Color="#000000" Opacity="0.4" />
+				</TextBox.Background>
+			</TextBox>
+			<Button Grid.Row="0" Grid.Column="6" Click="Search_Click" Name ="searchBtn">
+				<Image Source="Images/search.png" />
+			</Button>
+		</Grid>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+				<ColumnDefinition Width="5*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Row="0" Grid.Column="1" Height="30" VerticalAlignment="Bottom" Click="Button_Click_4">Bars</Button>
+			<Button Grid.Row="0" Grid.Column="2" Height="30" VerticalAlignment="Bottom" Click="Button_Click_5" >Types</Button>
+			<Button Grid.Row="0" Grid.Column="3" Height="30" VerticalAlignment="Bottom" Click="Button_Click_6">Labels</Button>
+		</Grid>
+		<Grid Grid.Row="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="8*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="55*"></ColumnDefinition>
+				<ColumnDefinition Width="138*"/>
+			</Grid.ColumnDefinitions>
+			<DataGrid Grid.Row ="0" Grid.Column="0" x:Name="barTble" ItemsSource="{Binding Source={x:Static local:AllBarsWindow.AllBars}}" AutoGenerateColumns="False"
                               IsReadOnly="True"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2" SelectionMode="Single" SelectionUnit="FullRow">
-                <DataGrid.Background>
-                    <SolidColorBrush Color="Transparent" Opacity="0.4" />
-                </DataGrid.Background>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="ContentTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                    <DataGridTextColumn Binding="{Binding Type}" Header="Type" />
-                    <DataGridTemplateColumn Header="Image">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Icon}" MaxWidth="70" MaxHeight="50"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn  Binding="{Binding Description}" Header="Description"></DataGridTextColumn>
-                    <DataGridTextColumn  Binding="{Binding AlcStatus}" Header="Alcohol Status"></DataGridTextColumn>
-                    <DataGridCheckBoxColumn  Binding="{Binding Handicapped}" Header="Handicapped"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn  Binding="{Binding SmokingAllowed}" Header="Smoking"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn  Binding="{Binding ReservationsAllowed}" Header="Reservations"></DataGridCheckBoxColumn>
-                    <DataGridTextColumn  Binding="{Binding PriceCategory}" Header="Price Category"></DataGridTextColumn>
-                    <DataGridTextColumn  Binding="{Binding MaxCapacity}" Header="Max Capacity"></DataGridTextColumn>
-                    <DataGridTextColumn  Binding="{Binding OpenDate}" Header="Open Date"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid Grid.Row ="0" Grid.Column="0" x:Name="labelsTable" ItemsSource="{Binding AllLabels}" Visibility="Collapsed"
+				<DataGrid.Background>
+					<SolidColorBrush Color="Transparent" Opacity="0.4" />
+				</DataGrid.Background>
+				<DataGrid.ColumnHeaderStyle>
+					<Style TargetType="{x:Type DataGridColumnHeader}">
+						<Setter Property="ContentTemplate">
+							<Setter.Value>
+								<DataTemplate>
+									<TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
+								</DataTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</DataGrid.ColumnHeaderStyle>
+				<DataGrid.Columns>
+					<DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
+					<DataGridTextColumn Binding="{Binding Type}" Header="Type" />
+					<DataGridTemplateColumn Header="Image">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Image Source="{Binding Icon}" MaxWidth="70" MaxHeight="50"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTextColumn  Binding="{Binding Description}" Header="Description"></DataGridTextColumn>
+					<DataGridTextColumn  Binding="{Binding AlcStatus}" Header="Alcohol Status"></DataGridTextColumn>
+					<DataGridCheckBoxColumn  Binding="{Binding Handicapped}" Header="Handicapped"></DataGridCheckBoxColumn>
+					<DataGridCheckBoxColumn  Binding="{Binding SmokingAllowed}" Header="Smoking"></DataGridCheckBoxColumn>
+					<DataGridCheckBoxColumn  Binding="{Binding ReservationsAllowed}" Header="Reservations"></DataGridCheckBoxColumn>
+					<DataGridTextColumn  Binding="{Binding PriceCategory}" Header="Price Category"></DataGridTextColumn>
+					<DataGridTextColumn  Binding="{Binding MaxCapacity}" Header="Max Capacity"></DataGridTextColumn>
+					<DataGridTextColumn  Binding="{Binding OpenDate}" Header="Open Date"></DataGridTextColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+			<DataGrid Grid.Row ="0" Grid.Column="0" x:Name="labelsTable" ItemsSource="{Binding Source={x:Static local:AllBarsWindow.AllLabels}}" Visibility="Collapsed"
                               IsReadOnly="True"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible"  AutoGenerateColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2" SelectionMode="Single" SelectionUnit="FullRow">
-                <DataGrid.Background>
-                    <SolidColorBrush Color="Transparent" Opacity="0.4" />
-                </DataGrid.Background>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="ContentTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
-                    <DataGridTextColumn Binding="{Binding Color}" Header="Color" Width="150"/>
-                    <DataGridTextColumn  Binding="{Binding Description}" Header="Description" Width="600"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid Grid.Row ="0" Grid.Column="0" x:Name="typesTable" ItemsSource="{Binding AllTypes}" Visibility="Collapsed"
+				<DataGrid.Background>
+					<SolidColorBrush Color="Transparent" Opacity="0.4" />
+				</DataGrid.Background>
+				<DataGrid.ColumnHeaderStyle>
+					<Style TargetType="{x:Type DataGridColumnHeader}">
+						<Setter Property="ContentTemplate">
+							<Setter.Value>
+								<DataTemplate>
+									<TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
+								</DataTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</DataGrid.ColumnHeaderStyle>
+				<DataGrid.Columns>
+					<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
+					<DataGridTextColumn Binding="{Binding Color}" Header="Color" Width="150"/>
+					<DataGridTextColumn  Binding="{Binding Description}" Header="Description" Width="600"></DataGridTextColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+			<DataGrid Grid.Row ="0" Grid.Column="0" x:Name="typesTable" ItemsSource="{Binding Source={x:Static local:AllBarsWindow.AllTypes}}" Visibility="Collapsed"
                               IsReadOnly="True" AutoGenerateColumns="False"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Grid.ColumnSpan="2" SelectionMode="Single" SelectionUnit="FullRow">
-                <DataGrid.Background>
-                    <SolidColorBrush Color="Transparent" Opacity="0.4" />
-                </DataGrid.Background>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="ContentTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
-                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="150" />
-                    <DataGridTemplateColumn Header="Icon" Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding IconPath}" MaxWidth="70" MaxHeight="50"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn  Binding="{Binding Description}" Header="Description" Width="500"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </Grid>
+				<DataGrid.Background>
+					<SolidColorBrush Color="Transparent" Opacity="0.4" />
+				</DataGrid.Background>
+				<DataGrid.ColumnHeaderStyle>
+					<Style TargetType="{x:Type DataGridColumnHeader}">
+						<Setter Property="ContentTemplate">
+							<Setter.Value>
+								<DataTemplate>
+									<TextBlock Foreground="#320919" TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"/>
+								</DataTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</DataGrid.ColumnHeaderStyle>
+				<DataGrid.Columns>
+					<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
+					<DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="150" />
+					<DataGridTemplateColumn Header="Icon" Width="100">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Image Source="{Binding IconPath}" MaxWidth="70" MaxHeight="50"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTextColumn  Binding="{Binding Description}" Header="Description" Width="500"></DataGridTextColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
+	</Grid>
 </Window>

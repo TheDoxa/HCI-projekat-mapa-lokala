@@ -8,16 +8,14 @@ namespace BarManager {
 	/// </summary>
 	public partial class EditLabelWindow : Window, INotifyPropertyChanged {
 		private BarLabel label = null;
-		private AllBarsWindow parent = null;
 
 		public EditLabelWindow() {
 			InitializeComponent();
 			DataContext = this;
 		}
 
-		public EditLabelWindow(BarLabel label, AllBarsWindow parent) : this() {
+		public EditLabelWindow(BarLabel label) : this() {
 			this.label = label;
-			this.parent = parent;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -61,6 +59,13 @@ namespace BarManager {
 			set {
 				if(value != this.label.Description) {
 					this.label.Description = value;
+					if(string.IsNullOrEmpty(value)) {
+						updateLabel.IsEnabled = false;
+						descriptionErrorLabel.Content = "Description is required";
+					} else {
+						updateLabel.IsEnabled = true;
+						descriptionErrorLabel.Content = "";
+					}
 					OnPropertyChanged("description");
 				}
 			}
@@ -69,7 +74,14 @@ namespace BarManager {
 		private void UpdateLabel_Click(object sender, RoutedEventArgs e) {
 			Util.Util.updateLabel(label);
 
-			parent.labelsTable.ItemsSource = parent.AllLabels;
+			for(int i = 0; i < AllBarsWindow.AllLabels.Count; i++) {
+				if(AllBarsWindow.AllLabels[i].Id == label.Id) {
+					AllBarsWindow.AllLabels.RemoveAt(i);
+					AllBarsWindow.AllLabels.Add(new BarLabel(label.Id, label.Color, label.Description));
+
+					break;
+				}
+			}
 
 			Close();
 		}

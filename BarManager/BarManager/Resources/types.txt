@@ -1,3 +1,1 @@
-1|Pub|Beer and just beer|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\label-window-wallpaper.jpg
-2|sdaf|adsf|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\pub.jpg
-3|asdfas|asdf|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\restaurant-wallpaper.jpg
+1|asd||E:\SW\HCI\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\coffee.png

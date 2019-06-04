@@ -11,16 +11,14 @@ namespace BarManager {
 	/// </summary>
 	public partial class EditTypeWindow : Window, INotifyPropertyChanged {
 		private BarType type = null;
-		private AllBarsWindow parent = null;
 
 		public EditTypeWindow() {
 			InitializeComponent();
 			DataContext = this;
 		}
 
-		public EditTypeWindow(BarType type, AllBarsWindow parent) : this() {
+		public EditTypeWindow(BarType type) : this() {
 			this.type = type;
-			this.parent = parent;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -114,7 +112,14 @@ namespace BarManager {
 		private void Update_Click(object sender, RoutedEventArgs e) {
 			Util.Util.updateType(this.type);
 
-			parent.typesTable.ItemsSource = Util.Util.BarTypes;
+			for(int i = 0; i < AllBarsWindow.AllTypes.Count; i++) {
+				if(AllBarsWindow.AllTypes[i].Id == type.Id) {
+					AllBarsWindow.AllTypes.RemoveAt(i);
+					AllBarsWindow.AllTypes.Add(new BarType(type.Id, type.Name, type.Description, type.IconPath));
+
+					break;
+				}
+			}
 
 			Close();
 		}

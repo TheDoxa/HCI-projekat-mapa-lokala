@@ -1,3 +1,1 @@
-1|MotoPubaaaaaaaaaasdfasdf|aaaaaaaaaaaaaaa|1|Full serve|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\barView.jpg|0|0|1|Extremely high prices|5|14/06/2019|1
-2|asdfasdfasd|fasdfasdf|1|Don't server|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\restaurant-wallpaper.jpg|0|0|0|Low prices|1|04/06/2019|
-3|dddddd||1|Don't server|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\label-window-wallpaper.jpg|0|0|0|Low prices|1|04/06/2019|
+1|Pub||1|Don't server|E:\SW\HCI\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\coffee.png|0|0|0|Low prices|1|04/06/2019|1

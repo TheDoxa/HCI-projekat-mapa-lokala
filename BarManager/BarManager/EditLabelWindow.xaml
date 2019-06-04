@@ -48,16 +48,23 @@
 			</Grid.ColumnDefinitions>
 
 			<Label x:Name="idOfLabelLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="ID:"/>
-			<Label x:Name="descriptionOfLabelLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Description:"/>
+			<Label x:Name="descriptionOfLabelLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="*Description:"/>
 			<Label x:Name="colorOfLabelLabel" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Color:"/>
 
 			<Label x:Name="idOfLabel" Grid.Row="0" Grid.Column="1" Width="70" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Path=id}"/>
 
-			<TextBox x:Name="descriptionOfLabelTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,10">
+			<TextBox x:Name="descriptionOfLabelTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,20">
 				<TextBox.Background>
 					<SolidColorBrush Color="#000000" Opacity="0.4" />
 				</TextBox.Background>
 			</TextBox>
+			<Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Label x:Name="descriptionErrorLabel" Grid.Row="1" VerticalAlignment="Bottom" Foreground="Red"/>
+			</Grid>
 			<ComboBox x:Name="colorOfLabel" Grid.Row="2" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding Path=color, UpdateSourceTrigger=PropertyChanged}">
 				<ComboBoxItem Content="Blue"/>
 				<ComboBoxItem Content="Red"/>

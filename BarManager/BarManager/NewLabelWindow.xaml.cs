@@ -46,6 +46,15 @@ namespace BarManager {
 			set {
 				if(value != _description) {
 					_description = value;
+					if(idOfLabelTextBox.Text.Length == 0 || string.IsNullOrEmpty(value))
+						addLabel.IsEnabled = false;
+					else
+						addLabel.IsEnabled = true;
+
+					if(string.IsNullOrEmpty(value))
+						descriptionErrorLabel.Content = "Description is required";
+					else
+						descriptionErrorLabel.Content = "";
 					OnPropertyChanged("description");
 				}
 			}
@@ -85,7 +94,7 @@ namespace BarManager {
 
 		private void IdOfLabelTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) {
 			idOfLabelTextBox.Text = Regex.Replace(idOfLabelTextBox.Text, "[^0-9]+", "");
-			if(idOfLabelTextBox.Text.Length == 0)
+			if(idOfLabelTextBox.Text.Length == 0 || string.IsNullOrEmpty(description))
 				addLabel.IsEnabled = false;
 			else
 				addLabel.IsEnabled = true;
