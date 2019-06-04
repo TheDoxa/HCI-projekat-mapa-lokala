@@ -1,1 +1,2 @@
-1|Blue|asd
+1|Orange|Good atmosphere
+2|Black|Boring

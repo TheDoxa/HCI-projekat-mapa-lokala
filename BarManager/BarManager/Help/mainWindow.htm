@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MainWindow</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        .mainPicture {
+            width: 800px;
+            height: 350px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="mainWindow.htm">Main window</a></li>
+        <li><a href="viewWindow.htm">View window</a></li>
+        <li><a href="newBarWindow.htm">Bars</a></li>
+        <li><a href="newTypeWindow.htm">Bar type</a></li>
+        <li><a href="newLabelWindow.htm">Bar label</a></li>
+    </ul>
+    
+    <h1>Main window</h1>
+    <div style="margin-left:30px">
+        <img src="../../../Images/HelpMainWindow.jpg" class="mainPicture" />
+        <p>1. Help - open help window. </p>
+        <p>
+            2. Bar list - display all bars. Bars from this list can be moved and shown on map.
+        </p>
+        <p>
+            3. Filter - open new dialog for setting filter criteria. After applying criteria, map will refresh.
+        </p>
+        <img src="../../../Images/filterWindow.png" height="350px" width="550px" />
+        <p>
+            4. Search - enter text in field (which refers to the description or name of bars) and after pressing enter button or click on loop icon, map will refresh.
+        </p>
+        <p>
+            5. Main map - display selected map and all bars dropped on the map. Also, map can be scrolled.
+        </p>
+        <p>
+            6. Display of all maps - display list of all maps in small size. After clicking on one of them, selected one will be positioned on main map.
+        </p>
+    </div>
+    <h1>Shortcuts</h1>
+</body>
+</html>

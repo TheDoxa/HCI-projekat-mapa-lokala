@@ -77,8 +77,8 @@
             <TextBox Grid.Row="0" Grid.Column="5" x:Name="searchInput"  KeyDown="Search_KeyDown" MaxLength="20" Foreground="White" VerticalContentAlignment="Center">
                 <TextBox.ToolTip>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Enter text for search and press button on the right or (Enter).
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="150">
+                                Enter search criteria and press Enter or search button on the right.
                         </TextBlock>
                     </StackPanel>
                 </TextBox.ToolTip>
@@ -90,7 +90,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Search bars represented in table.
+                            Click to apply search criteria
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip>
@@ -113,9 +113,8 @@
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip> Bars
-            Bars
             </Button>
-            <Button Grid.Row="0" Grid.Column="2" Height="30" VerticalAlignment="Top" Click="Button_Click_5" Margin="0,31,0,0" >
+            <Button Grid.Row="0" Grid.Column="2" Height="30" VerticalAlignment="Bottom" Click="Button_Click_5">
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Error</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        active {
+            background-color: #4CAF50;
+        }
+        .mainPicture{
+            width:800px;
+            height: 350px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="rok">
+        <li class="rok"><a href="mainWindow.htm">Main window</a></li>
+        <li class="rok"><a href="viewWindow.htm">View window</a></li>
+        <li class="rok"><a href="newBarWindow.htm">Bars</a></li>
+        <li class="rok"><a href="newTypeWindow.htm">Bar type</a></li>
+        <li class="rok"><a href="newLabelWindow.htm">Bar label</a></li>
+    </ul>
+    <h1>Bar</h1>
+    <p style="margin-left:30px;">
+        Bar contains: Id, Name, Description, Type, Alcohol status, Icon, Handicapped adapted,
+        Smoking allowed, Reservation allowed, Price category, Max capacity, Open date,
+        Labels.
+    </p>
+    <h1>Bar window</h1>
+    <div style="margin-left:30px">
+        <img src="../../../Images/HelpBarWindow.jpg" class="mainPicture" />
+        <p>1. ID - identifier for bar. Must be unique. </p>
+        <p>2. Auto gen - by clicking on this button, program generates the lowest available ID for bar. </p>
+        <p>3. Name - must contain at least 3 letters. </p>
+        <p>4. Add new type - open window for adding new type, after type is added type combobox will add new type in collection. </p>
+        <p>5. Max capacity - capacity value must be between 1 and 2000. </p>
+        <p>6. Choose image - select image from your computer. </p>
+        <p>7. Default image - set image depends on type image. </p>
+        <p>
+            8. add label - select label from available labels collection and after
+            click on 'add label' button, selected label will move from available labels collection
+            to chosen labels collection.
+        </p>
+        <p>
+            9. remove label - select label from chosen labels collection and after
+            click on 'remove label' button, selected label will move from chosen labels collection
+            to available labels collection.
+        </p>
+        <p>
+            10. Add bar - collect all fields, create new bar and save it. Warning dialog will show
+            if entered ID is already in use.
+        </p>
+        <p>11. Cancel - close the form for adding new bar. </p>
+    </div>
+    <h1>Shortcuts</h1>
+
+
+</body>
+</html>

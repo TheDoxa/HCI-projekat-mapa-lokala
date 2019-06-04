@@ -124,22 +124,10 @@
 			</Grid.ColumnDefinitions>
 
             <Button x:Name="addLabel" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Add" Click="AddLabel_Click" Height="30">
-                <Button.ToolTip>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                            Add new label.
-                            </TextBlock>
-                        </StackPanel>
-                    </Button.ToolTip>
+                
                 </Button>
             <Button x:Name="cancelLabel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Cancel" Click="CancelLabel_Click" Height="30">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Cancel adding new label.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
+                
             </Button>
         </Grid>
 	</Grid>

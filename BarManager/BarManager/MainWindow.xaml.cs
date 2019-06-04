@@ -659,5 +659,10 @@ namespace BarManager {
 		private void PasteCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
 
 		}
-	}
+
+        private void HelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HelpProvider.ShowHelp(this);
+        }
+    }
 }

@@ -32,7 +32,9 @@
                     <MenuItem x:Name="addTypeItem" Header="Add type" Command="cmd:RoutedCommands.AddType"/>
                     <MenuItem x:Name="addLabelItem" Header="Add label" Command="cmd:RoutedCommands.AddLabel"/>
                     <MenuItem x:Name="allBarsTable" Header="All bars" Command="cmd:RoutedCommands.BarsView"/>
+                    
                 </MenuItem>
+                <MenuItem x:Name="helpBtn" Header="Help" Click="HelpBtn_Click"/>
             </Menu>
             <Grid DockPanel.Dock="Bottom">
                 <Grid.Resources>
@@ -67,8 +69,8 @@
                         <TextBox x:Name="searchInput" MaxLength="20" Height="20" Width="150" KeyDown="Search_KeyDown" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
                             <TextBox.ToolTip>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Enter text for search and press button on the right or (Enter).
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="150">
+                                        Enter search criteria and press Enter or search button on the right.
                                     </TextBlock>
                                 </StackPanel>
                             </TextBox.ToolTip>
@@ -80,7 +82,7 @@
                             <Button.ToolTip>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                                    Button for searching on the map.
+                                        Click to apply search criteria
                                     </TextBlock>
                                 </StackPanel>
                             </Button.ToolTip>
@@ -101,7 +103,7 @@
                         <ListView.ToolTip>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                            List of all pubs you can drag on the map.
+                            List of all bars you can drag on the map.
                                 </TextBlock>
                             </StackPanel>
                         </ListView.ToolTip>
@@ -120,6 +122,13 @@
                         </ListView.View>
                     </ListView>
                     <ScrollViewer Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="15,10,15,20" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                        <ScrollViewer.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                    Currently selected map
+                                </TextBlock>
+                            </StackPanel>
+                        </ScrollViewer.ToolTip>
                         <StackPanel>
                             <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -128,10 +137,42 @@
                         </StackPanel>
                     </ScrollViewer>
                     <StackPanel Orientation="Vertical" Grid.Column="2">
-                        <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
-                        <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
-                        <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
-                        <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+                        <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120">
+                            <Image.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                        Map of Novi Sad
+                                    </TextBlock>
+                                </StackPanel>
+                            </Image.ToolTip>
+                        </Image>
+                        <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120">
+                            <Image.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                            Map of Belgrade
+                                    </TextBlock>
+                                </StackPanel>
+                            </Image.ToolTip>
+                        </Image>
+                        <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120">
+                            <Image.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                            Map of Sabac
+                                    </TextBlock>
+                                </StackPanel>
+                            </Image.ToolTip>
+                        </Image>
+                        <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120">
+                        <Image.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                        Map of Subotica
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                        </Image>
                     </StackPanel>
                 </Grid>
             </Grid>

@@ -299,7 +299,7 @@ namespace BarManager
                     }
                     if (NoSmoking && !(b.SmokingAllowed))
                     {
-                        temp2.Add(b);
+                        temp.Add(b);
                     }
                 }
                 temp2 = new ObservableCollection<Bar>();
@@ -497,7 +497,7 @@ namespace BarManager
                     }
                     if (NoSmoking && !(b.SmokingAllowed))
                     {
-                        temp2.Add(b);
+                        temp.Add(b);
                     }
                 }
                 temp2 = new ObservableCollection<Bar>();
@@ -710,7 +710,7 @@ namespace BarManager
                     }
                     if (NoSmoking && !(b.SmokingAllowed))
                     {
-                        temp2.Add(b);
+                        temp.Add(b);
                     }
                 }
                 temp2 = new ObservableCollection<Bar>();
@@ -923,7 +923,7 @@ namespace BarManager
                     }
                     if (NoSmoking && !(b.SmokingAllowed))
                     {
-                        temp2.Add(b);
+                        temp.Add(b);
                     }
                 }
                 temp2 = new ObservableCollection<Bar>();
@@ -1136,7 +1136,7 @@ namespace BarManager
                     }
                     if (NoSmoking && !(b.SmokingAllowed))
                     {
-                        temp2.Add(b);
+                        temp.Add(b);
                     }
                 }
                 temp2 = new ObservableCollection<Bar>();

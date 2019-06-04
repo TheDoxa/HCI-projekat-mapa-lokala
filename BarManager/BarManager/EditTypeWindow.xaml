@@ -109,22 +109,10 @@
 			</Grid.ColumnDefinitions>
 
             <Button x:Name="update" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Update" Click="Update_Click">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Save changes.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
+                
             </Button>
             <Button x:Name="cancel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Cancel" Click="Cancel_Click">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Cancel changes.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
+                
             </Button>
         </Grid>
 	</Grid>

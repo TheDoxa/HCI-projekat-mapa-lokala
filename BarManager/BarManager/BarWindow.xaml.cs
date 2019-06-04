@@ -360,7 +360,7 @@ namespace BarManager
 
             AlcoholStatusCollection = new ObservableCollection<string>()
             {
-                "Don't server",
+                "Don't serve",
                 "Serves up to 23h",
                 "Full serve"
             };
@@ -420,7 +420,7 @@ namespace BarManager
 
             AlcoholStatusCollection = new ObservableCollection<string>()
             {
-                "Don't server",
+                "Don't serve",
                 "Serves up to 23h",
                 "Full serve"
             };

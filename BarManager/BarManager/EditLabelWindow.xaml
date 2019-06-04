@@ -88,22 +88,10 @@
 			</Grid.ColumnDefinitions>
 
             <Button x:Name="updateLabel" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Update" Height="30" Click="UpdateLabel_Click">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Save changes.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
+                
             </Button>
             <Button x:Name="cancelLabel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Cancel" Height="30" Click="CancelLabel_Click">
-                <Button.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Cancel saving changes.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
+                
             </Button>
         </Grid>
 	</Grid>

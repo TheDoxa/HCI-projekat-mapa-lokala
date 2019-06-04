@@ -92,8 +92,8 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Opened since" Foreground="White" FontSize="13" VerticalAlignment="Center"></TextBlock>
-            <DatePicker Grid.Row="0" Grid.Column="2" x:Name="OpenDate" HorizontalAlignment="Left" VerticalAlignment="Center" FirstDayOfWeek="Monday" BorderBrush="#EFB39D"
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Opened since:" Foreground="White" FontSize="13" VerticalAlignment="Center"></TextBlock>
+            <DatePicker Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,0,0" x:Name="OpenDate" HorizontalAlignment="Left" VerticalAlignment="Center" FirstDayOfWeek="Monday" BorderBrush="#EFB39D"
                                 SelectedDateChanged="OpenDate_SelectedDateChanged" FontSize="10">
             </DatePicker>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Alcohol:" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
@@ -128,10 +128,17 @@
             <TextBlock Grid.Row="5" Grid.Column="3" Text="No " Foreground="White" FontSize="11" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <CheckBox Grid.Row="5" Grid.Column="4" x:Name="ReservationsNo" Height="15" Width="27" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Min capacity:" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="6" Grid.Column="2" x:Name="barCapacity" Foreground="White" Height="15px" Width="50px" HorizontalAlignment="Left" VerticalAlignment="Center" MaxLength="6" TextChanged="BarCapacity_TextChanged">
+            <TextBox Grid.Row="6" Grid.Column="2" x:Name="barCapacity" Foreground="White" Height="20px" Width="50px" HorizontalAlignment="Left" VerticalAlignment="Center" MaxLength="6" TextChanged="BarCapacity_TextChanged">
                 <TextBox.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </TextBox.Background>
+                <TextBox.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Enter value between 1 and 2000.
+                        </TextBlock>
+                    </StackPanel>
+                </TextBox.ToolTip>
                 <TextBox.Text>
                     <Binding Path="MaxCapacity" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
