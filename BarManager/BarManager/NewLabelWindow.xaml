@@ -79,9 +79,17 @@
 					</ControlTemplate>
 				</Validation.ErrorTemplate>
 			</TextBox>
-			<Button x:Name="autoIDOfLabel" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,15,0,15" Content="Auto generate" Click="AutoIDOfLabel_Click" Padding="5,5,5,5" Height="30"/>
+            <Button x:Name="autoIDOfLabel" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,15,0,15" Content="Auto generate" Click="AutoIDOfLabel_Click" Padding="5,5,5,5" Height="30">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Auto generate first available ID.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
 
-			<TextBox x:Name="descriptionOfLabelTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,20">
+            <TextBox x:Name="descriptionOfLabelTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{ Binding Path=description, UpdateSourceTrigger=PropertyChanged }" Margin="0,20">
 				<TextBox.Background>
 					<SolidColorBrush Color="#000000" Opacity="0.4" />
 				</TextBox.Background>
@@ -115,8 +123,24 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Button x:Name="addLabel" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Add" Click="AddLabel_Click" Height="30"/>
-			<Button x:Name="cancelLabel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Cancel" Click="CancelLabel_Click" Height="30"/>
-		</Grid>
+            <Button x:Name="addLabel" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Add" Click="AddLabel_Click" Height="30">
+                <Button.ToolTip>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Add new label.
+                            </TextBlock>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+            <Button x:Name="cancelLabel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Content="Cancel" Click="CancelLabel_Click" Height="30">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Cancel adding new label.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
 	</Grid>
 </Window>

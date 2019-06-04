@@ -181,6 +181,10 @@
     <Resource Include="Resources\bars.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\newTypeWindow.PNG" />
+    <Resource Include="Images\right.jpg" />
+    <Resource Include="Images\filterWindow.PNG" />
+    <Resource Include="Images\left.png" />
     <Content Include="Images\map1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

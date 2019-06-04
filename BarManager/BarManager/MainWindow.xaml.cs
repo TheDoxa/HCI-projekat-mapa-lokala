@@ -392,7 +392,20 @@ namespace BarManager {
 			fw.Show();
 		}
 
-		private void SearchBtn_Click(object sender, RoutedEventArgs e) {
+        private void Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+            string searchText = searchInput.Text.ToLower();
+            string[] tokens = searchText.Split(' ');
+
+            searchMap1(searchText, tokens);
+            searchMap2(searchText, tokens);
+            searchMap3(searchText, tokens);
+            searchMap4(searchText, tokens);
+        }
+
+            private void SearchBtn_Click(object sender, RoutedEventArgs e) {
 			string searchText = searchInput.Text.ToLower();
 			string[] tokens = searchText.Split(' ');
 

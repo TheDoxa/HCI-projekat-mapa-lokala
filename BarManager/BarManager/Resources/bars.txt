@@ -1,1 +1,1 @@
-1|Pub||1|Don't server|E:\SW\HCI\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\coffee.png|0|0|0|Low prices|1|04/06/2019|1
+1|Pubd||1|Don't server|E:\SW\HCI\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\coffee.png|0|0|0|Low prices|1|04/06/2019|1

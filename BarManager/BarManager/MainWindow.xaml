@@ -54,14 +54,36 @@
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="4" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
+                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="4" Click="FilterBtn_Click" Height="20" Width="60">
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Image Margin="5" Source="Images/filterWindow.png" MaxHeight="200" MaxWidth="200"></Image>
+                                <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Filtering bars on the map
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip> Filter</Button>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,10,0">
-                        <TextBox x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
+                        <TextBox x:Name="searchInput" MaxLength="20" Height="20" Width="150" KeyDown="Search_KeyDown" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
+                            <TextBox.ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Enter text for search and press button on the right or (Enter).
+                                    </TextBlock>
+                                </StackPanel>
+                            </TextBox.ToolTip>
                             <TextBox.Background>
                                 <SolidColorBrush Color="#000000" Opacity="0.4" />
                             </TextBox.Background>
                         </TextBox>
                         <Button Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Right">
+                            <Button.ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                                    Button for searching on the map.
+                                    </TextBlock>
+                                </StackPanel>
+                            </Button.ToolTip>
                             <Image Source="Images/search.png" />
                         </Button>
                     </StackPanel>
@@ -76,6 +98,13 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <ListView Name="BarList" Grid.Column="0" Grid.Row="0" Foreground="White"  ItemsSource="{Binding Source={StaticResource util}, Path=Bars}" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="330px" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+                        <ListView.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            List of all pubs you can drag on the map.
+                                </TextBlock>
+                            </StackPanel>
+                        </ListView.ToolTip>
                         <ListView.Background>
                             <SolidColorBrush Color="#000000" Opacity="0.4" />
                         </ListView.Background>

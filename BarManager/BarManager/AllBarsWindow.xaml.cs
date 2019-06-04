@@ -106,67 +106,19 @@ namespace BarManager
             this.DataContext = this;
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
+        private void Search_KeyDown(object sender, KeyEventArgs e)
         {
-            ObservableCollection<Bar> pomocna = new ObservableCollection<Bar>();
+            if (e.Key != Key.Enter)
+                return;
+
             string searchText = searchInput.Text.ToLower();
-            string[] tokens = searchText.Split(' ');
-            foreach (Bar b in Util.Util.Bars)
-            {
-                if (b.Name.ToLower().Contains(searchText))
-                {
-                    pomocna.Add(b);
-                }
-                else if (b.Description.ToLower().Contains(searchText))
-                {
-                    pomocna.Add(b);
-                }
-                else if (b.Type.Name.ToLower().Contains(searchText))
-                {
-                    pomocna.Add(b);
-                }
-                else if (b.AlcStatus.ToLower().Contains(searchText))
-                {
-                    pomocna.Add(b);
-                }
-                else
-                {
-                    foreach (string t in tokens)
-                    {
-                        if (b.Name.ToLower().Contains(t))
-                        {
-                            pomocna.Add(b);
-                            break;
-                        }
-                        else if (b.Description.ToLower().Contains(t))
-                        {
-                            pomocna.Add(b);
-                            break;
-                        }
-                        else if (b.Type.Name.ToLower().Contains(t))
-                        {
-                            pomocna.Add(b);
-                            break;
-                        }
-                        else if (b.AlcStatus.ToLower().Contains(searchText))
-                        {
-                            pomocna.Add(b);
-                        }
-                        else
-                        {
-                            foreach (BarLabel bl in b.Labels)
-                            {
-                                if (bl.Description.ToLower().Contains(t))
-                                {
-                                    pomocna.Add(b);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            barTble.ItemsSource = pomocna;
+            SearchFun(searchText);
+        }
+
+            private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = searchInput.Text.ToLower();
+            SearchFun(searchText);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -299,6 +251,68 @@ namespace BarManager
                 NewLabelWindow labelD = new NewLabelWindow();
                 labelD.Show();
             }
+        }
+
+        private void SearchFun(string searchText)
+        {
+            ObservableCollection<Bar> pomocna = new ObservableCollection<Bar>();
+            string[] tokens = searchText.Split(' ');
+            foreach (Bar b in Util.Util.Bars)
+            {
+                if (b.Name.ToLower().Contains(searchText))
+                {
+                    pomocna.Add(b);
+                }
+                else if (b.Description.ToLower().Contains(searchText))
+                {
+                    pomocna.Add(b);
+                }
+                else if (b.Type.Name.ToLower().Contains(searchText))
+                {
+                    pomocna.Add(b);
+                }
+                else if (b.AlcStatus.ToLower().Contains(searchText))
+                {
+                    pomocna.Add(b);
+                }
+                else
+                {
+                    foreach (string t in tokens)
+                    {
+                        if (b.Name.ToLower().Contains(t))
+                        {
+                            pomocna.Add(b);
+                            break;
+                        }
+                        else if (b.Description.ToLower().Contains(t))
+                        {
+                            pomocna.Add(b);
+                            break;
+                        }
+                        else if (b.Type.Name.ToLower().Contains(t))
+                        {
+                            pomocna.Add(b);
+                            break;
+                        }
+                        else if (b.AlcStatus.ToLower().Contains(searchText))
+                        {
+                            pomocna.Add(b);
+                        }
+                        else
+                        {
+                            foreach (BarLabel bl in b.Labels)
+                            {
+                                if (bl.Description.ToLower().Contains(t))
+                                {
+                                    pomocna.Add(b);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            barTble.ItemsSource = pomocna;
         }
     }
 }

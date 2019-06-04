@@ -93,7 +93,14 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <Button x:Name="autoIncBarIDBtn" Grid.Column="3" Height="20px" Width="60px" Grid.Row="0" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AutoIncBarIDBtn_Click">Auto gen</Button>
+            <Button x:Name="autoIncBarIDBtn" Grid.Column="3" Height="20px" Width="60px" Grid.Row="0" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AutoIncBarIDBtn_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Auto generate first available ID.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Auto gen</Button>
             <TextBox x:Name="barName" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" MaxLength="45" Height="20px" VerticalAlignment="Center" TextChanged="BarName_TextChanged" >
                 <TextBox.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
@@ -122,7 +129,15 @@
                 </Validation.ErrorTemplate>
             </TextBox>
             <ComboBox x:Name="barType" ItemsSource="{Binding Source={StaticResource util}, Path=BarTypes}" SelectedItem="{Binding SelectedType}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
-            <Button x:Name="addNewTypeFromBarFormBtn" Grid.Column="3" Height="25px" Width="90px" Grid.Row="2" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AddNewTypeFromBarFormBtn_Click">Add new type</Button>
+            <Button x:Name="addNewTypeFromBarFormBtn" Grid.Column="3" Height="25px" Width="90px" Grid.Row="2" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AddNewTypeFromBarFormBtn_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <Image Margin="5" Source="Images/newTypeWindow.PNG" MaxHeight="200" MaxWidth="200"></Image>
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Add new bar type.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Add new type</Button>
             <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="23px" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=SelectedDate, Mode=TwoWay}"></DatePicker>
             <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" SelectedItem="{Binding AlcoholStatus}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>
             <ComboBox x:Name="barPriceStatus" ItemsSource="{Binding PriceStatusCollection}" SelectedItem="{Binding PriceStatus}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="5" Grid.Column="1" SelectedIndex="0"></ComboBox>
@@ -130,8 +145,22 @@
             <Border BorderThickness="1" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2" BorderBrush="#FF000000" Width="250" Height="150">
                 <Image x:Name="barTypeImage" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" Source ="{Binding ImageSource}" Width="250" Height="150" Grid.ColumnSpan="2" Stretch="Fill" />
             </Border>
-            <Button x:Name="chooseBarImage" Grid.Column="4" Grid.Row="5" Click="ChooseBarImage_Click">Choose image</Button>
-            <Button x:Name="returnDefaultImage" Grid.Column="5" Grid.Row="5" Click="ReturnDefaultImage_Click">Default image</Button>
+            <Button x:Name="chooseBarImage" Grid.Column="4" Grid.Row="5" Click="ChooseBarImage_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Choose image with .png or .jpg extension.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Choose image</Button>
+            <Button x:Name="returnDefaultImage" Grid.Column="5" Grid.Row="5" Click="ReturnDefaultImage_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Set default image from selected type.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Default image</Button>
 
             <Label x:Name="barCapacityLbl" Foreground="White" Grid.Row="0" Grid.Column="6" >Max capacity:</Label>
             <Label x:Name="barHandicappedLbl" Foreground="White" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center">Handicapped:</Label>
@@ -199,8 +228,25 @@
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
                 </ListView.Background>
             </ListView>
-            <Button x:Name="addlabelBtn" Grid.Row="2" Grid.Column="2" Click="AddlabelBtn_Click" >add label</Button>
-            <Button x:Name="removeLabelBtn" Grid.Row="4" Grid.Column="2" Click="RemoveLabelBtn_Click" >remove label</Button>
+            <Button x:Name="addlabelBtn" Grid.Row="2" Grid.Column="2" Click="AddlabelBtn_Click" >
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <Image Margin="5" Source="Images/right.jpg" MaxHeight="70" MaxWidth="110"></Image>
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Add label to your bar (move it right).
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> add label</Button>
+            <Button x:Name="removeLabelBtn" Grid.Row="4" Grid.Column="2" Click="RemoveLabelBtn_Click" >remove label
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <Image Margin="5" Source="Images/left.png" MaxHeight="70" MaxWidth="110"></Image>
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Remove label from your bar (move it left)
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
             <ListView x:Name="chosenLabelsList"  Foreground="White" Grid.Row="1" Grid.Column="3" Grid.RowSpan="6" ItemsSource="{Binding ChosenLabels}">
                 <ListView.Background>
                     <SolidColorBrush Color="#000000" Opacity="0.4" />
@@ -216,8 +262,22 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="addNewBarBtn" Grid.Column="1" Height="25px" Click="AddNewBarBtn_Click">Add bar</Button>
-            <Button x:Name="cancelNewBarBtn" Grid.Column="3" Height="25px" Click="CancelNewBarBtn_Click">Cancel</Button>
+            <Button x:Name="addNewBarBtn" Grid.Column="1" Height="25px" Click="AddNewBarBtn_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Add new bar or save changes.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Add bar</Button>
+            <Button x:Name="cancelNewBarBtn" Grid.Column="3" Height="25px" Click="CancelNewBarBtn_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Cancel adding new bar.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip> Cancel</Button>
 
         </Grid>
     </Grid>

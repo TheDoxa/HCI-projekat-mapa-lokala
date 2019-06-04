@@ -78,9 +78,16 @@
 					</ControlTemplate>
 				</Validation.ErrorTemplate>
 			</TextBox>
-			<Button x:Name="autoID" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,15,0,15" Content="Auto generate" Click="AutoID_Click" Padding="5,5,5,5" Height="30"/>
-
-			<TextBox x:Name="nameTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=name, UpdateSourceTrigger=PropertyChanged}">
+            <Button x:Name="autoID" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,15,0,15" Content="Auto generate" Click="AutoID_Click" Padding="5,5,5,5" Height="30">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Auto generate first available ID.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+            <TextBox x:Name="nameTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=name, UpdateSourceTrigger=PropertyChanged}">
 				<TextBox.Background>
 					<SolidColorBrush Color="#000000" Opacity="0.4" />
 				</TextBox.Background>
@@ -114,8 +121,16 @@
 					<Image x:Name="icon" Grid.Row="1" Source="{Binding Path=iconPath}"/>
 				</Border>
 				<Label x:Name="iconErrorLabel" Grid.Row="2" Foreground="Red" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Image is required"/>
-				<Button x:Name="browse" Grid.Row="3" Height="30" Content="Choose image" Click="Browse_Click" Margin="10,0"/>
-			</Grid>
+                <Button x:Name="browse" Grid.Row="3" Height="30" Content="Choose image" Click="Browse_Click" Margin="10,0">
+                    <Button.ToolTip>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                            Choose image with .png or .jpg extension.
+                            </TextBlock>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
 		</Grid>
 
 		<Grid Grid.Row="1">
@@ -129,8 +144,24 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Button x:Name="add" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Add" Click="Add_Click" IsEnabled="False"/>
-			<Button x:Name="cancel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Cancel" Click="Cancel_Click"/>
-		</Grid>
+			<Button x:Name="add" Grid.Column="1" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Add" Click="Add_Click" IsEnabled="False">
+                    <Button.ToolTip>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Add new type.
+                            </TextBlock>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+                <Button x:Name="cancel" Grid.Column="4" Grid.ColumnSpan="2" Padding="20,5,20,5" Height="30" Content="Cancel" Click="Cancel_Click">
+                <Button.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
+                        Cancel adding new type.
+                        </TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
 	</Grid>
 </Window>
