@@ -253,7 +253,7 @@ namespace BarManager {
 				droppedBar = droppedBarView.GetBar();
 
             var onMap = CheckIfBarIsAlreadyOnMap(droppedBar);
-            if (onMap != null)
+            if (onMap != null && droppedBarView != null)
             {
                 Canvas parentCanvas = (Canvas)droppedBarView.Parent;
                 parentCanvas.Children.Remove(droppedBarView);
@@ -635,5 +635,37 @@ namespace BarManager {
 		private void EscapeCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
 			Close();
 		}
+
+        private void SwitchBelgrade_Click(object sender, RoutedEventArgs e)
+        {
+            BarCanvas1.Visibility = Visibility.Collapsed;
+            BarCanvas2.Visibility = Visibility.Visible;
+            BarCanvas3.Visibility = Visibility.Collapsed;
+            BarCanvas4.Visibility = Visibility.Collapsed;
+        }
+
+        private void SwitchNoviSad_Click(object sender, RoutedEventArgs e)
+        {
+            BarCanvas1.Visibility = Visibility.Visible;
+            BarCanvas2.Visibility = Visibility.Collapsed;
+            BarCanvas3.Visibility = Visibility.Collapsed;
+            BarCanvas4.Visibility = Visibility.Collapsed;
+        }
+
+        private void SwitchSabac_Click(object sender, RoutedEventArgs e)
+        {
+            BarCanvas1.Visibility = Visibility.Collapsed;
+            BarCanvas2.Visibility = Visibility.Collapsed;
+            BarCanvas3.Visibility = Visibility.Visible;
+            BarCanvas4.Visibility = Visibility.Collapsed;
+        }
+
+        private void SwitchSubotica_Click(object sender, RoutedEventArgs e)
+        {
+            BarCanvas1.Visibility = Visibility.Collapsed;
+            BarCanvas2.Visibility = Visibility.Collapsed;
+            BarCanvas3.Visibility = Visibility.Collapsed;
+            BarCanvas4.Visibility = Visibility.Visible;
+        }
     }
 }

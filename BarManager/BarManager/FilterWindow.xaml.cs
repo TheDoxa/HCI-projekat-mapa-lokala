@@ -756,7 +756,7 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
-            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            foreach (BarView bw in mainWindow.BarsFromMap2.Values)
             {
                 bool showBarView = false;
 
@@ -969,7 +969,7 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
-            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            foreach (BarView bw in mainWindow.BarsFromMap3.Values)
             {
                 bool showBarView = false;
 
@@ -1182,7 +1182,7 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
-            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            foreach (BarView bw in mainWindow.BarsFromMap4.Values)
             {
                 bool showBarView = false;
 

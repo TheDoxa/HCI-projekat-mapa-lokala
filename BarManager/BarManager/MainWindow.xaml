@@ -127,10 +127,42 @@
                             </StackPanel>
                         </ScrollViewer.ToolTip>
                         <StackPanel>
-                            <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <Canvas Name="BarCanvas3" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Canvas.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Switch to map of Belgrade" Click="SwitchBelgrade_Click"/>
+                                        <MenuItem Header="Switch to map of Sabac" Click="SwitchSabac_Click"/>
+                                        <MenuItem Header="Switch to map of Subotica" Click="SwitchSubotica_Click"/>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                            </Canvas>
+                            <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                <Canvas.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Switch to map of Novi Sad" Click="SwitchNoviSad_Click"/>
+                                        <MenuItem Header="Switch to map of Sabac" Click="SwitchSabac_Click"/>
+                                        <MenuItem Header="Switch to map of Subotica" Click="SwitchSubotica_Click"/>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                            </Canvas>
+                            <Canvas Name="BarCanvas3" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Canvas.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Switch to map of Novi Sad" Click="SwitchNoviSad_Click"/>
+                                        <MenuItem Header="Switch to map of Belgrade" Click="SwitchBelgrade_Click"/>
+                                        <MenuItem Header="Switch to map of Subotica" Click="SwitchSubotica_Click"/>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                            </Canvas>
+                            <Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Canvas.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Switch to map of Novi Sad" Click="SwitchNoviSad_Click"/>
+                                        <MenuItem Header="Switch to map of Belgrade" Click="SwitchBelgrade_Click"/>
+                                        <MenuItem Header="Switch to map of Sabac" Click="SwitchSabac_Click"/>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                            </Canvas>
                         </StackPanel>
                     </ScrollViewer>
                     <StackPanel Orientation="Vertical" Grid.Column="2">
