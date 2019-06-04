@@ -41,9 +41,21 @@ namespace BarManager
                 ch = new JavaScriptControlHelper((MainWindow)ParentWindow);
                 key = "mainWindow";
             }
-            else
+			else if(ParentWindow is BarWindow) {
+				ch = new JavaScriptControlHelper((BarWindow)ParentWindow);
+				key = "newBarWindow";
+			} else if(ParentWindow is NewTypeWindow) {
+				ch = new JavaScriptControlHelper((NewTypeWindow)ParentWindow);
+				key = "newTypeWindow";
+			} else if(ParentWindow is NewLabelWindow) {
+				ch = new JavaScriptControlHelper((NewLabelWindow)ParentWindow);
+				key = "newLabelWindow";
+			} else if(ParentWindow is AllBarsWindow) {
+				ch = new JavaScriptControlHelper((AllBarsWindow)ParentWindow);
+				key = "viewWindow";
+			} else
             {
-                key = "error";
+				key = "newTypeWindow";
             }
 
             string path = String.Format(@"{0}/Help/{1}.htm", currentDirectory, key);

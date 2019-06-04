@@ -586,7 +586,7 @@ namespace BarManager {
 		}
 
 		private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-
+			HelpProvider.ShowHelp(this);
 		}
 
 		private void AddBarCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -595,7 +595,7 @@ namespace BarManager {
 
 		private void AddBarCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
 			if(Util.Util.BarTypes.Count > 0) {
-				BarWindow barWindow = new BarWindow(false, null);
+				BarWindow barWindow = new BarWindow(false, null, null);
 				barWindow.Show();
 			} else
 				System.Windows.Forms.MessageBox.Show("You need at least one type of bar to add new bar.", "Warning", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
@@ -606,7 +606,7 @@ namespace BarManager {
 		}
 
 		private void AddTypeCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-			NewTypeWindow newTypeWindow = new NewTypeWindow();
+			NewTypeWindow newTypeWindow = new NewTypeWindow(false);
 			newTypeWindow.Show();
 		}
 
@@ -615,7 +615,7 @@ namespace BarManager {
 		}
 
 		private void AddLabelCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-			NewLabelWindow newLabelWindow = new NewLabelWindow();
+			NewLabelWindow newLabelWindow = new NewLabelWindow(false);
 			newLabelWindow.Show();
 		}
 
@@ -628,41 +628,12 @@ namespace BarManager {
 			allBarsWindow.Show();
 		}
 
-		private void TypesViewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+		private void EscapeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
 			e.CanExecute = true;
 		}
 
-		private void TypesViewCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-
+		private void EscapeCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+			Close();
 		}
-
-		private void LabelsViewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-			e.CanExecute = true;
-		}
-
-		private void LabelsViewCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-
-		}
-
-		private void CopyCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-			e.CanExecute = true;
-		}
-
-		private void CopyCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-
-		}
-
-		private void PasteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-			e.CanExecute = true;
-		}
-
-		private void PasteCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-
-		}
-
-        private void HelpBtn_Click(object sender, RoutedEventArgs e)
-        {
-            HelpProvider.ShowHelp(this);
-        }
     }
 }

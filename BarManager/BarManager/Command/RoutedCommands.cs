@@ -42,28 +42,12 @@ namespace BarManager.Command {
 				new KeyGesture(Key.F5)
 			});
 
-		public static readonly RoutedUICommand TypesView = new RoutedUICommand(
-			"Types view",
-			"TypesView",
-			typeof(RoutedCommands),
-			new InputGestureCollection() {
-				new KeyGesture(Key.F6)
-			});
-
-		public static readonly RoutedUICommand LabelsView = new RoutedUICommand(
-			"Labels view",
-			"LabelsView",
-			typeof(RoutedCommands),
-			new InputGestureCollection() {
-				new KeyGesture(Key.F7)
-			});
-
 		public static readonly RoutedUICommand Edit = new RoutedUICommand(
 			"Edit",
 			"Edit",
 			typeof(RoutedCommands),
 			new InputGestureCollection() {
-				new KeyGesture(Key.F8)
+				new KeyGesture(Key.F6)
 			});
 
 		public static readonly RoutedUICommand Delete = new RoutedUICommand(
@@ -71,23 +55,23 @@ namespace BarManager.Command {
 			"Delete",
 			typeof(RoutedCommands),
 			new InputGestureCollection() {
-				new KeyGesture(Key.F9)
+				new KeyGesture(Key.F7)
 			});
 
-		public static readonly RoutedUICommand Copy = new RoutedUICommand(
-			"Copy",
-			"Copy",
+		public static readonly RoutedUICommand Escape = new RoutedUICommand(
+			"Escape",
+			"Escape",
 			typeof(RoutedCommands),
 			new InputGestureCollection() {
-				new KeyGesture(Key.C, ModifierKeys.Control)
+				new KeyGesture(Key.Escape)
 			});
 
-		public static readonly RoutedUICommand Paste = new RoutedUICommand(
-			"Paste",
-			"Paste",
+		public static readonly RoutedUICommand Enter = new RoutedUICommand(
+			"Enter",
+			"Enter",
 			typeof(RoutedCommands),
 			new InputGestureCollection() {
-				new KeyGesture(Key.V, ModifierKeys.Control)
+				new KeyGesture(Key.Enter)
 			});
 	}
 }

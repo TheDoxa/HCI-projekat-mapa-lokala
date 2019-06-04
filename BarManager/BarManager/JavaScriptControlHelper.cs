@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Permissions;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace BarManager
 {
@@ -11,8 +12,8 @@ namespace BarManager
     [ComVisible(true)]
     public class JavaScriptControlHelper
     {
-        MainWindow window;
-        public JavaScriptControlHelper(MainWindow w)
+        Window window;
+        public JavaScriptControlHelper(Window w)
         {
             window = w;
         }

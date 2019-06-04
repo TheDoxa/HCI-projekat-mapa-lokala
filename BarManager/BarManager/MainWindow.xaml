@@ -14,16 +14,13 @@
         <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
     </Window.Background>
     <Window.CommandBindings>
-        <CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
-        <CommandBinding x:Name="addBarCommand" Command="cmd:RoutedCommands.AddBar" CanExecute="AddBarCommand_CanExecute" Executed="AddBarCommand_Executed"/>
-        <CommandBinding x:Name="addTypeCommand" Command="cmd:RoutedCommands.AddType" CanExecute="AddTypeCommand_CanExecute" Executed="AddTypeCommand_Executed"/>
-        <CommandBinding x:Name="addLabelCommand" Command="cmd:RoutedCommands.AddLabel" CanExecute="AddLabelCommand_CanExecute" Executed="AddLabelCommand_Executed"/>
-        <CommandBinding x:Name="barsViewCommand" Command="cmd:RoutedCommands.BarsView" CanExecute="BarsViewCommand_CanExecute" Executed="BarsViewCommand_Executed"/>
-        <CommandBinding x:Name="typesViewCommand" Command="cmd:RoutedCommands.TypesView" CanExecute="TypesViewCommand_CanExecute" Executed="TypesViewCommand_Executed"/>
-        <CommandBinding x:Name="labelsViewCommand" Command="cmd:RoutedCommands.LabelsView" CanExecute="LabelsViewCommand_CanExecute" Executed="LabelsViewCommand_Executed"/>
-        <CommandBinding x:Name="copyCommand" Command="cmd:RoutedCommands.Copy" CanExecute="CopyCommand_CanExecute" Executed="CopyCommand_Executed"/>
-        <CommandBinding x:Name="pasteCommand" Command="cmd:RoutedCommands.Paste" CanExecute="PasteCommand_CanExecute" Executed="PasteCommand_Executed"/>
-    </Window.CommandBindings>
+		<CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
+		<CommandBinding x:Name="addBarCommand" Command="cmd:RoutedCommands.AddBar" CanExecute="AddBarCommand_CanExecute" Executed="AddBarCommand_Executed"/>
+		<CommandBinding x:Name="addTypeCommand" Command="cmd:RoutedCommands.AddType" CanExecute="AddTypeCommand_CanExecute" Executed="AddTypeCommand_Executed"/>
+		<CommandBinding x:Name="addLabelCommand" Command="cmd:RoutedCommands.AddLabel" CanExecute="AddLabelCommand_CanExecute" Executed="AddLabelCommand_Executed"/>
+		<CommandBinding x:Name="barsViewCommand" Command="cmd:RoutedCommands.BarsView" CanExecute="BarsViewCommand_CanExecute" Executed="BarsViewCommand_Executed"/>
+		<CommandBinding x:Name="escapeCommand" Command="cmd:RoutedCommands.Escape" CanExecute="EscapeCommand_CanExecute" Executed="EscapeCommand_Executed"/>
+	</Window.CommandBindings>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -34,7 +31,7 @@
                     <MenuItem x:Name="allBarsTable" Header="All bars" Command="cmd:RoutedCommands.BarsView"/>
                     
                 </MenuItem>
-                <MenuItem x:Name="helpBtn" Header="Help" Click="HelpBtn_Click"/>
+				<MenuItem x:Name="helpBtn" Header="Help" Command="cmd:RoutedCommands.Help"/>
             </Menu>
             <Grid DockPanel.Dock="Bottom">
                 <Grid.Resources>

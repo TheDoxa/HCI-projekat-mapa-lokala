@@ -70,6 +70,19 @@ namespace BarManager
 				OnPropertyChangedStatic();
 			}
 		}
+
+		private static ObservableCollection<Bar> pomocna = new ObservableCollection<Bar>();
+
+		public static ObservableCollection<Bar> Pomocna {
+			get {
+				return pomocna;
+			}
+			set {
+				pomocna = value;
+				OnPropertyChangedStatic();
+			}
+		}
+
 		public AllBarsWindow() {
 			InitializeComponent();
 			this.DataContext = this;
@@ -177,7 +190,7 @@ namespace BarManager
 				editLabelWindow.Show();
 			} else if(barTble.SelectedItem != null) {
 				Bar selectedBar = (Bar)barTble.SelectedItem;
-				BarWindow editBarWindow = new BarWindow(true, selectedBar);
+				BarWindow editBarWindow = new BarWindow(true, selectedBar, this);
 				editBarWindow.Show();
 			}
 
@@ -238,42 +251,38 @@ namespace BarManager
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if(barTble.Visibility == Visibility.Visible)
-            {
-                BarWindow winD = new BarWindow(false, null);
-                winD.Show();
-            }else if (typesTable.Visibility == Visibility.Visible)
-            {
-                NewTypeWindow typeD = new NewTypeWindow();
-                typeD.Show();
-            }else if (labelsTable.Visibility == Visibility.Visible)
-            {
-                NewLabelWindow labelD = new NewLabelWindow();
-                labelD.Show();
-            }
-        }
+			if(barTble.Visibility == Visibility.Visible) {
+				BarWindow winD = new BarWindow(false, null, this);
+				winD.Show();
+			} else if(typesTable.Visibility == Visibility.Visible) {
+				NewTypeWindow typeD = new NewTypeWindow(true);
+				typeD.Show();
+			} else if(labelsTable.Visibility == Visibility.Visible) {
+				NewLabelWindow labelD = new NewLabelWindow(true);
+				labelD.Show();
+			}
+		}
 
         private void SearchFun(string searchText)
         {
-            ObservableCollection<Bar> pomocna = new ObservableCollection<Bar>();
             string[] tokens = searchText.Split(' ');
             foreach (Bar b in Util.Util.Bars)
             {
                 if (b.Name.ToLower().Contains(searchText))
                 {
-                    pomocna.Add(b);
+					Pomocna.Add(b);
                 }
                 else if (b.Description.ToLower().Contains(searchText))
                 {
-                    pomocna.Add(b);
+					Pomocna.Add(b);
                 }
                 else if (b.Type.Name.ToLower().Contains(searchText))
                 {
-                    pomocna.Add(b);
+					Pomocna.Add(b);
                 }
                 else if (b.AlcStatus.ToLower().Contains(searchText))
                 {
-                    pomocna.Add(b);
+					Pomocna.Add(b);
                 }
                 else
                 {
@@ -281,22 +290,22 @@ namespace BarManager
                     {
                         if (b.Name.ToLower().Contains(t))
                         {
-                            pomocna.Add(b);
+							Pomocna.Add(b);
                             break;
                         }
                         else if (b.Description.ToLower().Contains(t))
                         {
-                            pomocna.Add(b);
+							Pomocna.Add(b);
                             break;
                         }
                         else if (b.Type.Name.ToLower().Contains(t))
                         {
-                            pomocna.Add(b);
+							Pomocna.Add(b);
                             break;
                         }
                         else if (b.AlcStatus.ToLower().Contains(searchText))
                         {
-                            pomocna.Add(b);
+							Pomocna.Add(b);
                         }
                         else
                         {
@@ -304,7 +313,7 @@ namespace BarManager
                             {
                                 if (bl.Description.ToLower().Contains(t))
                                 {
-                                    pomocna.Add(b);
+									Pomocna.Add(b);
                                     break;
                                 }
                             }
@@ -312,7 +321,23 @@ namespace BarManager
                     }
                 }
             }
-            barTble.ItemsSource = pomocna;
+            barTble.ItemsSource = Pomocna;
         }
-    }
+
+		private void EscapeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void EscapeCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+			Close();
+		}
+
+		private void HelpCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+			HelpProvider.ShowHelp(this);
+		}
+	}
 }

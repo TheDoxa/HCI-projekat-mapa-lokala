@@ -286,9 +286,10 @@ namespace BarManager
 
         public bool Edit { get; set; }
         public Bar EditBar { get; set; }
-        
 
-        public BarWindow(bool edit, Bar editBar)
+		private AllBarsWindow parent = null;
+
+		public BarWindow(bool edit, Bar editBar, AllBarsWindow parent)
         {
             InitializeComponent();
             Edit = edit;
@@ -307,7 +308,9 @@ namespace BarManager
                 initDatasNewBar();
             }
             this.DataContext = this;
-        }
+
+			this.parent = parent;
+		}
 
         private void CancelNewBarBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -317,26 +320,42 @@ namespace BarManager
         private void AddNewBarBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Edit)
-            {
-                Bar modifiedBar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
-                                MaxCapacity, SelectedDate, ChosenLabels);
-                Util.Util.modifyBar(modifiedBar);
-            }
-            else
-            {
-                Bar bar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
-                                MaxCapacity, SelectedDate, ChosenLabels);
-                bool res = Util.Util.addBar(bar);
-                if (!res)
-                {
-                    System.Windows.Forms.MessageBox.Show("Id already taken!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    return;
-                }
-            }
+			if(Edit) {
+				Bar modifiedBar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
+								MaxCapacity, SelectedDate, ChosenLabels);
+				Util.Util.modifyBar(modifiedBar);
 
-            
-            this.Close();
+				for(int i = 0; i < AllBarsWindow.AllBars.Count; i++) {
+					if(AllBarsWindow.AllBars[i].Id == modifiedBar.Id) {
+						AllBarsWindow.AllBars.RemoveAt(i);
+						AllBarsWindow.AllBars.Add(modifiedBar);
+
+						break;
+					}
+				}
+
+				for(int i = 0; i < AllBarsWindow.Pomocna.Count; i++) {
+					if(AllBarsWindow.Pomocna[i].Id == modifiedBar.Id) {
+						AllBarsWindow.Pomocna.RemoveAt(i);
+						AllBarsWindow.Pomocna.Add(modifiedBar);
+
+						break;
+					}
+				}
+			} else {
+				Bar bar = new Bar(BarID, BarName, Description, SelectedType, AlcoholStatus, ImageSource, Handicapped, Smoking, Reservations, PriceStatus,
+								MaxCapacity, SelectedDate, ChosenLabels);
+				bool res = Util.Util.addBar(bar);
+				if(!res) {
+					System.Windows.Forms.MessageBox.Show("Id already taken!", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+					return;
+				}
+
+				if(parent != null)
+					AllBarsWindow.AllBars.Add(bar);
+			}
+
+			this.Close();
         }
 
         private void BarID_TextChanged(object sender, TextChangedEventArgs e)
@@ -582,8 +601,24 @@ namespace BarManager
 
         private void AddNewTypeFromBarFormBtn_Click(object sender, RoutedEventArgs e)
         {
-			NewTypeWindow newTypeWindow = new NewTypeWindow();
+			NewTypeWindow newTypeWindow = new NewTypeWindow(false);
             newTypeWindow.Show();
         }
-    }
+
+		private void HelpCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void HelpCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			HelpProvider.ShowHelp(this);
+		}
+
+		private void EscapeCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void EscapeCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			Close();
+		}
+	}
 }

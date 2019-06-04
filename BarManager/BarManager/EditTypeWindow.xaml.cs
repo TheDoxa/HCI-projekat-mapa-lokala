@@ -127,5 +127,21 @@ namespace BarManager {
 		private void Cancel_Click(object sender, RoutedEventArgs e) {
 			Close();
 		}
+
+		private void HelpCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void HelpCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			HelpProvider.ShowHelp(this);
+		}
+
+		private void EscapeCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void EscapeCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			Close();
+		}
 	}
 }

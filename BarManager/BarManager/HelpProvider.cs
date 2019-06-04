@@ -26,7 +26,7 @@ namespace BarManager
             //NOOP
         }
 
-        public static void ShowHelp(MainWindow parent)
+        public static void ShowHelp(Window parent)
         {
             HelpWindow helpWindow = new HelpWindow(parent);
             helpWindow.Show();

@@ -3,12 +3,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:cmd="clr-namespace:BarManager.Command"
         mc:Ignorable="d"
         Title="Edit Label" Height="350" Width="500" MinWidth="450" MinHeight="250">
 	<Window.Background>
 		<ImageBrush ImageSource="/Images/barView.jpg" Opacity="0.3"/>
 	</Window.Background>
-
+	<Window.CommandBindings>
+		<CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
+		<CommandBinding x:Name="escapeCommand" Command="cmd:RoutedCommands.Escape" CanExecute="EscapeCommand_CanExecute" Executed="EscapeCommand_Executed"/>
+	</Window.CommandBindings>
 	<Grid>
 		<Grid.Resources>
 			<Style TargetType="{x:Type Label}">

@@ -60,9 +60,13 @@ namespace BarManager {
 			}
 		}
 
-		public NewLabelWindow() {
+		private bool fromAllWindow;
+
+		public NewLabelWindow(bool fromAllWindow) {
 			InitializeComponent();
 			DataContext = this;
+
+			this.fromAllWindow = fromAllWindow;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -111,6 +115,26 @@ namespace BarManager {
 				return;
 			}
 
+			if(fromAllWindow) {
+				AllBarsWindow.AllLabels.Add(label);
+			}
+
+			Close();
+		}
+
+		private void HelpCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void HelpCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			HelpProvider.ShowHelp(this);
+		}
+
+		private void EscapeCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void EscapeCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
 			Close();
 		}
 

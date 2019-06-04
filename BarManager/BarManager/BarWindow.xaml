@@ -6,6 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BarManager.Util"
         xmlns:val="clr-namespace:BarManager.Validation"
+		xmlns:cmd="clr-namespace:BarManager.Command"
         mc:Ignorable="d"
         Title="BarWindow" Height="640" Width="1200">
     <Window.Resources>
@@ -14,6 +15,10 @@
     <Window.Background>
         <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
     </Window.Background>
+	<Window.CommandBindings>
+		<CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
+		<CommandBinding x:Name="escapeCommand" Command="cmd:RoutedCommands.Escape" CanExecute="EscapeCommand_CanExecute" Executed="EscapeCommand_Executed"/>
+	</Window.CommandBindings>
     <Grid Margin="10">
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}">

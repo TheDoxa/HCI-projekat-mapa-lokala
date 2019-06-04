@@ -16,9 +16,13 @@ namespace BarManager {
 		private int _id = 1;
 		private string _name, _description, _iconPath;
 
-		public NewTypeWindow() {
+		private bool fromAllWindow;
+
+		public NewTypeWindow(bool fromAllWindow) {
 			InitializeComponent();
 			DataContext = this;
+
+			this.fromAllWindow = fromAllWindow;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -103,6 +107,9 @@ namespace BarManager {
 				return;
 			}
 
+			if(fromAllWindow)
+				AllBarsWindow.AllTypes.Add(type);
+
 			Close();
 		}
 
@@ -128,6 +135,22 @@ namespace BarManager {
 			}
 
 			idTextBox.Text = "" + nextID;
+		}
+
+		private void HelpCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void HelpCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			HelpProvider.ShowHelp(this);
+		}
+
+		private void EscapeCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+			e.CanExecute = true;
+		}
+
+		private void EscapeCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+			Close();
 		}
 
 		private void Browse_Click(object sender, RoutedEventArgs e) {

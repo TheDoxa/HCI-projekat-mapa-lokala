@@ -8,8 +8,10 @@
         mc:Ignorable="d"
         Title="AllBarsWindow" Height="450" Width="800">
     <Window.CommandBindings>
-        <CommandBinding x:Name="editCommand" Command="cmd:RoutedCommands.Edit" CanExecute="EditCommand_CanExecute" Executed="EditCommand_Executed"/>
+		<CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
+		<CommandBinding x:Name="editCommand" Command="cmd:RoutedCommands.Edit" CanExecute="EditCommand_CanExecute" Executed="EditCommand_Executed"/>
         <CommandBinding x:Name="deleteCommand" Command="cmd:RoutedCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"/>
+		<CommandBinding x:Name="escapeCommand" Command="cmd:RoutedCommands.Escape" CanExecute="EscapeCommand_CanExecute" Executed="EscapeCommand_Executed"/>
     </Window.CommandBindings>
 
     <Window.Background>
@@ -53,7 +55,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Edit selected item (F8).
+                        Edit selected item (F6).
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip>Edit</Button>
@@ -61,7 +63,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Delete selected item (F9).
+                        Delete selected item (F7).
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip>Delete</Button>
@@ -109,7 +111,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Show table of bars (F5).
+                        Show table of bars.
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip> Bars
@@ -118,7 +120,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Show table of types (F6).
+                        Show table of types.
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip> Types</Button>
@@ -126,7 +128,7 @@
                 <Button.ToolTip>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5" TextWrapping="Wrap" MaxWidth="100">
-                        Show table of labels (F7).
+                        Show table of labels.
                         </TextBlock>
                     </StackPanel>
                 </Button.ToolTip> Labels</Button>
