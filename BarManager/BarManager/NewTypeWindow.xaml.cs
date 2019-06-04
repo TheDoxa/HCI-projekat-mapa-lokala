@@ -19,8 +19,6 @@ namespace BarManager {
 		public NewTypeWindow() {
 			InitializeComponent();
 			DataContext = this;
-
-			Util.Util.loadTypes();
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

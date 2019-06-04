@@ -69,20 +69,17 @@ namespace BarManager
         }
 
         private void getData()
-        {            Util.Util.loadTypes();
-
+        {
             foreach (BarType t in Util.Util.BarTypes)
             {
                 TypeCollection.Add(t);
             }
 
-            Util.Util.loadLabels();
             foreach (BarLabel l in Util.Util.BarLabels)
             {
                 AvailableLabels.Add(l);
             }
 
-            Util.Util.loadBars();
 
             foreach (Bar b in Util.Util.Bars)
             {
@@ -120,10 +117,9 @@ namespace BarManager
         private void CheckBoxZoneLabels_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox check = (CheckBox)sender;
-            int labelId = Int32.Parse(check.Content.ToString());
             foreach (BarLabel bl in AvailableLabels)
             {
-                if (bl.Id.Equals(labelId))
+                if (bl.Color == check.Content.ToString())
                 {
                     ChosenLabels.Add(bl);
                     break;
@@ -133,10 +129,9 @@ namespace BarManager
         private void CheckBoxZoneLabels_unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox check = (CheckBox)sender;
-            int labelId = Int32.Parse(check.Content.ToString());
             foreach (BarLabel bl in ChosenLabels)
             {
-                if (bl.Id.Equals(labelId))
+                if (bl.Color == check.Content.ToString())
                 {
                     ChosenLabels.Remove(bl);
                     break;

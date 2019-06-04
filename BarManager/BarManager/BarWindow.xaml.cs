@@ -76,7 +76,7 @@ namespace BarManager
             }
         }
 
-        public string _imageSource = "Images/barView.jpg";
+        public string _imageSource = "";
         public string ImageSource
         {
             get
@@ -374,6 +374,7 @@ namespace BarManager
             ChosenLabels.Clear();
 
             barID.IsEnabled = false;
+            BarID = EditBar.Id;
             autoIncBarIDBtn.Visibility = Visibility.Collapsed;
             BarName = EditBar.Name;
             SelectedType = EditBar.Type;
@@ -428,7 +429,7 @@ namespace BarManager
             {
                 TypeCollection.Add(t);
             }
-            SelectedType = TypeCollection[0];
+            SelectedType = Util.Util.BarTypes[0];
 
             foreach (BarLabel label in Util.Util.BarLabels)
             {
@@ -452,6 +453,10 @@ namespace BarManager
 
         private void BarType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SelectedType == null || SelectedType.IconPath == null)
+            {
+                SelectedType = Util.Util.BarTypes[0];
+            }
             setImageOfSelectedType();
             enableAddBarBtn();
         }
@@ -553,7 +558,10 @@ namespace BarManager
 
         private void enableAddBarBtn()
         {
-            if (barID.Text.Length == 0 || barName.Text.Length < 3 || barCapacity.Text.Length == 0 || Util.Util.BarTypes.Count == 0)
+            if (addNewBarBtn == null)
+                return;
+
+            if (barID.Text.Length == 0 || barName.Text.Length < 3 || barCapacity.Text.Length == 0 || Util.Util.BarTypes.Count == 0 || ImageSource == "")
             {
                 addNewBarBtn.IsEnabled = false;
             }

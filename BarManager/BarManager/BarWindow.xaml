@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:local="clr-namespace:BarManager"
+        xmlns:local="clr-namespace:BarManager.Util"
         xmlns:val="clr-namespace:BarManager.Validation"
         mc:Ignorable="d"
         Title="BarWindow" Height="640" Width="1200">
+    <Window.Resources>
+        <local:Util x:Key="util"/>
+    </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
     </Window.Background>
@@ -106,19 +109,19 @@
                     <ControlTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition />
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="errorTextBoxBarID"/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}"  Foreground="Red"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}"  Foreground="Red"/>
                         </Grid>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ComboBox x:Name="barType" ItemsSource="{Binding TypeCollection}" SelectedItem="{Binding SelectedType}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="barType" ItemsSource="{Binding Source={StaticResource util}, Path=BarTypes}" SelectedItem="{Binding SelectedType}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" SelectedIndex="0" SelectionChanged="BarType_SelectionChanged"></ComboBox>
             <Button x:Name="addNewTypeFromBarFormBtn" Grid.Column="3" Height="25px" Width="90px" Grid.Row="2" Margin="0,0,15,0" HorizontalAlignment="Right" Click="AddNewTypeFromBarFormBtn_Click">Add new type</Button>
             <DatePicker x:Name="barDate" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="23px" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=SelectedDate, Mode=TwoWay}"></DatePicker>
             <ComboBox x:Name="barAlcStatus" ItemsSource="{Binding AlcoholStatusCollection}" SelectedItem="{Binding AlcoholStatus}" Grid.ColumnSpan="3" Foreground="Black" Grid.Row="4" Grid.Column="1" SelectedIndex="0"></ComboBox>

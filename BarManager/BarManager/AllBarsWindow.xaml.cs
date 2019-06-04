@@ -91,9 +91,7 @@ namespace BarManager
 
         private void InitData()
         {
-            Util.Util.loadLabels();
-            Util.Util.loadTypes();
-            Util.Util.loadBars();
+            
 
 			foreach (BarLabel b in Util.Util.BarLabels)
             {
@@ -231,8 +229,13 @@ namespace BarManager
 
 				EditLabelWindow editLabelWindow = new EditLabelWindow(selectedlabel, this);
 				editLabelWindow.Show();
-			}
-		}
+			} else if (barTble.SelectedItem != null)
+            {
+                Bar selectedBar = (Bar)barTble.SelectedItem;
+                BarWindow editBarWindow = new BarWindow(true, selectedBar);
+                editBarWindow.Show();
+            }
+        }
 
 		private void DeleteBtn_Click(object sender, RoutedEventArgs e) {
 			if(typesTable.SelectedItem != null) {
@@ -243,8 +246,12 @@ namespace BarManager
 				BarLabel selectedlabel = (BarLabel)labelsTable.SelectedItem;
 
 				Util.Util.removeLabel(selectedlabel);
-			}
-		}
+			} else if (barTble.SelectedItem != null) {
+                Bar selectedBar = (Bar)barTble.SelectedItem;
+
+                Util.Util.removeBar(selectedBar);
+            }
+        }
 
 		private void EditCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
 			e.CanExecute = typesTable.SelectedItem != null || labelsTable.SelectedItem != null;
@@ -279,5 +286,22 @@ namespace BarManager
 				Util.Util.removeLabel(selectedlabel);
 			}
 		}
-	}
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(barTble.Visibility == Visibility.Visible)
+            {
+                BarWindow winD = new BarWindow(false, null);
+                winD.Show();
+            }else if (typesTable.Visibility == Visibility.Visible)
+            {
+                NewTypeWindow typeD = new NewTypeWindow();
+                typeD.Show();
+            }else if (labelsTable.Visibility == Visibility.Visible)
+            {
+                NewLabelWindow labelD = new NewLabelWindow();
+                labelD.Show();
+            }
+        }
+    }
 }

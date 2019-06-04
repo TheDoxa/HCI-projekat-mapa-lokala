@@ -13,8 +13,6 @@ namespace BarManager {
 		public EditLabelWindow() {
 			InitializeComponent();
 			DataContext = this;
-
-			Util.Util.loadLabels();
 		}
 
 		public EditLabelWindow(BarLabel label, AllBarsWindow parent) : this() {

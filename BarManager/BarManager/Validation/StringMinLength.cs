@@ -14,7 +14,7 @@ namespace BarManager.Validation {
             if (value is string)
             {
                 //Name must contain at least 3 letters!
-                if (value.ToString().Length < Min) return new ValidationResult(false, "");
+                if (value.ToString().Length < Min) return new ValidationResult(false, " Name must contain at least 3 letters!");
                 return new ValidationResult(true, null);
             }
             else

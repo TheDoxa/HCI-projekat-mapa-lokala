@@ -145,9 +145,27 @@ namespace BarManager.Util {
 		}
 
 		public static void removeType(BarType type) {
-			BarTypes.Remove(type);
-			writeTypes();
-		}
+            bool check = true;
+            foreach(Bar b in bars)
+            {
+                if(b.Type.Id == type.Id)
+                {
+                    check = false;
+                    break;
+                }
+            }
+            if (check)
+            {
+                BarTypes.Remove(type);
+                writeTypes();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Type is alredy used in some of bars", "Warning", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+
+            }
+
+        }
 
 		public static void loadLabels() {
 			if(!File.Exists(labelsPath))
@@ -206,9 +224,31 @@ namespace BarManager.Util {
 		}
 
 		public static void removeLabel(BarLabel label) {
-			BarLabels.Remove(label);
-			writeLabels();
-		}
+            bool check = true;
+            foreach(Bar bar in bars)
+            {
+                foreach (BarLabel l in bar.Labels)
+                {
+                    if(l.Id == label.Id)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+            }
+
+            if (check)
+            {
+                BarLabels.Remove(label);
+                writeLabels();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Label is alredy used in some of bars", "Warning", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+
+            }
+
+        }
 
 		public static void loadBars()
         {
@@ -286,7 +326,7 @@ namespace BarManager.Util {
         public static void removeBar(Bar bar)
         {
             Bars.Remove(bar);
-            writeTypes();
+            writeBars();
         }
 
         public static void modifyBar(Bar bar)

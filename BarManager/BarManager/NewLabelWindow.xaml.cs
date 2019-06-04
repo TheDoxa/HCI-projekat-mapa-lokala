@@ -54,8 +54,6 @@ namespace BarManager {
 		public NewLabelWindow() {
 			InitializeComponent();
 			DataContext = this;
-
-			Util.Util.loadLabels();
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

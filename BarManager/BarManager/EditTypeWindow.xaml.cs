@@ -16,8 +16,6 @@ namespace BarManager {
 		public EditTypeWindow() {
 			InitializeComponent();
 			DataContext = this;
-
-			Util.Util.loadTypes();
 		}
 
 		public EditTypeWindow(BarType type, AllBarsWindow parent) : this() {

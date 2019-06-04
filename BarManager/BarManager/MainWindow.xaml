@@ -10,6 +10,9 @@
     <Window.Resources>
         <local:Util x:Key="util"/>
     </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="Images/barView.jpg" Opacity="0.3"/>
+    </Window.Background>
     <Window.CommandBindings>
         <CommandBinding x:Name="helpCommand" Command="cmd:RoutedCommands.Help" CanExecute="HelpCommand_CanExecute" Executed="HelpCommand_Executed"/>
         <CommandBinding x:Name="addBarCommand" Command="cmd:RoutedCommands.AddBar" CanExecute="AddBarCommand_CanExecute" Executed="AddBarCommand_Executed"/>
@@ -31,9 +34,15 @@
                     <MenuItem x:Name="allBarsTable" Header="All bars" Command="cmd:RoutedCommands.BarsView"/>
                 </MenuItem>
             </Menu>
-            <Grid>
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#260C0C" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="9*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -45,25 +54,43 @@
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="1" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
-                        <TextBox.Background>
-                            <SolidColorBrush Color="#000000" Opacity="0.4" />
-                        </TextBox.Background>
-                    </TextBox>
-                    <Button Grid.Row="0" Grid.Column="4" Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Left">
-                        <Image Source="Images/search.png" />
-                    </Button>
+                    <Button Grid.Row="0" Name="FilterBtn" Grid.Column="4" Click="FilterBtn_Click" Height="20" Width="60">Filter</Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <TextBox x:Name="searchInput" MaxLength="20" Height="20" Width="150" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Right">
+                            <TextBox.Background>
+                                <SolidColorBrush Color="#000000" Opacity="0.4" />
+                            </TextBox.Background>
+                        </TextBox>
+                        <Button Name="SearchBtn" Click="SearchBtn_Click" Height="20" Width="20" HorizontalAlignment="Right">
+                            <Image Source="Images/search.png" />
+                        </Button>
+                    </StackPanel>
                 </Grid>
-                <Grid Grid.Row ="1" DockPanel.Dock="Bottom">
-                    <ListView Name="BarList" ItemsSource="{Binding Source={StaticResource util}, Path=Bars}" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="382" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+                <Grid Grid.Row ="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView Name="BarList" Grid.Column="0" Grid.Row="0" Foreground="White"  ItemsSource="{Binding Source={StaticResource util}, Path=Bars}" AllowDrop="True" Drop="BarList_Drop" MouseMove="BarList_MouseMove" HorizontalAlignment="Left" Height="330px" Margin="10,10,0,0" VerticalAlignment="Top" Width="169">
+                        <ListView.Background>
+                            <SolidColorBrush Color="#000000" Opacity="0.4" />
+                        </ListView.Background>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ScrollViewer HorizontalAlignment="Left" Height="382" Margin="200,10,0,0" VerticalAlignment="Top" Width="608" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                    <ScrollViewer Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="15,10,15,20" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
                         <StackPanel>
                             <Canvas Name="BarCanvas1" Width="1280" Height="720" Visibility="Visible" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <Canvas Name="BarCanvas2" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -71,10 +98,12 @@
                             <Canvas Name="BarCanvas4" Width="1280" Height="720" Visibility="Collapsed" AllowDrop="True" Drop="Canvas_Drop" Background="Beige" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         </StackPanel>
                     </ScrollViewer>
-                    <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="824,10,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="824,108,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="824,209,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="824,309,0,0" VerticalAlignment="Top" Width="120"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="2">
+                        <Image Name="Map1" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map1.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+                        <Image Name="Map2" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map2.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+                        <Image Name="Map3" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map3.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+                        <Image Name="Map4" AllowDrop="True" DragEnter="Map_DragEnter" MouseLeftButtonDown="Map_MouseLeftButtonDown" Source="images/map4.png" Stretch="Fill" HorizontalAlignment="Left" Height="83" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </DockPanel>

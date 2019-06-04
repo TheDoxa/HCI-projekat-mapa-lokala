@@ -48,9 +48,9 @@ namespace BarManager.Validation {
 				if(Int32.TryParse(text, out result)) {
 					return new ValidationResult(true, null);
 				}
-				return new ValidationResult(false, "Please enter a valid value.");
+				return new ValidationResult(false, " Please enter a valid value.");
 			} catch {
-				return new ValidationResult(false, "Unknown error occured.");
+				return new ValidationResult(false, " Unknown error occured.");
 			}
 		}
 	}

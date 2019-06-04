@@ -1,1 +1,3 @@
-1|Tip1||C:\Users\VukasinPetrovic\Downloads\srb.jpg
+1|Pub|Beer and just beer|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\label-window-wallpaper.jpg
+2|sdaf|adsf|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\pub.jpg
+3|asdfas|asdf|C:\Users\Doxa\Desktop\HCI GitHub\HCI-projekat-mapa-lokala\BarManager\BarManager\Images\restaurant-wallpaper.jpg
