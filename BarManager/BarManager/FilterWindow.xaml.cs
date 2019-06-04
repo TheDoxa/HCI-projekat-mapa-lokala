@@ -543,6 +543,22 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
+            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            {
+                bool showBarView = false;
+
+                foreach (Bar b in temp)
+                {
+                    if (bw.GetBar().Id == b.Id)
+                    {
+                        showBarView = true;
+                        break;
+                    }
+                }
+
+                if (showBarView) bw.Visibility = Visibility.Visible;
+                else bw.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void FilterMap2()
@@ -740,6 +756,22 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
+            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            {
+                bool showBarView = false;
+
+                foreach (Bar b in temp)
+                {
+                    if (bw.GetBar().Id == b.Id)
+                    {
+                        showBarView = true;
+                        break;
+                    }
+                }
+
+                if (showBarView) bw.Visibility = Visibility.Visible;
+                else bw.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void FilterMap3()
@@ -937,6 +969,22 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
+            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            {
+                bool showBarView = false;
+
+                foreach (Bar b in temp)
+                {
+                    if (bw.GetBar().Id == b.Id)
+                    {
+                        showBarView = true;
+                        break;
+                    }
+                }
+
+                if (showBarView) bw.Visibility = Visibility.Visible;
+                else bw.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void FilterMap4()
@@ -1134,6 +1182,22 @@ namespace BarManager
                 temp2 = new ObservableCollection<Bar>();
             }
 
+            foreach (BarView bw in mainWindow.BarsFromMap1.Values)
+            {
+                bool showBarView = false;
+
+                foreach (Bar b in temp)
+                {
+                    if (bw.GetBar().Id == b.Id)
+                    {
+                        showBarView = true;
+                        break;
+                    }
+                }
+
+                if (showBarView) bw.Visibility = Visibility.Visible;
+                else bw.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OpenDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

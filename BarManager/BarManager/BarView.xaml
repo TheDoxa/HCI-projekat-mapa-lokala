@@ -19,6 +19,6 @@
                 <ImageBrush ImageSource="Images/restaurant.jpg"/>
             </Ellipse.Fill>
         </Ellipse>
-        <Label Name="BarName" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="8" FontWeight="Bold" Width="60" Height="20" VerticalContentAlignment="Top"  HorizontalContentAlignment="Center" />
+        <TextBlock Name="BarName" TextWrapping="Wrap" Text="Jedan dva tri cetiri pet" HorizontalAlignment="Left" TextAlignment="Center" VerticalAlignment="Bottom" FontSize="8" FontWeight="Bold" Width="60" Height="20"/>
     </Grid>
 </UserControl>

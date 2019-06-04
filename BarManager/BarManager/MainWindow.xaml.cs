@@ -400,40 +400,40 @@ namespace BarManager {
 			searchMap2(searchText, tokens);
 			searchMap3(searchText, tokens);
 			searchMap4(searchText, tokens);
-
-
 		}
 
 		private void searchMap1(string searchText, string[] tokens) {
-			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+			ObservableCollection<BarView> tempBarsMap1 = new ObservableCollection<BarView>();
 			//Map1
-			foreach(BarView bw in BarsFromMap1.Values) {
+			foreach(BarView bw in BarsFromMap1.Values)
+            {
+                bw.Visibility = Visibility.Collapsed;
                 Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Description.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Type.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else {
 					foreach(string t in tokens) {
 						if(b.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Description.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Type.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 						} else {
 							foreach(BarLabel bl in b.Labels) {
 								if(bl.Description.ToLower().Contains(t)) {
-									tempBarsMap1.Add(b);
+									bw.Visibility = Visibility.Visible;
 									;
 									break;
 								}
@@ -445,117 +445,119 @@ namespace BarManager {
 		}
 
 		private void searchMap2(string searchText, string[] tokens) {
-			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+			ObservableCollection<BarView> tempBarsMap1 = new ObservableCollection<BarView>();
 			//Map1
-			foreach(BarView bw in BarsFromMap2.Values) {
+			foreach(BarView bw in BarsFromMap2.Values)
+            {
+                bw.Visibility = Visibility.Collapsed;
                 Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Description.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Type.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else {
 					foreach(string t in tokens) {
 						if(b.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Description.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Type.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 						} else {
 							foreach(BarLabel bl in b.Labels) {
 								if(bl.Description.ToLower().Contains(t)) {
-									tempBarsMap1.Add(b);
+									bw.Visibility = Visibility.Visible;
 									;
 									break;
 								}
 							}
 						}
 					}
-
 				}
 			}
 		}
 
 		private void searchMap3(string searchText, string[] tokens) {
-			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+			ObservableCollection<BarView> tempBarsMap1 = new ObservableCollection<BarView>();
 			//Map1
 			foreach(BarView bw in BarsFromMap3.Values) {
+                bw.Visibility = Visibility.Collapsed;
                 Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Description.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Type.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else {
 					foreach(string t in tokens) {
 						if(b.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Description.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Type.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 						} else {
 							foreach(BarLabel bl in b.Labels) {
 								if(bl.Description.ToLower().Contains(t)) {
-									tempBarsMap1.Add(b);
-									;
+									bw.Visibility = Visibility.Visible;
 									break;
 								}
 							}
 						}
 					}
-
 				}
 			}
 		}
 
         private void searchMap4(string searchText, string[] tokens) {
-			ObservableCollection<Bar> tempBarsMap1 = new ObservableCollection<Bar>();
+			ObservableCollection<BarView> tempBarsMap1 = new ObservableCollection<BarView>();
 			//Map1
-			foreach(BarView bw in BarsFromMap4.Values) {
+			foreach(BarView bw in BarsFromMap4.Values)
+            {
+                bw.Visibility = Visibility.Collapsed;
                 Bar b = bw.GetBar();
 				if(b.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Description.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.Type.Name.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-					tempBarsMap1.Add(b);
+					bw.Visibility = Visibility.Visible;
 				} else {
 					foreach(string t in tokens) {
 						if(b.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Description.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.Type.Name.ToLower().Contains(t)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 							break;
 						} else if(b.AlcStatus.ToLower().Contains(searchText)) {
-							tempBarsMap1.Add(b);
+							bw.Visibility = Visibility.Visible;
 						} else {
 							foreach(BarLabel bl in b.Labels) {
 								if(bl.Description.ToLower().Contains(t)) {
-									tempBarsMap1.Add(b);
+									bw.Visibility = Visibility.Visible;
 									;
 									break;
 								}

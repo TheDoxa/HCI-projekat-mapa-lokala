@@ -29,7 +29,7 @@ namespace BarManager
             InitializeComponent();
             
             this.bar = bar;
-            BarName.Content = bar.Name;
+            BarName.Text = bar.Name;
             if (File.Exists(bar.Icon))
                 BarImage.Fill = new ImageBrush(new BitmapImage(new Uri(bar.Icon)));
             if (bar.Labels.Count > 0)
